@@ -40,12 +40,53 @@ exports.connexion = (req, res, next) => {
             .then(valid => {
                 // Si le mot de passe est faux
                 if(!valid){
-                    return res.status(401).json("E-mail ou mot de passe incorrect.");
+                    return res.status(401).json("Mot de passe incorrect.");
                 };
                 res.status(200).json("Connexion réussi.")  ;      
             })
             .catch(error => {
                 res.status(400).json("Une erreur est survenue, veuillez réessayer plus tard.");
+            });
+        });
+    }catch(error){
+        res.status(500).json(error);
+    };
+};
+//*** Supprression d'un utilisateur ***/
+exports.deleteUser = (req, res, next) => {
+    // Actions a effectuer dans la base de donnée
+    const findUser = "SELECT * FROM user WHERE email = ?";
+    const deleteUser = "DELETE FROM user WHERE id = ?";
+    try{
+        // Si les mot de passe ne sont pas identiques
+        if(req.body.password !== req.body.passwordConf){
+            return res.status(401).json('Les mot de passe ne sont pas identiques.');
+        };
+        // Recherche de l'existance de l'utilisateur
+        connect.query(findUser, req.body.email, (error, results, fields) => {
+            // Si il y a une erreur ou aucun resultats
+            if(error){
+                return res.status(400).json(error);
+            }else if(!results[0]){
+                return res.status(404).json('E-mail ou mot de passe incorrect.');
+            };
+            // Comparaison des mot de passe
+            bcrypt.compare(req.body.password, results[0].password)
+            .then(valid => {
+                // Si le mot de passe est incorrect
+                if(!valid){
+                    return res.status(401).json('Mot de passe incorrect.');
+                };
+                // Suppression de l'utilisateur
+                connect.query(deleteUser, results[0].id, (error, results, fields) => {
+                    if(error){
+                        return res.status(400).json(error);
+                    };
+                    res.status(200).json('Suppression réussi.');
+                });
+            })
+            .catch(error => {
+                res.status(400).json(error);
             });
         });
     }catch(error){
