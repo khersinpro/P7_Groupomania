@@ -1,6 +1,7 @@
 const express = require('express');
 const helmet = require('helmet');
 const app = express();
+const userRoutes = require('./routes/user.routes');
 
 //*** Helmet helps to secure Express apps by setting various HTTP headers ***/
 app.use(helmet());
@@ -19,5 +20,6 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use('/api', userRoutes);
 
 module.exports = app;
