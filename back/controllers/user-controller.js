@@ -93,3 +93,20 @@ exports.deleteUser = (req, res, next) => {
         res.status(500).json(error);
     };
 };
+//*** Recuperation des infos d'un utilisateur ***/
+exports.getOneUser = (req, res, next) => {
+    const findUser = "SELECT name, firstname FROM user WHERE id = ?";
+    try{
+        connect.query(findUser, req.params.id, (error, results, fields) => {
+            // Si il y a une erreur ou aucun resultats
+            if(error){
+                return res.status(400).json(error);
+            }else if(!results[0]){
+                return res.status(404).json('Utilisateur inconnu.');
+            };
+            res.status(200).json(results);
+        })
+    }catch(error){
+        res.status(500).json(error);
+    };
+};
