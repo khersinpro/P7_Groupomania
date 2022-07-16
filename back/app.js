@@ -1,7 +1,9 @@
 const express = require('express');
 const helmet = require('helmet');
+const path = require('path');
 const app = express();
 const userRoutes = require('./routes/user.routes');
+const postRoutes = require('./routes/post.routes');
 
 //*** Helmet helps to secure Express apps by setting various HTTP headers ***/
 app.use(helmet());
@@ -20,6 +22,9 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/api', userRoutes);
+app.use('/images/avatar', express.static(path.join(__dirname, "images/user_avatar")));
+app.use('/images/post', express.static(path.join(__dirname, "images/post_images")));
+app.use('/api/user', userRoutes);
+app.use('/api/post', postRoutes);
 
 module.exports = app;

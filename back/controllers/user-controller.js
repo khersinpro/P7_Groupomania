@@ -95,6 +95,7 @@ exports.deleteUser = (req, res, next) => {
 };
 //*** Recuperation des infos d'un utilisateur ***/
 exports.getOneUser = (req, res, next) => {
+    // Actions a effectuer dans la base de donnée
     const findUser = "SELECT name, firstname FROM user WHERE id = ?";
     try{
         connect.query(findUser, req.params.id, (error, results, fields) => {
