@@ -7,5 +7,6 @@ const post = require('../controllers/post-controller');
 router.post("/create", upload.single("postImg"), post.createPost);
 router.put("/modify", upload.single("postImg"), post.modifyPost);
 router.delete("/delete", post.deletePost);
+router.post('/likes', post.likes);
 
 module.exports = router;

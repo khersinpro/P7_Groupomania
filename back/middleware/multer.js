@@ -2,10 +2,10 @@ const multer = require('multer');
 //*** CONTROL OK ***/
 
 const MIME_TYPES = {
-  'image/jpg': 'jpg',
-  'image/jpeg': 'jpg',
-  'image/png': 'png',
-  'image/gif': 'gif'
+    'image/jpg': 'jpg',
+    'image/jpeg': 'jpg',
+    'image/png': 'png',
+    'image/gif': 'gif'
 };
 
 // Fonction de stockage de multer

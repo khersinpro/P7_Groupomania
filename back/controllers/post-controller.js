@@ -113,3 +113,39 @@ exports.deletePost = (req, res, next) => {
         res.status(500).json(error);
     }
 };
+//*** Like/Dislike un POST ***//
+//---------------------------//
+exports.likes = (req, res, next) => {
+    // Actions a effectuer dans la base de donnée
+    const find = 'SELECT * FROM likes WHERE post_id = ? AND user_id = ?';
+    const remove = 'DELETE FROM likes WHERE post_id = ? AND user_id = ?';
+    const insert = 'INSERT INTO likes SET post_id = ?, user_id = ?';
+    const options = [req.body.post_id, req.body.user_id];
+    try{
+        // Contrôle de la présence d'un like pour ce post ou non
+        connect.query(find, options, (error, results, fields) => {
+            if(error){
+                res.status(400).json(error);
+            }
+            // S'il n'y a pas de like
+            if(!results[0]){
+                connect.query(insert, options, (error, results, fields) => {
+                    if(error){
+                        res.status(400).json(error);
+                    }
+                    res.status(200).json('Like effectué.');
+                });
+            //S'il y a un like
+            }else{
+                connect.query(remove, options, (error, results, fields) => {
+                    if(error){
+                        res.status(400).json(error);
+                    }
+                    res.status(200).json('Dislike effectué.');
+                });
+            }
+        })
+    }catch(error){
+        res.status(500).json(error);
+    }
+};
