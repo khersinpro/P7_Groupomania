@@ -4,6 +4,7 @@ const path = require('path');
 const app = express();
 const userRoutes = require('./routes/user.routes');
 const postRoutes = require('./routes/post.routes');
+const comRoutes = require('./routes/com.routes');
 
 //*** Helmet helps to secure Express apps by setting various HTTP headers ***/
 app.use(helmet());
@@ -29,5 +30,6 @@ app.use('/images/post', express.static(path.join(__dirname, "images/post_images"
 
 app.use('/api/user', userRoutes);
 app.use('/api/post', postRoutes);
+app.use('/api/comment', comRoutes);
 
 module.exports = app;

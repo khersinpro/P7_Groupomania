@@ -96,14 +96,13 @@ exports.deletePost = (req, res, next) => {
             if(error){
                 return res.status(400).json(error);
             }else if(results[0].userId !== req.body.user_id){
-                console.log(results[0].userId);
                 return res.status(401).json("Unauthorized.")
             }
             // Suprression de l'image du POST s'il y en a une , puis supression du POST
             fs.unlink(`./images/post_images/${results[0].posturl}`,() => {
                 connect.query(deletePost, req.body.post_id, (error, results, fields) => {
                     if(error){
-                        res.status(400).json(error);
+                        return res.status(400).json(error);
                     }
                     res.status(200).json("Suppression réussi.");
                 })
@@ -125,13 +124,13 @@ exports.likes = (req, res, next) => {
         // Contrôle de la présence d'un like pour ce post ou non
         connect.query(find, options, (error, results, fields) => {
             if(error){
-                res.status(400).json(error);
+                return res.status(400).json(error);
             }
             // S'il n'y a pas de like
             if(!results[0]){
                 connect.query(insert, options, (error, results, fields) => {
                     if(error){
-                        res.status(400).json(error);
+                        return res.status(400).json(error);
                     }
                     res.status(200).json('Like effectué.');
                 });
@@ -139,7 +138,7 @@ exports.likes = (req, res, next) => {
             }else{
                 connect.query(remove, options, (error, results, fields) => {
                     if(error){
-                        res.status(400).json(error);
+                        return res.status(400).json(error);
                     }
                     res.status(200).json('Dislike effectué.');
                 });
