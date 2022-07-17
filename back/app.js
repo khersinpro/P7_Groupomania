@@ -21,9 +21,12 @@ app.use((req, res, next) => {
     res.setHeader("Cross-Origin-Resource-Policy", "same-site");
     next();
 });
-
+// Express.static permet de servir des fichiers static(images, fichiers css/js)
+// path.join + __dirname + "nom_du_repertoire" permet de cibler le repertoire voulu pour le rendre static
+// https://www.digitalocean.com/community/tutorials/nodejs-how-to-use__dirname
 app.use('/images/avatar', express.static(path.join(__dirname, "images/user_avatar")));
 app.use('/images/post', express.static(path.join(__dirname, "images/post_images")));
+
 app.use('/api/user', userRoutes);
 app.use('/api/post', postRoutes);
 

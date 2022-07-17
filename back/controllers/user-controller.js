@@ -1,6 +1,5 @@
 const {connect} = require('../DB.config/db.connexion');
 const bcrypt = require('bcrypt');
-const { json } = require('express');
 
 //*** Création d'un utilisateur ***/
 exports.createUser = (req, res, next) => {
