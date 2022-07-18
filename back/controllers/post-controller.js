@@ -19,6 +19,7 @@ exports.createPost = (req, res, next) => {
         posturl: file
     };
     try{
+        // Controle de l'utilisateur
         if(req.body.user_id != req.auth.user_id){
             res.clearCookie('jwt');
             return res.status(401).json('Unauthorized.');
@@ -41,6 +42,7 @@ exports.modifyPost = (req, res, next) => {
     try{
         // Contrôle de l'existence du post dans la base de donnée
         connect.query(find, req.body.post_id, (error, results, fields) => {
+            // Controle d'erreur et d'utilisateur
             if(error){
                 return res.status(400).json(error);
             }else if(results[0].userId !== req.auth.user_id){
