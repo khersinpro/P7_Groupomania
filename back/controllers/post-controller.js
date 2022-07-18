@@ -15,10 +15,14 @@ exports.createPost = (req, res, next) => {
     const content = {
         message,
         date: req.body.date,
-        userId: req.body.userId,
+        userId: req.body.user_id,
         posturl: file
     };
     try{
+        if(req.body.user_id != req.auth.user_id){
+            res.clearCookie('jwt');
+            return res.status(401).json('Unauthorized.');
+        }
         connect.query(sql, content, (error, results, fields) => {
             if(error){
                 return res.status(400).json(error);
@@ -39,6 +43,9 @@ exports.modifyPost = (req, res, next) => {
         connect.query(find, req.body.post_id, (error, results, fields) => {
             if(error){
                 return res.status(400).json(error);
+            }else if(results[0].userId !== req.auth.user_id){
+                res.clearCookie('jwt');
+                return res.status(401).json("Unauthorized.")
             }
             // S'il y a un fichier et un message
             if(req.file && req.body.message){
@@ -99,7 +106,8 @@ exports.deletePost = (req, res, next) => {
             // Contrôl d'erreur et verification de l'utilisateur
             if(error){
                 return res.status(400).json(error);
-            }else if(results[0].userId !== req.body.user_id){
+            }else if(results[0].userId !== req.auth.user_id){
+                res.clearCookie('jwt');
                 return res.status(401).json("Unauthorized.")
             }
             // Suprression de l'image du POST s'il y en a une , puis supression du POST

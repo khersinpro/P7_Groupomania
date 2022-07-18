@@ -1,7 +1,8 @@
 const express = require('express');
+const app = express();
+const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const path = require('path');
-const app = express();
 const userRoutes = require('./routes/user.routes');
 const postRoutes = require('./routes/post.routes');
 const comRoutes = require('./routes/com.routes');
@@ -10,6 +11,7 @@ const comRoutes = require('./routes/com.routes');
 app.use(helmet());
 // analyse les données et les met dans le req.body
 app.use(express.json());
+app.use(cookieParser());
 
 app.use((req, res, next) => { 
     //*** Website you wish to allow to connect API, '*'= all websites allowed ***/

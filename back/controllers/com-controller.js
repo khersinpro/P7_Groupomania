@@ -29,7 +29,8 @@ exports.deleteCom = (req, res, next) => {
             // Controle d'erreur et d'authentification avec l'user_id
             if(error){
                 return res.status(400).json(error);
-            }else if(results[0].user_id !== req.body.user_id){
+            }else if(results[0].user_id !== req.auth.user_id){
+                res.clearCookie('jwt');
                 return res.status(401).json('Unauthorized.');
             }
             // Suppression du commentaire

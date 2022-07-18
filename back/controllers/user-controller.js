@@ -1,6 +1,7 @@
 const {connect} = require('../DB.config/db.connexion');
 const bcrypt = require('bcrypt');
-
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 //*** Création d'un utilisateur ***/
 exports.createUser = (req, res, next) => {
     // Action a effectuer dans la base de donnée
@@ -41,7 +42,11 @@ exports.connexion = (req, res, next) => {
                 if(!valid){
                     return res.status(401).json("Mot de passe incorrect.");
                 };
-                res.status(200).json("Connexion réussi.")  ;      
+                const exprires = '24h';
+                const token = jwt.sign({user_id: results[0].id}, process.env.JWT_KEY,{expiresIn: exprires});
+                //secure: true for htpps, samesite for crsf attack, expires
+                res.cookie("jwt", token, {httpOnly: true});
+                res.status(200).json({user_id : results[0].id});      
             })
             .catch(error => {
                 res.status(400).json("Une erreur est survenue, veuillez réessayer plus tard.");
@@ -57,6 +62,11 @@ exports.deleteUser = (req, res, next) => {
     const findUser = "SELECT * FROM user WHERE email = ?";
     const deleteUser = "DELETE FROM user WHERE id = ?";
     try{
+        // Si les ID ne sont pas identiques
+        if(req.body.user_id != req.auth.user_id){
+            res.clearCookie('jwt');
+            return res.status(401).json('Unauthorized.')
+        }
         // Si les mot de passe ne sont pas identiques
         if(req.body.password !== req.body.passwordConf){
             return res.status(401).json('Les mot de passe ne sont pas identiques.');
@@ -68,7 +78,7 @@ exports.deleteUser = (req, res, next) => {
                 return res.status(400).json(error);
             }else if(!results[0]){
                 return res.status(404).json('E-mail ou mot de passe incorrect.');
-            };
+            }
             // Comparaison des mot de passe
             bcrypt.compare(req.body.password, results[0].password)
             .then(valid => {
@@ -92,12 +102,12 @@ exports.deleteUser = (req, res, next) => {
         res.status(500).json(error);
     };
 };
-//*** Recuperation des infos d'un utilisateur ***/
-exports.getOneUser = (req, res, next) => {
+//*** Recuperation des infos de l'utilisateur connecté ***/
+exports.getUser = (req, res, next) => {
     // Actions a effectuer dans la base de donnée
-    const findUser = "SELECT name, firstname FROM user WHERE id = ?";
+    const findUser = "SELECT name, firstname, isAdmin FROM user WHERE id = ?";
     try{
-        connect.query(findUser, req.params.id, (error, results, fields) => {
+        connect.query(findUser, req.auth.user_id, (error, results, fields) => {
             // Si il y a une erreur ou aucun resultats
             if(error){
                 return res.status(400).json(error);
