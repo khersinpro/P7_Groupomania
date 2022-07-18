@@ -88,7 +88,11 @@ exports.modifyPost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
     // Action a effectuer dans la base de donnée
     const find = 'SELECT posturl, userId FROM post WHERE post_id = ?';
-    const deletePost = 'DELETE FROM post WHERE post_id = ?';
+    // Suppression du POST et des likes/commentaire lié
+    // On joint tous les commentaireS et likes lié au post_id puis on les DELETE
+    const deletePost = 'DELETE p, c, l FROM post p LEFT JOIN likes l ON p.post_id = l.post_id\
+    LEFT JOIN comment c ON p.post_id = c.post_id WHERE p.post_id = ?';
+
     try{
         // Contrôle de l'existence du post dans la base de donnée
         connect.query(find, req.body.post_id, (error, results, fields) => {
@@ -147,4 +151,37 @@ exports.likes = (req, res, next) => {
     }catch(error){
         res.status(500).json(error);
     }
+};
+//*** Récupération de tout les POST / Le NB de LIKE par POST / Si l'utilisateur a LIKE ou non/ com ***//
+//----------------------------------------------------------------------------------------------//
+exports.getAllPost = (req, res, next) => {
+    // Recuperation de tout les POST avec les noms utilisateur, leurs avatar
+    // On y ajoute nbLikes qui fournit le nombre de likes grace a COUNT() de SQL
+    // On y ajoute isLiked qui repond par 0 ou 1 pour savoir si l'utilisateur a liké, grace a COUNT() de SQL
+    // On JOIN les infos utilisateur a leurs commentaire avec JOIN u.id = p.userId
+    // On ordonne le resultat grâce a ma methode ORDER de SQL
+    const findAll = "SELECT p.*, u.name, u.firstname,\
+    (SELECT COUNT(*) FROM likes WHERE post_id = p.post_id) as nbLikes,\
+    (SELECT COUNT(*) FROM likes WHERE post_id = p.post_id AND user_id = ?) as isLiked FROM post p\
+    INNER JOIN user u ON u.id = p.userId\
+    ORDER BY p.post_id DESC"
+
+    try{
+        connect.query(findAll, req.params.id, (error, results, fields) => {
+            if(error){
+                return res.status(400).json(error);
+            }
+            const post = results;
+            const getAll = 'SELECT c.*, u.name, u.firstname FROM comment c INNER JOIN user u ON c.user_id = u.id ORDER BY c.date ASC';
+            connect.query(getAll, (error, results, fields) => {
+                if(error){
+                    return res.status(400).json(error);
+                }
+                const com = results;
+                res.status(200).json({post, com});
+            })   
+        })
+    }catch(error){
+        res.status(500).json(error);
+    };
 };
