@@ -27,7 +27,7 @@ const DisplayAllPost = () => {
                 // map des post de façon dynamique
                 post.map(post => (
                     <div key={post.post_id}>
-                        <h3>{post.firstname}</h3>
+                        <h3>{post.firstname + " " + post.name}</h3>
                         <p>{post.date}</p>
                         <p>{post.message}</p>
                         {

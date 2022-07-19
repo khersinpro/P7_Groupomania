@@ -4,7 +4,7 @@ import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import axios from 'axios';
 import { userContext } from './components/context/UserContext';
-import './App.css';
+import './Style/main.scss';
 
 function App() {
   const [userConnected, setUserConnected] = useState(false)
