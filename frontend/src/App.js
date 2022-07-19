@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import axios from 'axios';
+import { userContext } from './components/context/UserContext';
 import './App.css';
 
 function App() {
@@ -35,10 +36,12 @@ function App() {
   
   return (
     <>
-      <Routes>
-        <Route path='/home' element={userConnected ? <Navigate to="/dashboard"  /> : <Home logged={setUserConnected}/>} />
-        <Route path='/dashboard' element={userConnected ? <Dashboard /> : <Navigate to='/home' />} />
-      </Routes>
+      <userContext.Provider value={{user, userConnected, setUserConnected}} >
+        <Routes>
+          <Route path='/home' element={userConnected ? <Navigate to="/dashboard"  /> : <Home logged={setUserConnected}/>} />
+          <Route path='/dashboard' element={userConnected ? <Dashboard /> : <Navigate to='/home' />} />
+        </Routes>
+      </userContext.Provider>
     </>
   );
 }
