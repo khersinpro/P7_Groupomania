@@ -6,7 +6,9 @@ require('dotenv').config();
 module.exports = (req, res, next) => {
     try{
         // Controle de la presence du cookie cotenant le JWT
-        if(!req.cookies.jwt) return res.status(401).json('Unauthorized.');
+        if(!req.cookies.jwt){
+            return res.status(401).json({error: 'Unauthorized'});
+        }
         // Decryptage du JWT
         const decodedToken = jwt.verify(req.cookies.jwt, process.env.JWT_KEY);
         // Controle la correspondance entre le l'uid du token et celui de la requette
