@@ -1,0 +1,62 @@
+.dashboard--header{
+    height: 100vh;
+    width: 300px;
+    background-color: $navcolor;
+    .dashNav{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        width: 100%;
+        &--firstBloc{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            &__logo{
+                width: 200px;
+                margin: 20px auto;
+            }
+            &__userInfo{
+                @include flex-center;
+                margin: 45px 0 30px;
+                .avatar{
+                    border-radius: 50%;
+                    height: 50px;
+                    width: 50px;
+                    margin: 0 auto;
+                    border: 1px solid white;
+                    margin: 0 0 0 10px;
+                    object-fit: cover;
+                }
+                h2{
+                    color: $white;
+                    font-size: 28px;
+                    font-weight: 400;
+                    margin-left: 20px;
+                }
+            }
+            button{
+                margin: 3px 0 3px 35px;
+            }
+        }
+        &--secondBloc{
+            display: flex;
+            flex-direction: column;
+            button{
+                margin: 25px 0 25px 35px;
+            }
+        }
+        button{
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            text-align: start;
+            font-weight: 500;
+            font-size: 17px;
+            cursor: pointer;
+            &:hover{
+                color: $white;
+            }
+        }
+    }
+}

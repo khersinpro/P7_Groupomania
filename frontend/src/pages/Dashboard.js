@@ -7,7 +7,6 @@ import DisplayAllPost from '../components/dashboard/main/allpost/DisplayAllPost'
 const Dashboard = () => {
   return (
     <>
-        <h2>TEST</h2>
         <Nav />
         <DisplayAllPost />
     </>

@@ -7,7 +7,14 @@
 body {
     min-height: 100vh;
     position: relative;
+    background: $background;
+    font-family: 'Nunito', sans-serif;
 }
 a{
     text-decoration: none;
+}
+#root{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
 }
