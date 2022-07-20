@@ -1,9 +1,14 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import axios from 'axios'
+import { userContext } from '../../../../context/UserContext';
 
 const ModifyPost = ({post, user, close}) => {
+    // State qui recupére les infos du formulaire
     const [textChange, setTextChange] = useState(post.message);
     const [imageChange, setImageChange] = useState();
+    // Appel du context pour rafraichir l'affichage des posts aprés modification
+    const {refresh, setRefresh} = useContext(userContext)
+    // Fonction pour sauvegarder les modification dans la base avec contrôle
     const sendChange = async  (e) => {
         e.preventDefault();
         const data = new FormData();
@@ -14,7 +19,7 @@ const ModifyPost = ({post, user, close}) => {
         // Ajout des informations user au FormData
         data.append("user_id", user.id);
         data.append("post_id", post.post_id);
-        data.append("admin", user.admin)
+        data.append("admin", user.admin);
         // Si il y a eu une modification
         if(textChange !== post.message || imageChange){
             await axios({
@@ -25,7 +30,10 @@ const ModifyPost = ({post, user, close}) => {
             })
             .then(res => console.log(res))
             .catch(error => console.log(error))
+            // Rafraichissement des post
+            setRefresh(!refresh);
         }
+        // fermeture du modal
         close(false)
     }
     return (

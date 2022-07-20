@@ -1,6 +1,7 @@
 import React,{useState, useContext} from 'react'
 import { userContext } from '../../../../context/UserContext'
 import ModifyPost from '../post_functionality/ModifyPost'
+import DeletePost from '../post_functionality/DeletePost'
 
 const DisplayPost = ({post}) => {
     // Ouverture/Fermeture du modal
@@ -59,10 +60,17 @@ const DisplayPost = ({post}) => {
                     setModifyPost(true)
                     setModal(!modal)
                 }}>Modifier</p>
-                <p>Supprimer</p>
+                <p onClick={() => {
+                    setDeletePost(true);
+                    setModal(!modal)
+                }
+                }>Supprimer</p>
             </div>
         }
+        {/* Modal de modification de post */}
         {modifyPost && <ModifyPost close={setModifyPost} user={user} post={post}/>}
+        {/* Modal de suppression de post */}
+        {deletePost && <DeletePost close={setDeletePost} user={user} post={post}/>}
     </>
     ) 
 }

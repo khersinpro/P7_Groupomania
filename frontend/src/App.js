@@ -8,7 +8,7 @@ import './Style/main.scss';
 
 function App() {
   const [userConnected, setUserConnected] = useState(false)
-  const [resfresh, setResfresh] = useState(true)
+  const [refresh, setRefresh] = useState(true)
   const [user, setUser] = useState({name: "", firstname: "", id : "", admin: ""});
 
   useEffect(() => {
@@ -33,11 +33,11 @@ function App() {
       setUserConnected(false)
       console.log(error);
     })
-  }, [userConnected, user.id, user.name, user.firstname, user.admin])
+  }, [userConnected, user.id, user.name, user.firstname, user.admin, refresh])
   
   return (
     <>
-      <userContext.Provider value={{user, userConnected, setUserConnected, resfresh, setResfresh}} >
+      <userContext.Provider value={{user, userConnected, setUserConnected, refresh, setRefresh}} >
         <Routes>
           <Route path='/home' element={userConnected ? <Navigate to="/dashboard"  /> : <Home logged={setUserConnected}/>} />
           <Route path='/dashboard' element={userConnected ? <Dashboard /> : <Navigate to='/home' />} />
