@@ -8,6 +8,7 @@ import './Style/main.scss';
 
 function App() {
   const [userConnected, setUserConnected] = useState(false)
+  const [resfresh, setResfresh] = useState(true)
   const [user, setUser] = useState({name: "", firstname: "", id : "", admin: ""});
 
   useEffect(() => {
@@ -36,7 +37,7 @@ function App() {
   
   return (
     <>
-      <userContext.Provider value={{user, userConnected, setUserConnected}} >
+      <userContext.Provider value={{user, userConnected, setUserConnected, resfresh, setResfresh}} >
         <Routes>
           <Route path='/home' element={userConnected ? <Navigate to="/dashboard"  /> : <Home logged={setUserConnected}/>} />
           <Route path='/dashboard' element={userConnected ? <Dashboard /> : <Navigate to='/home' />} />

@@ -1,3 +1,4 @@
+// LE HEADER DU DASHBOARD
 .dashboard--header{
     height: 100vh;
     width: 300px;
@@ -5,12 +6,15 @@
     position: fixed;
     top: 0;
     left: 0;
+    // BARRE DE NAVIGATION
     .dashNav{
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
         width: 100%;
+        // PREMIER BLOC CONTENANT LE LOGO , DIVER COMMANDE UTILISATEUR
+        // L'AVATAR UTILISATEUR + NOM +PRENOM
         &--firstBloc{
             display: flex;
             flex-direction: column;
@@ -42,6 +46,7 @@
                 margin: 3px 0 3px 35px;
             }
         }
+        //BLOC CONTENANT LE BOUTON DE DECONNEXION
         &--secondBloc{
             display: flex;
             flex-direction: column;
@@ -49,6 +54,7 @@
                 margin: 25px 0 25px 35px;
             }
         }
+        // LOGIQUE DE STYLE GLOBAL POUR TOUS LES BOUTONS
         button{
             background: transparent;
             border: none;

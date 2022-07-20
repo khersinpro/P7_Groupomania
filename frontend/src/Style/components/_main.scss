@@ -24,11 +24,13 @@ main{
     box-shadow: 0 0 35px rgba(154, 161, 171, 0.15) ;
     border-radius: 5px;
     padding: 24px 24px 6px;
+    position: relative;
     // PRESENTATION UTILISATEUR
     &--userPres{
         display: flex;
         align-items: center;
         margin-bottom: 16px;
+        position: relative;
         &__avatar{
             height: 32px;
             width: 32px;
@@ -45,6 +47,23 @@ main{
             p{
                 font-size: 12px;
                 color: $postColorDate;
+            }
+        }
+        &__ellipsis{
+            position: absolute;
+            right: 0;
+            top: 0;
+            button{
+                background: transparent;
+                border: none;
+                cursor: pointer;
+                i{
+                    font-size: 18px;
+                    color: $postColorName;
+                    &:hover{
+                        color: #000;
+                    }
+                }
             }
         }
     }
@@ -68,22 +87,18 @@ main{
     }
     // BORDEREAU LIKE
     &--like{
-        height: 31px;
+        height: 25px;
         margin: 6px 0;
         display: flex;
         align-items: center;
-        button{
-            border: none;
-            background: transparent;
-            margin-left: 15px;
+        p{
+            font-size: 14px;
+            margin-left: 5px;
             color: $postColorName;
-            font-weight: 700;
-            cursor: pointer;
         }
     }
     // LOGIQUE DU CONTENEUR RECEVANT LE MAP DES COMMENTAIRES
     &--comContainer{
-        min-height: 32px;
         // STYLE DU COMMENTAIRE UNIQUE
         .com{
             display: flex;
@@ -126,6 +141,94 @@ main{
             width: 100%;
             margin: 0.5px 0;
             padding-left: 10px;
+        }
+    }
+    // MODIFICATION GRACE AU MODAL
+    .modifModal{
+        position: absolute;
+        background: white;
+        top: 45px;
+        right: 25px;
+        box-shadow: 0 0 35px rgba(154, 161, 171, 0.15) ;
+        border: 1px solid #e7ebf0;
+        border-radius: 5px;
+        p{
+            padding: 0px 20px;
+            height: 30px;
+            line-height: 30px;
+            color: $postColorName;
+            font-size: 14px;
+            &:hover{
+                background: #bccee4;
+                color: #000;
+                cursor: pointer;
+            }
+        }
+    }
+    //MODAL DE MODIFICATION
+    .changeModal{
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 3;
+        border-radius: 5px;
+        height: 100%;
+        width: 100%;
+        @include flex-center;
+        form{
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            padding: 25px 25px 6px;
+            border-radius: 5px;
+            margin: 0;
+            text-align: center;
+            h4{
+                color: $postColorName;
+                font-size: 18px;
+                margin-bottom: 8px;
+            }
+            label{
+                color: $postColorName;
+                font-weight: 600;
+                font-size: 15px;
+            }
+            hr{
+                margin-bottom: 10px;
+            }
+            input[type='text']{
+                width: 100%;
+                text-align: center;
+                box-shadow: 0 0 35px rgba(154, 161, 171, 0.15) ;
+                border: 2px solid #e7ebf0;
+                border-radius: 5px;
+                margin: 5px 0 10px;
+                &:focus{
+                   outline: none;
+                }
+            }
+            input[type='file']{
+                margin: 5px 0 10px;
+            }
+        }
+        &--subBox{
+            display: flex;
+            justify-content: space-between;
+            input, button{
+                width: 48%;
+                height: 25px;
+                box-shadow: 0 0 35px rgba(154, 161, 171, 0.15) ;
+                border: 2px solid #e7ebf0;
+                border-radius: 5px;
+                background-color: white;
+                &:hover{
+                    background: #bccee4;
+                    color: #000;
+                    cursor: pointer;
+                    border: none;
+                }
+            }
+            
         }
     }
 }
