@@ -1,6 +1,7 @@
 import React from 'react'
 import Nav from '../components/dashboard/nav/Nav'
-import DisplayAllPost from '../components/dashboard/main/allpost/DisplayAllPost'
+import Main from '../components/dashboard/main/Main'
+
 
 
 
@@ -8,7 +9,7 @@ const Dashboard = () => {
   return (
     <>
         <Nav />
-        <DisplayAllPost />
+        <Main />
     </>
   )
 }

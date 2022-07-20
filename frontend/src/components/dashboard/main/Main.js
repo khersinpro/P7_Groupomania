@@ -1,8 +1,11 @@
 import React from 'react'
+import DisplayAllPosts from './allpost/DisplayAllPost'
 
 const Main = () => {
   return (
-    <div>Main</div>
+    <main>
+      <DisplayAllPosts />
+    </main>
   )
 }
 

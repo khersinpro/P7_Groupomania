@@ -1,0 +1,131 @@
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-left: 300px;
+    height: 100%;
+}
+// Container de la logique du map des POSTS ainsi que des COMS
+.postContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 200px;
+}
+// Logique de style de chaque POST
+.post{
+    width: 80%;
+    max-width: 800px;
+    background: $white;
+    min-height: 200px;
+    margin: 12px 0;
+    box-shadow: 0 0 35px rgba(154, 161, 171, 0.15) ;
+    border-radius: 5px;
+    padding: 24px 24px 6px;
+    // PRESENTATION UTILISATEUR
+    &--userPres{
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+        &__avatar{
+            height: 32px;
+            width: 32px;
+            border-radius: 4px;
+            background-color: black;
+            margin-right: 12px;
+        }
+        &__text{
+            h3{
+                font-size: 15px;
+                font-weight: 700;
+                color: $postColorName;
+            }
+            p{
+                font-size: 12px;
+                color: $postColorDate;
+            }
+        }
+    }
+    // LIGNES DE DEMARCATIONS
+    &--hrLarge{
+        height: 1.4px;
+        background: $postColorName;
+        border: none;
+        opacity: 0.25;
+    }
+    &--hrSmall{
+        border: none;
+        height: 1px;
+        background-color: $postColorName;
+        opacity: 0.25;
+    }
+    // AFFICHAGE DU MESSAGE DU POST
+    &--message{
+        margin: 24px 0;
+        text-align: center;
+    }
+    // BORDEREAU LIKE
+    &--like{
+        height: 31px;
+        margin: 6px 0;
+        display: flex;
+        align-items: center;
+        button{
+            border: none;
+            background: transparent;
+            margin-left: 15px;
+            color: $postColorName;
+            font-weight: 700;
+            cursor: pointer;
+        }
+    }
+    // LOGIQUE DU CONTENEUR RECEVANT LE MAP DES COMMENTAIRES
+    &--comContainer{
+        min-height: 32px;
+        // STYLE DU COMMENTAIRE UNIQUE
+        .com{
+            display: flex;
+            margin: 5px 0;
+            // AVATAR DE L'UTILISATEUR
+            &--avatar{
+                height: 32px;
+                width: 32px;
+                border-radius: 4px;
+                background-color: black;
+                margin-right: 12px;
+            }
+            // PRESENTATION UTILISATEUR + COMMENTAIRE
+            &--text{
+                h4{
+                    font-size: 15px;
+                    font-weight: 700;
+                    color: $postColorName;
+                }
+                &__date{
+                    font-size: 12px;
+                    color: $postColorDate;
+                }
+                &__message{
+                    font-size: 14px;
+                    color: $postColorName;
+                    margin: 6px 0;
+                }
+            }
+        }
+    }
+    // STYLE DU FORMULAIRE D'ENVOIE DU COMMENTAIRE 
+    form{
+        width: 100%;
+        height: 32px;
+        margin: 16px 0 12px;
+        input{
+            border: none;
+            height: 31px;
+            width: 100%;
+            margin: 0.5px 0;
+            padding-left: 10px;
+        }
+    }
+}
