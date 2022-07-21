@@ -45,7 +45,7 @@ const DisplayCom = ({com, post}) => {
             <div key={res.id}> 
                 <div className='com'>
                     <div className='com--avatar'>
-                        <img src={`http://localhost:3000/images/avatar/${user.url}`} alt='photo de profil'  />
+                        <img src={`http://localhost:3000/images/avatar/${res.url}`} alt='photo de profil'  />
                     </div>
                     <div className='com--text'>
                         <h4>{res.firstname + " " + res.name}</h4>

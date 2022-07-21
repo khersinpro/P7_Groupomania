@@ -170,7 +170,7 @@ exports.getAllPost = (req, res, next) => {
     // On y ajoute isLiked qui repond par 0 ou 1 pour savoir si l'utilisateur a liké, grace a COUNT() de SQL
     // On JOIN les infos utilisateur a leurs commentaire avec JOIN u.id = p.userId
     // On ordonne le resultat grâce a ma methode ORDER de SQL
-    const findAll = "SELECT p.*, u.name, u.firstname,\
+    const findAll = "SELECT p.*, u.name, u.firstname, u.url,\
     (SELECT COUNT(*) FROM likes WHERE post_id = p.post_id) as nbLikes,\
     (SELECT COUNT(*) FROM likes WHERE post_id = p.post_id AND user_id = ?) as isLiked FROM post p\
     INNER JOIN user u ON u.id = p.userId\
@@ -182,7 +182,7 @@ exports.getAllPost = (req, res, next) => {
                 return res.status(400).json(error);
             }
             const post = results;
-            const getAll = 'SELECT c.*, u.name, u.firstname FROM comment c INNER JOIN user u ON c.user_id = u.id ORDER BY c.date ASC';
+            const getAll = 'SELECT c.*, u.name, u.firstname, u.url FROM comment c INNER JOIN user u ON c.user_id = u.id ORDER BY c.date ASC';
             connect.query(getAll, (error, results, fields) => {
                 if(error){
                     return res.status(400).json(error);
