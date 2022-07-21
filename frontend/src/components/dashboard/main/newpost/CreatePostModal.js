@@ -40,7 +40,7 @@ const CreatePostModal = ({close}) => {
             <form className="createPost--form" onSubmit={sendPost}>
                 <h3>Crée une publication</h3>
                 <div className="createPost--form__closeForm" onClick={() => close(false)}>
-                    <i class="fa-solid fa-xmark"></i>
+                    <i className="fa-solid fa-xmark"></i>
                 </div>
                 <hr className='post--hrLarge'></hr>
                 <textarea onChange={e => setPostText(e.target.value)} placeholder={'Quoi de neuf ' + user.firstname + " ?"} />
@@ -51,7 +51,7 @@ const CreatePostModal = ({close}) => {
                 <input type="file" id='post-img' accept="image/png, image/jpeg, image/jpg, image/gif" onChange={e => setPostImg(e.target.files[0])}/>
                 {!validPost &&
                     <p className="createPost--form__notValid">
-                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <i className="fa-solid fa-triangle-exclamation"></i>
                         Votre nouvelle publication ne peux pas être vide.
                     </p>
                 }

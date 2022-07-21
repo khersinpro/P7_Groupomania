@@ -2,6 +2,7 @@ import React,{useState, useContext} from 'react'
 import { userContext } from '../../../../context/UserContext'
 import ModifyPost from '../post_functionality/ModifyPost'
 import DeletePost from '../post_functionality/DeletePost'
+import axios from 'axios'
 
 const DisplayPost = ({post}) => {
     // Ouverture/Fermeture du modal
@@ -11,7 +12,18 @@ const DisplayPost = ({post}) => {
     // Ouverture de la Suppression d'un post
     const [deletePost, setDeletePost] = useState(false)
     // Infos utilisateur
-    const {user} = useContext(userContext)
+    const {user, refresh, setRefresh} = useContext(userContext)
+    // Fonction pour like/dislike un POST
+    const sendLike = async () => {
+        await axios({
+            method: "post", 
+            url: "http://localhost:3000/api/post/likes",
+            withCredentials: true,
+            data: {post_id: post.post_id, user_id: user.id}
+        })
+        .then(() => setRefresh(!refresh))
+        .catch(error => console.log(error))
+    }
 
     return (
     <>
@@ -37,13 +49,14 @@ const DisplayPost = ({post}) => {
         {/* Si le post contient un message */}
         {post.message && <p className='post--message'>{post.message}</p>}
         {/* Si le post contiens un image */}
-        {
-            post.posturl && <img className='post--img' src={'http://localhost:3000/images/post/' + post.posturl}/>
+        {post.posturl &&
+            <img className='post--img' src={'http://localhost:3000/images/post/' + post.posturl} alt='post image'/>
         }
         <hr className='post--hrSmall'></hr>
         {/* Fonction de like */}
         <div className='post--like'>
-            <div className="heart-container">
+            {/* Like/Dislike un POST */}
+            <div className="heart-container" onClick={sendLike}>
                 <i className="fa-regular fa-heart nocolor"></i>
                 {post.nbLikes > 0 ?
                 <i className="fa-solid fa-heart liked"></i>
