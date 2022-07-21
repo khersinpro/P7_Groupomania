@@ -21,7 +21,11 @@ main{
         height: 40px;
         width: 40px;
         border-radius: 4px;
-        background: #000;
+        overflow: hidden;
+        img{
+            height: 100%;
+            object-fit: cover;
+        }
     }
     &--fakebtn{
         width: calc(100% - 50px);
@@ -172,8 +176,12 @@ main{
             height: 32px;
             width: 32px;
             border-radius: 4px;
-            background-color: black;
             margin-right: 12px;
+            overflow: hidden;
+            img{
+                height: 100%;
+                object-fit: cover;
+            }
         }
         &__text{
             h3{
@@ -248,13 +256,18 @@ main{
         .com{
             display: flex;
             margin: 5px 0;
+            position: relative;
             // AVATAR DE L'UTILISATEUR
             &--avatar{
                 height: 32px;
                 width: 32px;
                 border-radius: 4px;
-                background-color: black;
                 margin-right: 12px;
+                overflow: hidden;
+                img{
+                    height: 100%;
+                    object-fit: cover;
+                }
             }
             // PRESENTATION UTILISATEUR + COMMENTAIRE
             &--text{
@@ -271,6 +284,20 @@ main{
                     font-size: 14px;
                     color: $postColorName;
                     margin: 6px 0;
+                }
+            }
+            // SUPPRESSION DU COMMENTAIRE
+            &--deleteCom{
+                position: absolute;
+                top: 0;
+                right: 3px;
+                i{
+                    font-size: 14px;
+                    cursor: pointer;
+                    color: $postColorDate;
+                    &:hover{
+                        color: #000;
+                    }
                 }
             }
         }

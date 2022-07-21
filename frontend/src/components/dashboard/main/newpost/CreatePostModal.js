@@ -12,7 +12,7 @@ const CreatePostModal = ({close}) => {
     const sendPost = async (e) => {
         e.preventDefault();
         // controle pour eviter l'envoi de POST vide
-        if(postImg || postText && postText.trim()){
+        if(postImg || (postText && postText.trim())){
             const data = new FormData();
             const date = dayjs(new Date()).format('DD/MM/YYYY HH:mm');
             postImg && data.append("postImg", postImg)

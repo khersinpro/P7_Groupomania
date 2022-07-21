@@ -29,20 +29,32 @@ const DisplayCom = ({com, post}) => {
         }
     }
     // Fonction de suppression d'un commentaire
-    const deleteCom = () => {
-        
+    const deleteCom = (id) => {
+        axios({
+            method: 'delete',
+            url: "http://localhost:3000/api/comment/delete",
+            withCredentials: true,
+            data: {user_id: user.id, id}
+        })
+        .then(() => setRefresh(!refresh))
+        .catch(error => console.log(error))
     }
 
     // permet de filtrer les resultats voulu puis de les afficher grace a map   
     const comMap = com.filter(com => com.post_id === post).map(res => (
             <div key={res.id}> 
                 <div className='com'>
-                    <div className='com--avatar'></div>
+                    <div className='com--avatar'>
+                        <img src={`http://localhost:3000/images/avatar/${user.url}`} alt='photo de profil'  />
+                    </div>
                     <div className='com--text'>
                         <h4>{res.firstname + " " + res.name}</h4>
                         <p className='com--text__date'>Le {res.date}</p>
                         <p className='com--text__message'>{res.comment}</p>
                     </div> 
+                    <div className='com--deleteCom' onClick={() => deleteCom(res.id)}>
+                        <i className="fa-solid fa-xmark"></i>
+                    </div>
                 </div>
             </div>
     ))

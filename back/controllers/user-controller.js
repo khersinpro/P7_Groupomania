@@ -105,7 +105,7 @@ exports.deleteUser = (req, res, next) => {
 //*** Recuperation des infos de l'utilisateur connecté ***/
 exports.getUser = (req, res, next) => {
     // Actions a effectuer dans la base de donnée
-    const findUser = "SELECT id, name, firstname, isAdmin FROM user WHERE id = ?";
+    const findUser = "SELECT id, name, firstname, isAdmin, url FROM user WHERE id = ?";
     try{
         connect.query(findUser, req.auth.user_id, (error, results, fields) => {
             // Si il y a une erreur ou aucun resultats

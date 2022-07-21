@@ -5,14 +5,16 @@ import axios from 'axios'
 
 const Nav = () => {
     const {user} = useContext(userContext);
-
+    console.log(user);
   return (
     <header className='dashboard--header'>
         <nav className='dashNav'>
             <div className='dashNav--firstBloc'>
                 <img className='dashNav--firstBloc__logo' src={logo} alt='groupomania logo' />
                 <div className='dashNav--firstBloc__userInfo' >
-                    <img className='avatar' src='http://localhost:3000/images/post/Shape.png1658059424105.png' />
+                    <div className='avatar'>
+                        <img src={`http://localhost:3000/images/avatar/${user.url}`} alt="navbar avatar"/>
+                    </div>
                     <h2>{user.name + " " + user.firstname}</h2>
                 </div>
                 <button><i className="fa-solid fa-camera"></i> Changement d'avatar</button>

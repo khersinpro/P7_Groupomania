@@ -25,8 +25,8 @@ function App() {
         return console.log("pas autorisé");
       }
       // Insertion des données utilisateur récupéré
-      const {name, firstname, id, isAdmin} = data.data[0];
-      setUser({name, firstname, id, admin: isAdmin})
+      const {name, firstname, id, isAdmin, url} = data.data[0];
+      setUser({name, firstname, id, admin: isAdmin, url})
       setUserConnected(true)
     })
     .catch(error => {

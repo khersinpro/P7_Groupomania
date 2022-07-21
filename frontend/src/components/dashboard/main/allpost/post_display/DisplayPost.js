@@ -28,7 +28,9 @@ const DisplayPost = ({post}) => {
     return (
     <>
         <div className='post--userPres'>
-            <div className='post--userPres__avatar'></div>
+            <div className='post--userPres__avatar'>
+                <img src={`http://localhost:3000/images/avatar/${user.url}`} alt='photo de profil'  />
+            </div>
             <div className='post--userPres__text'>
                 <h3>{post.firstname + " " + post.name}</h3>
                 <p>Le {post.date}</p>

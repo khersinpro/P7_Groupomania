@@ -10,7 +10,7 @@ const NewPost = () => {
     <>
     <div className='newPost'>
       <div className='newPost--image'>
-        {/* <img src={``} alt='photo de profil' /> */}
+        <img src={`http://localhost:3000/images/avatar/${user.url}`} alt='photo de profil'  />
       </div>
       <div className='newPost--fakebtn' onClick={() => setOpenCreateModal(true)}>
         <p>{"Quoi de neuf " + user.firstname + " ?"}</p>
