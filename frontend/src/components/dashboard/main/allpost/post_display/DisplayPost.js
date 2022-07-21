@@ -34,10 +34,11 @@ const DisplayPost = ({post}) => {
             }
         </div>
         <hr className='post--hrLarge'></hr>
-        <p className='post--message'>{post.message}</p>
+        {/* Si le post contient un message */}
+        {post.message && <p className='post--message'>{post.message}</p>}
         {/* Si le post contiens un image */}
         {
-            post.posturl && <img src={'http://localhost:3000/images/post/' + post.posturl}/>
+            post.posturl && <img className='post--img' src={'http://localhost:3000/images/post/' + post.posturl}/>
         }
         <hr className='post--hrSmall'></hr>
         {/* Fonction de like */}

@@ -1,8 +1,23 @@
-import React from 'react'
+import React, {useContext, useState} from 'react'
+import { userContext } from '../../../context/UserContext'
+import CreatePostModal from './CreatePostModal';
 
 const NewPost = () => {
+  const {user} = useContext(userContext);
+  const [openCreateModal, setOpenCreateModal] = useState(false);
+
   return (
-    <div>NewPost</div>
+    <>
+    <div className='newPost'>
+      <div className='newPost--image'>
+        {/* <img src={``} alt='photo de profil' /> */}
+      </div>
+      <div className='newPost--fakebtn' onClick={() => setOpenCreateModal(true)}>
+        <p>{"Quoi de neuf " + user.firstname + " ?"}</p>
+      </div>
+    </div>
+    {openCreateModal && <CreatePostModal close={setOpenCreateModal} />}
+    </>
   )
 }
 

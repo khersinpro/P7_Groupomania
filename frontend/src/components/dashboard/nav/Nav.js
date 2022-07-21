@@ -15,12 +15,12 @@ const Nav = () => {
                     <img className='avatar' src='http://localhost:3000/images/post/Shape.png1658059424105.png' />
                     <h2>{user.name + " " + user.firstname}</h2>
                 </div>
-                <button>Changement d'avatar</button>
-                <button>Changement de mot de passe</button>
-                <button>Suppression du compte</button>
+                <button><i class="fa-solid fa-camera"></i> Changement d'avatar</button>
+                <button><i class="fa-solid fa-lock"></i> Changement de mot de passe</button>
+                <button><i class="fa-solid fa-user-xmark"></i> Suppression du compte</button>
             </div>
             <div className='dashNav--secondBloc'>
-                <button>Deconnexion</button>
+                <button><i class="fa-solid fa-right-from-bracket"></i> Deconnexion</button>
             </div>
         </nav>
     </header>
