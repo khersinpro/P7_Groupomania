@@ -2,6 +2,7 @@ const {connect} = require('../DB.config/db.connexion');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const fs = require('fs')
 //*** Création d'un utilisateur ***/
 exports.createUser = (req, res, next) => {
     // Action a effectuer dans la base de donnée
@@ -120,3 +121,37 @@ exports.getUser = (req, res, next) => {
         res.status(500).json(error);
     };
 };
+//*** Ajout ou modification de l'image de profil ***//
+exports.modifyAvatar = (req, res, next) => {
+    // Actions a effectuer dans la base de donnée
+    const control = 'SELECT url INTO user WHERE id = ?';
+    const modifiy = 'UPDATE user SET url = ? WHERE id = ?';
+    try{
+        // Controle de l'utilisateur
+        connect.query(control, req.body.user_id, (error, results, fields) => {
+            // Si il y a une erreur
+            if(error){
+                return res.status(400).json(error)
+            // Si il y a aucun resultats    
+            }else if(!results[0]){
+                return res.status(404).json({error: "Aucun resultat."})
+            // Si l'utilisateur a la photo de profil par default    
+            }else if(results[0].url === "User-avatar.webp"){
+                connect.query(modifiy, [req.file.filename, req.body.user_id], (error, results, next) => {
+                    if(error) return res.status(400).json(error);
+                    res.status(200).json("Modification réussi.")
+                })
+            // Si l'utilisateur n'a pas la photo de profil par default    
+            }else{
+                fs.unlink('./images/user_avatar/' + results[0].url, () => {
+                    connect.query(modifiy, [req.file.filename, req.body.user_id], (error, results, next) => {
+                        if(error) return res.status(400).json(error);
+                        res.status(200).json("Modification réussi.")
+                    })
+                })
+            }
+        })
+    }catch(error){
+        res.status(500).json(error);
+    }
+}

@@ -65,7 +65,10 @@ const DisplayCom = ({com, post}) => {
             {comMap.length > 0 && comMap }
             {comMap.length > 0 && <hr className='post--hrSmall'></hr>}
         </div>
-        <form onSubmit={sendCom}>
+        <form className="post--form" onSubmit={sendCom}>
+            <div className="post--form__avatar">
+                <img src={`http://localhost:3000/images/avatar/${user.url}`} alt='photo de profil'  />
+            </div>
             <input type='test' placeholder='Nouveau commentaire' value={newCom} onChange={e => setNewCom(e.target.value)} />
         </form>
     </>
