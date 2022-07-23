@@ -10,5 +10,6 @@ router.put("/modify", auth, upload.single("postImg"), post.modifyPost);
 router.delete("/delete", auth, post.deletePost);
 router.post('/likes', auth, post.likes);
 router.get('/getall/:id', auth, post.getAllPost); 
+router.get('/getpostlikes/:id', auth, post.getPostLikes )
 
 module.exports = router;

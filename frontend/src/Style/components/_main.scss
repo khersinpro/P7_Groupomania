@@ -22,9 +22,11 @@ main{
         width: 40px;
         border-radius: 4px;
         overflow: hidden;
+        @include flex-center;
         img{
-            height: 100%;
-            object-fit: cover;
+            height: auto;
+            width: 100%;
+            object-fit: center;
         }
     }
     &--fakebtn{
@@ -178,8 +180,10 @@ main{
             border-radius: 4px;
             margin-right: 12px;
             overflow: hidden;
+            @include flex-center;
             img{
-                height: 100%;
+                height: auto;
+                width: 100%;
                 object-fit: cover;
             }
         }
@@ -249,6 +253,17 @@ main{
             margin-left: 5px;
             color: $postColorName;
         }
+        &__comBtn{
+            @include flex-center;
+            margin-left: 15px;
+            cursor: pointer;
+            color: $postColorName;
+            &:hover{
+                p, i{
+                    color: #727cf5;
+                }
+            }
+        }
     }
     // LOGIQUE DU CONTENEUR RECEVANT LE MAP DES COMMENTAIRES
     &--comContainer{
@@ -266,6 +281,7 @@ main{
                 overflow: hidden;
                 img{
                     height: 100%;
+                    min-width: 100%;
                     object-fit: cover;
                 }
             }

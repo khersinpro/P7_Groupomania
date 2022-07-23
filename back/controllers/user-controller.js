@@ -124,7 +124,7 @@ exports.getUser = (req, res, next) => {
 //*** Ajout ou modification de l'image de profil ***//
 exports.modifyAvatar = (req, res, next) => {
     // Actions a effectuer dans la base de donnée
-    const control = 'SELECT url INTO user WHERE id = ?';
+    const control = 'SELECT url FROM user WHERE id = ?';
     const modifiy = 'UPDATE user SET url = ? WHERE id = ?';
     try{
         // Controle de l'utilisateur

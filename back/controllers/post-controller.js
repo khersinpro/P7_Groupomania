@@ -162,7 +162,7 @@ exports.likes = (req, res, next) => {
         res.status(500).json(error);
     }
 };
-//*** Récupération de tout les POST / Le NB de LIKE par POST / Si l'utilisateur a LIKE ou non/ com ***//
+//*** Récupération de tout les POST / Le NB de LIKE par POST / Le NB de COM par POST ***//
 //----------------------------------------------------------------------------------------------//
 exports.getAllPost = (req, res, next) => {
     // Recuperation de tout les POST avec les noms utilisateur, leurs avatar
@@ -172,7 +172,8 @@ exports.getAllPost = (req, res, next) => {
     // On ordonne le resultat grâce a ma methode ORDER de SQL
     const findAll = "SELECT p.*, u.name, u.firstname, u.url,\
     (SELECT COUNT(*) FROM likes WHERE post_id = p.post_id) as nbLikes,\
-    (SELECT COUNT(*) FROM likes WHERE post_id = p.post_id AND user_id = ?) as isLiked FROM post p\
+    (SELECT COUNT(*) FROM likes WHERE post_id = p.post_id AND user_id = ?) as isLiked,\
+    (SELECT COUNT(*) FROM comment WHERE post_id = p.post_id ) as nbComs FROM post p\
     INNER JOIN user u ON u.id = p.userId\
     ORDER BY p.post_id DESC"
 
@@ -180,18 +181,34 @@ exports.getAllPost = (req, res, next) => {
         connect.query(findAll, req.params.id, (error, results, fields) => {
             if(error){
                 return res.status(400).json(error);
+            }else if(!results[0]){
+                return res.status(404).json("Aucun resultats.")
             }
-            const post = results;
-            const getAll = 'SELECT c.*, u.name, u.firstname, u.url FROM comment c INNER JOIN user u ON c.user_id = u.id ORDER BY c.date ASC';
-            connect.query(getAll, (error, results, fields) => {
-                if(error){
-                    return res.status(400).json(error);
-                }
-                const com = results;
-                res.status(200).json({post, com});
-            })   
+            res.status(200).json(results)
         })
     }catch(error){
         res.status(500).json(error);
     };
 };
+
+//*** Récupération de tout les Likes d'un POST ***//
+//-----------------------------------------------//
+exports.getPostLikes = (req, res, next) => {
+    // Actions a effectuer dans la base de donnée
+    const find = 'SELECT COUNT(*) as likes, \
+    (SELECT COUNT(*) FROM likes WHERE post_id = ? AND user_id = ?) as isLiked FROM likes WHERE post_id = ?';
+    const options = [req.params.id, req.auth.user_id, req.params.id];
+
+    try{
+        connect.query(find, options , (error, results, next) => {
+            if(error){
+                return res.status(400).json(error);
+            }else if(!results[0]){
+                res.status(404).json("Aucun resultats.")
+            }
+            res.status(200).json(results[0])
+        })
+    }catch(error){
+        res.status(500).json(error)
+    }
+}

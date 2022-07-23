@@ -1,41 +1,37 @@
 import React, {useEffect, useContext, useState} from 'react'
 import { userContext } from '../../../context/UserContext'
+import { postContext } from '../../../context/PostContext'
 import axios from 'axios'
 import DisplayPost from './post_display/DisplayPost'
-import DisplayCom from './post_display/DisplayCom'
+
 
 const DisplayAllPost = () => {
     // CONTEXT USER ET STATE POUR LES POST/COM
     const {user} = useContext(userContext);
-    const [post, setPost] = useState([]);
-    const [com, setCom] = useState([]);
+    const [allPosts, setAllPosts] = useState([]);
+    // Instance d'axios pour ajouter les credentials automatiquement
+    const instance = axios.create( {withCredentials: true} );
 
-    useEffect(() => {
-        // Recupération des POSTS et des COMS
-        user.id !== "" &&
-        axios.get(
-            `http://localhost:3000/api/post/getall/${user.id}`,
-            {withCredentials: true}
-        )
-        .then(res => {
-            setCom(res.data.com)
-            setPost(res.data.post)
-        })
+    // Fonction de récupération de tout les POSTS
+    const getAllPosts = () => {
+        instance.get(`http://localhost:3000/api/post/getall/${user.id}`)
+        .then(res => setAllPosts(res.data))
         .catch(error => console.log(error))
+    }
+
+    // Récupération de tout les POST quand un user est connecté
+    useEffect(() => {
+        user.id !== "" && getAllPosts();
     }, [user])
 
-    // Map de tous les POSTS avec leurs commentaires
-    const postMap = post.map(post => (
-        <div key={post.post_id} className='post'>
-            <DisplayPost post={post} />
-            <DisplayCom com={com} post={post.post_id} />
-        </div>
-    ))
-
     return (
+    <postContext.Provider value={getAllPosts} >
         <section className='postContainer'>
-            {postMap}
+            {       
+                allPosts.map(post => <DisplayPost key={post.post_id} post={post} />)
+            }
         </section>
+    </postContext.Provider>
     )
 }
 

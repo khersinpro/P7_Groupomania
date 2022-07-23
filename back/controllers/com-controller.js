@@ -45,15 +45,17 @@ exports.deleteCom = (req, res, next) => {
         res.status(500).json(error);
     };
 };
-//*** Récupération de tous les commentaires ***//
+//*** Récupération d'un commentaires ***//
 //--------------------------------------------//
-exports.getAllComs = (req, res, next) => {
-    // Récupère tous les coms avec un inner join pour ajouter le nom et le prénom de l'utilisateur en liaison avec leur id
-    const getAll = 'SELECT c.*, u.name, u.firstname FROM comment c INNER JOIN user u ON c.user_id = u.id ORDER BY c.date ASC';
+exports.getPostComs = (req, res, next) => {
+    // Récupère tous les COM du POST du req.params.id
+    const getAll = 'SELECT c.*, u.name, u.firstname, u.url FROM comment c INNER JOIN user u ON c.user_id = u.id WHERE c.post_id = ? ORDER BY c.date ASC';
     try{
-        connect.query(getAll, (error, results, fields) => {
+        connect.query(getAll, req.params.id, (error, results, fields) => {
             if(error){
                 return res.status(400).json(error);
+            }else if(!results[0]){
+                return res.status(404).json("Aucun resultats.")
             }
             res.status(200).json(results);
         })
