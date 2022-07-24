@@ -21,28 +21,30 @@ const DisplayPost = ({post}) => {
     const [newCom, setNewCom] = useState("");
     // Affichage des likes si modification
     const [totalLikes, settotalLikes] = useState();
-    // Instance d'axios pour ajouter les credentials automatiquement
-    const instance = axios.create( {withCredentials: true} );
+    // Instance d'axios pour ajouter les credentials et la base de l'URL automatiquement 
+    const instance = axios.create( {withCredentials: true, baseURL: "http://localhost:3000" } );
 
     // Fonction pour like/dislike un POST
     const sendLike = async () => {
-        await instance.post("http://localhost:3000/api/post/likes", {post_id: post.post_id, user_id: user.id} )
+        await instance.post("/api/post/likes", {post_id: post.post_id, user_id: user.id} )
         .then(() => getLikes())
         .catch(error => console.log(error))
     }
 
     //Fonction de rafraichissement des likes d'un POST
     const getLikes = async () => {
-        await instance.get(`http://localhost:3000/api/post/getpostlikes/${post.post_id}`)
+        await instance.get(`/api/post/getpostlikes/${post.post_id}`)
         .then( res => settotalLikes(res.data) )
         .catch(error => console.log(error))
     }
     
     // Récupération des commentaire du post
     const getCom = async (e) => {
-        if(e && comments.length < 1  && post.nbComs < 1) return console.log("Aucun commentaire a afficher.");
-        if(e && comments.length > 0) return console.log("Aucun commentaire a afficher.");
-        await instance.get(`http://localhost:3000/api/comment/getpostcom/${post.post_id}`)
+        // Controle pour eviter des spam de requetes au clic
+        if(e && comments.length < 1  && post.nbComs < 1 || e && comments.length > 0 ){
+            return console.log("Aucun commentaire a afficher.");
+        }
+        await instance.get(`/api/comment/getpostcom/${post.post_id}`)
         .then( res => setComments(res.data))
         .catch(error => setComments([]))
     }
@@ -50,9 +52,9 @@ const DisplayPost = ({post}) => {
     // Fonction pour envoyer un nouveau commentaire
     const sendCom = (e) => {
         e.preventDefault();
-        if(newCom){
+        if(newCom && newCom.trim()){
             const date = dayjs(new Date()).format('DD/MM/YYYY HH:mm');
-            instance.post('http://localhost:3000/api/comment/create', {post_id: post.post_id, comment: newCom, date, user_id: user.id } )
+            instance.post('/api/comment/create', {post_id: post.post_id, comment: newCom, date, user_id: user.id } )
             .then(() => getCom())
             .catch(error => console.log(error))
             setNewCom("")
@@ -63,7 +65,7 @@ const DisplayPost = ({post}) => {
 
     // Fonction de suppression d'un commentaire
     const deleteCom = (id) => {
-        instance.delete("http://localhost:3000/api/comment/delete", {data: {user_id: user.id, id}} )
+        instance.delete("/api/comment/delete", {data: {user_id: user.id, id}} )
         .then(() => getCom())
         .catch(error => console.log(error))
     }
@@ -112,7 +114,7 @@ const DisplayPost = ({post}) => {
 
             {/* Boutons d'affichage des commentaire et de leurs nombres  */}
             <div onClick={e => getCom(e)} className='post--like__comBtn' >
-                <i class="fa-solid fa-comment"></i>
+                <i className="fa-solid fa-comment"></i>
                 <p>{comments.length > 0 ? comments.length : post.nbComs} commentaire</p>
             </div>
         </div>

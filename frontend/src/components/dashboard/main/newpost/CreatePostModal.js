@@ -45,7 +45,7 @@ const CreatePostModal = ({close}) => {
                 <hr className='post--hrLarge'></hr>
                 <textarea onChange={e => setPostText(e.target.value)} placeholder={'Quoi de neuf ' + user.firstname + " ?"} />
                 <label htmlFor="post-img">
-                    <i class="fa-solid fa-image"></i>
+                    <i className="fa-solid fa-image"></i>
                     {postImg ? postImg.name : "Ajout d'une image"}
                 </label>
                 <input type="file" id='post-img' accept="image/png, image/jpeg, image/jpg, image/gif" onChange={e => setPostImg(e.target.files[0])}/>

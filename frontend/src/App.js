@@ -10,14 +10,12 @@ function App() {
   const [userConnected, setUserConnected] = useState(false)
   const [refresh, setRefresh] = useState(true)
   const [user, setUser] = useState({name: "", firstname: "", id : "", admin: ""});
+  // Instance d'axios pour ajouter les credentials automatiquement
+  const instance = axios.create( {withCredentials: true} );
 
   useEffect(() => {
     // Requete de contrôle utilisateur et de récuperation de données
-    axios({
-      method: "get",
-      url: 'http://localhost:3000/api/user/getuser',
-      withCredentials: true
-    })
+    instance.get('http://localhost:3000/api/user/getuser')
     .then(data => {
       // Si il y a une erreur
       if(data.error){
