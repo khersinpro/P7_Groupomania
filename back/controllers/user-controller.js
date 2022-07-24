@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const fs = require('fs')
+
 //*** Création d'un utilisateur ***/
 exports.createUser = (req, res, next) => {
     // Action a effectuer dans la base de donnée
@@ -24,6 +25,7 @@ exports.createUser = (req, res, next) => {
         res.status(500).json("Une erreur est survenue, veuillez réessayer plus tard.")
     });
 };
+
 //*** Connexion d'un utilisateur ***/
 exports.connexion = (req, res, next) => {
     // Action a effectuer dans la base de donnée
@@ -57,6 +59,7 @@ exports.connexion = (req, res, next) => {
         res.status(500).json(error);
     };
 };
+
 //*** Supprression d'un utilisateur ***/
 exports.deleteUser = (req, res, next) => {
     // Actions a effectuer dans la base de donnée
@@ -103,6 +106,7 @@ exports.deleteUser = (req, res, next) => {
         res.status(500).json(error);
     };
 };
+
 //*** Recuperation des infos de l'utilisateur connecté ***/
 exports.getUser = (req, res, next) => {
     // Actions a effectuer dans la base de donnée
@@ -121,6 +125,7 @@ exports.getUser = (req, res, next) => {
         res.status(500).json(error);
     };
 };
+
 //*** Ajout ou modification de l'image de profil ***//
 exports.modifyAvatar = (req, res, next) => {
     // Actions a effectuer dans la base de donnée
@@ -153,5 +158,46 @@ exports.modifyAvatar = (req, res, next) => {
         })
     }catch(error){
         res.status(500).json(error);
+    }
+}
+
+//*** Modifier le mot de passe ***/
+exports.modifiyPassword = (req, res, next) => {
+    const find = "SELECT password FROM user WHERE id = ?"
+    const changePassword = "UPDATE user SET password = ? WHERE id = ?"
+
+    try{
+        connect.query(find, req.body.user_id, (error, results, fields) => {
+            if(error){
+                return res.status(400).json(error)
+            }else if(!results[0]){
+                return res.status(404).json("Aucun resultats.")
+            }
+
+            if(req.body.password){
+                bcrypt.compare(req.body.password, results[0].password)
+                .then( valid => {
+                    if(!valid){
+                        return res.status(401).json("Mot de passe incorrect.")
+                    }
+
+                    bcrypt.hash(req.body.newPassword, 10)
+                    .then(hash => {
+                        connect.query(changePassword, [hash, req.body.user_id], (error, results, next) => {
+                            if(error){
+                                return res.status(400).json(error)
+                            }
+                            res.status(200).json(results)
+                        })
+                    })
+                    .catch(error => res.status(500).json(error))
+                })
+                .catch(error => res.status(500).json(error))
+            }else{
+                res.status(400).json('Aucun mot de passe')
+            }
+        })
+    }catch(error){
+        res.status(500).json(error)
     }
 }

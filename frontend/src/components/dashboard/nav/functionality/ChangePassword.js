@@ -14,8 +14,12 @@ const ChangePassword = ({close}) => {
 
     // Fonction de controle du mot de passe
     // A ajouter a la fin
-    
+
     // Fonction d'envoi du mot de passe
+    const sendNewPassword = (e) => {
+        e.preventDefault()
+        
+    }
 
 
     return (
