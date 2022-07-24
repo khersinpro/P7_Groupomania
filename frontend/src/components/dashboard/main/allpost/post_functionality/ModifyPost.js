@@ -1,13 +1,17 @@
 import React, {useState, useContext} from 'react'
 import axios from 'axios'
-import { userContext } from '../../../../context/UserContext';
+import { postContext } from '../../../../context/PostContext';
 
 const ModifyPost = ({post, user, close}) => {
-    // State qui recupére les infos du formulaire
+    // State qui recupére le text du formulaire
     const [textChange, setTextChange] = useState(post.message);
+    // State qui recupére l'image du formulaire
     const [imageChange, setImageChange] = useState();
     // Appel du context pour rafraichir l'affichage des posts aprés modification
-    const {refresh, setRefresh} = useContext(userContext)
+    const {getAllPosts} = useContext(postContext)
+    // Instance d'axios pour ajouter les credentials et la base de l'URL automatiquement 
+    const instance = axios.create( {withCredentials: true, baseURL: "http://localhost:3000" } );
+
     // Fonction pour sauvegarder les modification dans la base avec contrôle
     const sendChange = async  (e) => {
         e.preventDefault();
@@ -20,32 +24,30 @@ const ModifyPost = ({post, user, close}) => {
         data.append("user_id", user.id);
         data.append("post_id", post.post_id);
         data.append("admin", user.admin);
+
         // Si il y a eu une modification
         if(textChange !== post.message || imageChange){
-            await axios({
-                method: 'put',
-                url:"http://localhost:3000/api/post/modify",
-                withCredentials: true,
-                data
-            })
-            .then(res => console.log(res))
-            .catch(error => console.log(error))
-            // Rafraichissement des post
-            setRefresh(!refresh);
+            await instance.put("/api/post/modify", data)
+            .then(res => getAllPosts())
+            .catch(error => { console.log(error); getAllPosts() })
         }
         // fermeture du modal
         close(false)
     }
+
     return (
         <div className='changeModal'>
             <form onSubmit={sendChange}>
                 {/* Ajout des modifications */}
                 <h4>Souhaitez vous ajouter des modifications ?</h4>
                 <hr className='hrLarge' />
+
                 <label htmlFor='text-change'>Modification du text</label>
                 <input type='text' id='text-change' value={textChange} onChange={e => setTextChange(e.target.value)}/>
+
                 <label htmlFor='image-change'>{post.posturl ? "Modifier l'image" : "Ajouter une image"}</label>
                 <input type="file" id='imageInput' accept="image/png, image/jpeg, image/jpg, image/gif" onChange={e => setImageChange(e.target.files[0])}  />
+                
                 {/* Boutons pour annuler ou envoyer les modifications */}
                 <div className='changeModal--subBox'>
                     <input type="submit" value="Envoyer" />

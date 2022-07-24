@@ -4,15 +4,15 @@ import { postContext } from '../../../../context/PostContext';
 
 const DeletePost = ({user, post, close}) => {
     // Appel du context pour rafraichir l'affichage des posts aprés modification
-    const getAllPosts = useContext(postContext)
-    // Instance d'axios pour ajouter les credentials automatiquement
-    const instance = axios.create( {withCredentials: true} );
+    const { getAllPosts } = useContext(postContext)
+    // Instance d'axios pour ajouter les credentials et la base de l'URL automatiquement 
+    const instance = axios.create( {withCredentials: true, baseURL: "http://localhost:3000" } );
 
     // Fonction de suppression du post avec controle + requete axios
     const deletePost = async (e) => {
         e.preventDefault();
         if(user.id === post.userId || user.admin === 1){
-            await instance.delete('http://localhost:3000/api/post/delete', {data: {user_id: user.id, post_id: post.post_id}} )
+            await instance.delete('/api/post/delete', {data: {user_id: user.id, post_id: post.post_id}} )
             .then(res => getAllPosts())
             .catch(error => console.log(error))
             // Fermeture du modal
