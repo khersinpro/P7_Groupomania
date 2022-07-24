@@ -1,8 +1,6 @@
 import React, {useState, useContext} from 'react'
 import { userContext } from '../../../context/UserContext'
 import { toast } from 'react-toastify';
-
-import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'
 
 const ChangePassword = ({close}) => {
@@ -22,8 +20,8 @@ const ChangePassword = ({close}) => {
     const sendNewPassword = (e) => {
         e.preventDefault()
         instance.put("/api/user/modifypassword", {user_id: user.id, password:actualPassword, newPassword })
-        .then(() => toast.success("Mot de passe modifié !"))
-        .catch(error => toast.error(error.response.data + " Veuillez réessayer."))
+        .then(() => toast.success("Mot de passe modifié !", {autoClose: 2000}))
+        .catch(error => toast.error(error.response.data + " Veuillez réessayer.", {autoClose: 2000}))
         close(false)
     }
 

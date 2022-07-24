@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, {useContext} from 'react'
 import { postContext } from '../../../../context/PostContext';
+import { toast } from 'react-toastify';
 
 const DeletePost = ({user, post, close}) => {
     // Appel du context pour rafraichir l'affichage des posts aprés modification
@@ -13,8 +14,11 @@ const DeletePost = ({user, post, close}) => {
         e.preventDefault();
         if(user.id === post.userId || user.admin === 1){
             await instance.delete('/api/post/delete', {data: {user_id: user.id, post_id: post.post_id}} )
-            .then(res => getAllPosts())
-            .catch(error => console.log(error))
+            .then(res => {
+                getAllPosts()
+                toast.success("Suppression réussi !", {autoClose: 2000})
+            })
+            .catch(error => toast.warn("Une erreur est survenue ...", {autoClose: 2000}))
             // Fermeture du modal
             close(false)
         }

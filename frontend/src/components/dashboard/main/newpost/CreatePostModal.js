@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react"
 import { postContext } from "../../../context/PostContext";
 import { userContext } from "../../../context/UserContext";
+import { toast } from 'react-toastify';
 import axios from "axios"
 import dayjs from 'dayjs';
 
@@ -31,10 +32,15 @@ const CreatePostModal = ({close}) => {
             postText && data.append("message", postText)
             data.append("user_id", user.id)
             data.append("date", date)
+            
             // Envoie de la PUBLICATION avec la method POST
             await instance.post("/api/post/create", data )
-            .then(() => { getAllPosts(); close(false) })
-            .catch(error => console.log(error))
+            .then(() => { 
+                getAllPosts(); 
+                close(false) 
+                toast.success("Post crée avec succés !", {autoClose: 2000})
+            })
+            .catch(error => toast.warn("Une erreur est survenue..."), {autoClose: 2000})
         }else{
             // Affichage du Message d'erreur en cas de POST vide
             setValidPost(false)

@@ -10,5 +10,6 @@ router.post('/deleteuser', auth, user.deleteUser);
 router.get('/getuser', auth, user.getUser);
 router.post('/changeavatar', auth, upload.single("image"), user.modifyAvatar);
 router.put('/modifypassword', auth, user.modifiyPassword)
+router.get('/logout/:id', auth, user.logout )
 
 module.exports = router;

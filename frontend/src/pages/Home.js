@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 const Home = ({logged}) => {
@@ -18,7 +19,8 @@ const Home = ({logged}) => {
             }
         })
         .then(data => logged(true))
-        .catch(error => console.log(error))
+        .then(() => toast.success("Bienvenue !", {autoClose: 2000}))
+        .catch(error => toast.warn("Une erreur est survenue ...", {autoClose: 2000}))
     }
     return (
         <div>

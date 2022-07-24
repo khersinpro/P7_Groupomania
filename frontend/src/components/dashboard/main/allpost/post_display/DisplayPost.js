@@ -3,6 +3,7 @@ import { userContext } from '../../../../context/UserContext'
 import ModifyPost from '../post_functionality/ModifyPost'
 import DeletePost from '../post_functionality/DeletePost'
 import DisplayCom from './DisplayCom'
+import { toast } from 'react-toastify';
 import dayjs from 'dayjs';
 import axios from 'axios'
 
@@ -55,8 +56,11 @@ const DisplayPost = ({post}) => {
         if(newCom && newCom.trim()){
             const date = dayjs(new Date()).format('DD/MM/YYYY HH:mm');
             instance.post('/api/comment/create', {post_id: post.post_id, comment: newCom, date, user_id: user.id } )
-            .then(() => getCom())
-            .catch(error => console.log(error))
+            .then(() => {
+                getCom()
+                toast.success("Commentaire envoyé !", {autoClose: 2000})
+            })
+            .catch(error => toast.warn("Une erreur est survenue ...", {autoClose: 2000}))
             setNewCom("")
         }else{
             console.log("pas de commentaire");
@@ -66,8 +70,11 @@ const DisplayPost = ({post}) => {
     // Fonction de suppression d'un commentaire
     const deleteCom = (id) => {
         instance.delete("/api/comment/delete", {data: {user_id: user.id, id}} )
-        .then(() => getCom())
-        .catch(error => console.log(error))
+        .then(() => {
+            getCom()
+            toast.success('Commentaire supprimé !', {autoClose: 2000})
+        })
+        .catch(error => toast.warn('Une erreur est survenue', {autoClose: 2000}))
     }
 
     return (

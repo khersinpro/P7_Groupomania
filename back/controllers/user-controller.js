@@ -60,6 +60,16 @@ exports.connexion = (req, res, next) => {
     };
 };
 
+//*** Déconnexion ***//
+exports.logout = (req, res, next) => {
+    try{
+        res.clearCookie("jwt");
+        res.status(200).json("Deconnexion réussi !")
+    }catch(error){
+        res.status(500).json(error)
+    }
+}
+
 //*** Supprression d'un utilisateur ***/
 exports.deleteUser = (req, res, next) => {
     // Actions a effectuer dans la base de donnée

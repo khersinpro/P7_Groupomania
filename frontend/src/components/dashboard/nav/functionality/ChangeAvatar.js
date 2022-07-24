@@ -1,5 +1,6 @@
 import React, {useState, useContext} from 'react'
 import { userContext } from '../../../context/UserContext'
+import { toast } from 'react-toastify';
 import axios from 'axios'
 
 const ChangeAvatar = ({close}) => {
@@ -22,8 +23,11 @@ const ChangeAvatar = ({close}) => {
 
             // Envoie du formulaire a l'API
             instance.post("/api/user/changeavatar", data )
-            .then(() => setRefresh(!refresh))
-            .catch(error => console.log(error))
+            .then(() => {
+                setRefresh(!refresh)
+                toast.success('Changement réussi !', {autoClose: 2000})
+            })
+            .catch(error => toast.warn('Une erreur est survenue.', {autoClose: 2000}))
             close(false)
         }else{
             setAvatarEmpty(true)

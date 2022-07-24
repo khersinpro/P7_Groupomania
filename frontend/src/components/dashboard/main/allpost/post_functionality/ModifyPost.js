@@ -1,6 +1,7 @@
 import React, {useState, useContext} from 'react'
 import axios from 'axios'
 import { postContext } from '../../../../context/PostContext';
+import { toast } from 'react-toastify';
 
 const ModifyPost = ({post, user, close}) => {
     // State qui recupére le text du formulaire
@@ -28,8 +29,9 @@ const ModifyPost = ({post, user, close}) => {
         // Si il y a eu une modification
         if(textChange !== post.message || imageChange){
             await instance.put("/api/post/modify", data)
-            .then(res => getAllPosts())
-            .catch(error => { console.log(error); getAllPosts() })
+            .then(res => toast.success("Modification réussi !", {autoClose: 2000}))
+            .catch(error => toast.warn("Une erreur est survenue ...", {autoClose: 2000}))
+            getAllPosts()
         }
         // fermeture du modal
         close(false)
