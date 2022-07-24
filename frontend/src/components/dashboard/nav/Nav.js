@@ -12,6 +12,7 @@ const Nav = () => {
     // State pour l'ouverture/fermeture du modal de changement de mot de passe
     const [openPasswordModal, setOpenPasswordModal] = useState(false)
 
+
     return (
     <>
         <header className='dashboard--header'>

@@ -4,6 +4,8 @@ import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import axios from 'axios';
 import { userContext } from './components/context/UserContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './Style/main.scss';
 
 function App() {
@@ -41,6 +43,7 @@ function App() {
           <Route path='/dashboard' element={userConnected ? <Dashboard /> : <Navigate to='/home' />} />
         </Routes>
       </userContext.Provider>
+      <ToastContainer />
     </>
   );
 }

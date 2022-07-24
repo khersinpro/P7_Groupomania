@@ -1,5 +1,8 @@
 import React, {useState, useContext} from 'react'
 import { userContext } from '../../../context/UserContext'
+import { toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'
 
 const ChangePassword = ({close}) => {
@@ -18,26 +21,29 @@ const ChangePassword = ({close}) => {
     // Fonction d'envoi du mot de passe
     const sendNewPassword = (e) => {
         e.preventDefault()
-        
+        instance.put("/api/user/modifypassword", {user_id: user.id, password:actualPassword, newPassword })
+        .then(() => toast.success("Mot de passe modifié !"))
+        .catch(error => toast.error(error.response.data + " Veuillez réessayer."))
+        close(false)
     }
-
 
     return (
         <div className='modifyPassword'>
-            <form className='modifyPassword--form                       '>
+            <form className='modifyPassword--form' onSubmit={sendNewPassword} >
                 <h3>Modification de mot de passe</h3>
                 <hr className='post--hrLarge'></hr>
 
                 <label htmlFor='actualPassword'>Mot de passe actuel :</label>
-                <input id='actualPassword' type='password' />
+                <input onChange={e => setActualPassword(e.target.value)} id='actualPassword' type='password' />
 
                 <label htmlFor='NewPassword'>Nouveau mot de passe :</label>
-                <input id='newPassword' type='password' />
+                <input onChange={e => setNewPassword(e.target.value)} id='newPassword' type='password' />
 
                 <div className='modifyAvatar--form__subBtn'>
                     <input type="submit" />
                     <button onClick={() => close(false)}>Annuler</button>
                 </div>
+
             </form>
         </div>
     )

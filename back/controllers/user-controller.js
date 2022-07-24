@@ -162,10 +162,11 @@ exports.modifyAvatar = (req, res, next) => {
 }
 
 //*** Modifier le mot de passe ***/
+//*** Cas d'erreur a ajouter !!!  ***/
 exports.modifiyPassword = (req, res, next) => {
     const find = "SELECT password FROM user WHERE id = ?"
     const changePassword = "UPDATE user SET password = ? WHERE id = ?"
-
+    console.log(req.body);
     try{
         connect.query(find, req.body.user_id, (error, results, fields) => {
             if(error){
@@ -180,7 +181,6 @@ exports.modifiyPassword = (req, res, next) => {
                     if(!valid){
                         return res.status(401).json("Mot de passe incorrect.")
                     }
-
                     bcrypt.hash(req.body.newPassword, 10)
                     .then(hash => {
                         connect.query(changePassword, [hash, req.body.user_id], (error, results, next) => {
@@ -191,6 +191,7 @@ exports.modifiyPassword = (req, res, next) => {
                         })
                     })
                     .catch(error => res.status(500).json(error))
+
                 })
                 .catch(error => res.status(500).json(error))
             }else{
