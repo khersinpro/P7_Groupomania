@@ -15,6 +15,12 @@ const ModifyPost = ({post, user, close}) => {
 
     // Fonction pour sauvegarder les modification dans la base avec contrôle
     const sendChange = async  (e) => {
+        // Controle de l'utilisateur
+        if(user.id !== post.userId || user.admin !== 1){
+            close(false)
+            return toast.warn("Vous ne pouvez pas modifier ce post.",{autoClose: 2000})
+        }
+
         e.preventDefault();
         const data = new FormData();
         // Si le message du post a etait modifié, on l'ajoute au FormData
@@ -36,10 +42,11 @@ const ModifyPost = ({post, user, close}) => {
         // fermeture du modal
         close(false)
     }
+    console.log(imageChange);
 
     return (
         <div className='changeModal'>
-            <form onSubmit={sendChange}>
+            <form className='changeModal--form' onSubmit={sendChange}>
                 {/* Ajout des modifications */}
                 <h4>Souhaitez vous ajouter des modifications ?</h4>
                 <hr className='hrLarge' />
@@ -47,13 +54,16 @@ const ModifyPost = ({post, user, close}) => {
                 <label htmlFor='text-change'>Modification du text</label>
                 <input type='text' id='text-change' value={textChange} onChange={e => setTextChange(e.target.value)}/>
 
-                <label htmlFor='image-change'>{post.posturl ? "Modifier l'image" : "Ajouter une image"}</label>
-                <input type="file" id='imageInput' accept="image/png, image/jpeg, image/jpg, image/gif" onChange={e => setImageChange(e.target.files[0])}  />
+                <label className='changeModal--form__imgLab' htmlFor='image--change'>
+                    <i class="fa-solid fa-image"></i>
+                    {imageChange ? imageChange.name : "Ajouter une image"}
+                </label>
+                <input type="file" id='image--change' accept="image/png, image/jpeg, image/jpg, image/gif" onChange={e => setImageChange(e.target.files[0])}  />
                 
                 {/* Boutons pour annuler ou envoyer les modifications */}
                 <div className='changeModal--subBox'>
                     <input type="submit" value="Envoyer" />
-                    <button onClick={() => close(false)}>Fermer</button>
+                    <button type='button' onClick={() => close(false)}>Fermer</button>
                 </div>
             </form>
         </div>

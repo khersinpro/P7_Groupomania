@@ -63,12 +63,13 @@ const DisplayPost = ({post}) => {
             .catch(error => toast.warn("Une erreur est survenue ...", {autoClose: 2000}))
             setNewCom("")
         }else{
-            console.log("pas de commentaire");
+            toast.warn("Vous ne pouvez pas envoyer un commentaire vide.", {autoClose: 2000})
         }
     }
 
     // Fonction de suppression d'un commentaire
-    const deleteCom = (id) => {
+    const deleteCom = (id, user_id) => {
+        if(user.admin !== 1 || user.id !== user_id) return toast.warn('Vous ne pouvez pas supprimer ce commentaire.', {autoClose: 2000})
         instance.delete("/api/comment/delete", {data: {user_id: user.id, id}} )
         .then(() => {
             getCom()
@@ -81,7 +82,7 @@ const DisplayPost = ({post}) => {
     <div className='post'>
         <div className='post--userPres'>
             <div className='post--userPres__avatar'>
-                <img src={`http://localhost:3000/images/avatar/${post.url}`} alt='photo de profil'  />
+                <img src={`http://localhost:3000/images/avatar/${user.id === post.userId ? user.url : post.url}`} alt='photo de profil'  />
             </div>
 
             <div className='post--userPres__text'>
@@ -90,11 +91,11 @@ const DisplayPost = ({post}) => {
             </div>
 
             {/* Si le post appartien au User connecté, le tableau de modification/suppression apparait */}
-            {user.id === post.userId &&
+            {(user.id === post.userId || user.admin === 1) &&
                 <div className='post--userPres__ellipsis'>
                     <button onClick={() => setModal(!modal)}>
                     <i className="fa-solid fa-ellipsis"></i>
-                </button>
+                    </button>
             </div>
             }
         </div>
@@ -148,7 +149,7 @@ const DisplayPost = ({post}) => {
         </div>
 
         {/* Formulaire de soumission d'un nouveau COM */}
-        <form className="post--form" onSubmit={sendCom}>
+        <form className="post--form"  onSubmit={sendCom}>
             <div className="post--form__avatar">
                 <img src={`http://localhost:3000/images/avatar/${user.url}`} alt='photo de profil'  />
             </div>

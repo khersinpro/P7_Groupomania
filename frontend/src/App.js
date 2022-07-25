@@ -43,7 +43,7 @@ function App() {
           <Route path='/dashboard' element={userConnected ? <Dashboard /> : <Navigate to='/home' />} />
         </Routes>
       </userContext.Provider>
-      <ToastContainer />
+      <ToastContainer limit={2} />
     </>
   );
 }

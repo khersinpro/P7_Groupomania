@@ -279,9 +279,10 @@ main{
                 border-radius: 4px;
                 margin-right: 12px;
                 overflow: hidden;
+                @include flex-center;
                 img{
-                    height: 100%;
-                    min-width: 100%;
+                    min-height: 100%;
+                    width: 100%;
                     object-fit: cover;
                 }
             }
@@ -383,7 +384,7 @@ main{
         @include flex-center;
         background-color: rgba(0, 0, 0, 0.40);
         transition: 0.2s ease;
-        form{
+        &--form{
             width: 100%;
             height: 100%;
             max-height: 254px;
@@ -404,6 +405,20 @@ main{
                 font-weight: 600;
                 font-size: 15px;
             }
+            #image--change{
+                display: none;
+            }
+            &__imgLab{
+                cursor: pointer;
+                font-size: 18px;
+                font-weight: 500;
+                color: #6c757d;
+                transition: 0.2s ease;
+                i{
+                    color: blue;
+                    margin-right: 10px;
+                }
+            }
             hr{
                 margin-bottom: 10px;
             }
@@ -413,14 +428,12 @@ main{
                 box-shadow: 0 0 35px rgba(154, 161, 171, 0.15) ;
                 border: 2px solid #e7ebf0;
                 border-radius: 5px;
-                margin: 5px 0 10px;
+                margin: 5px 0 20px;
                 &:focus{
                     outline: none;
                 }
             }
-            input[type='file']{
-                margin: 5px 0 10px;
-            }
+
         }
         // BOUTONS DE SOUMISSION DU FORM OU DE FERMETURE 
         &--subBox{
@@ -433,6 +446,7 @@ main{
                 border: 2px solid #e7ebf0;
                 border-radius: 5px;
                 background-color: white;
+                margin-top: 20px;
                 &:hover{
                     background: #bccee4;
                     color: #000;

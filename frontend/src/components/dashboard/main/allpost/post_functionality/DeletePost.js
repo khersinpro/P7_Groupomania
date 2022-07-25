@@ -21,6 +21,8 @@ const DeletePost = ({user, post, close}) => {
             // Fermeture du modal
             close(false)
             getAllPosts()
+        }else{
+            toast.warn("Vous ne pouvez pas supprimer ce post.",{autoClose: 2000})
         }
     }
 

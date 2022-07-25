@@ -1,11 +1,15 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import { userContext } from '../../../../context/UserContext'
+
 
 const DisplayCom = ({com, deleteCom}) => {
+    const {user} = useContext(userContext)
+
     return (
         <div> 
             <div className='com'>
                 <div className='com--avatar'>
-                    <img src={`http://localhost:3000/images/avatar/${com.url}`} alt='photo de profil'  />
+                    <img src={`http://localhost:3000/images/avatar/${user.id === com.user_id ? user.url : com.url}`} alt='photo de profil'  />
                 </div>
 
                 <div className='com--text'>
@@ -13,10 +17,12 @@ const DisplayCom = ({com, deleteCom}) => {
                     <p className='com--text__date'>Le {com.date}</p>
                     <p className='com--text__message'>{com.comment}</p>
                 </div> 
-
-                <div className='com--deleteCom' onClick={() => deleteCom(com.id)}>
-                    <i className="fa-solid fa-xmark"></i>
-                </div>
+                {
+                    (user.admin === 1 || user.id === com.user_id) &&
+                    <div className='com--deleteCom' onClick={() => deleteCom(com.id, com.user_id)}>
+                        <i className="fa-solid fa-xmark"></i>
+                    </div>
+                }
             </div>
         </div>
     )
