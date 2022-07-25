@@ -169,8 +169,16 @@
         label{
             margin-top: 15px;
         }
-        #newPassword{
-            margin-bottom: 25px;
+        .passSub{
+            margin-top: 25px;
+        }
+        &__err{
+            margin-top: 10px;
+            font-size: 13px;
+            color: red;
+            i{
+                margin-right: 10px;
+            }
         }
     }
 }

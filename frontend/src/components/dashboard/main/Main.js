@@ -17,13 +17,13 @@ const Main = () => {
   const getAllPosts = () => {
       instance.get(`/api/post/getall/${user.id}`)
       .then(res => setAllPosts(res.data))
-      .catch(error => console.log(error))
+      .catch(error => setAllPosts([]))
   }
 
   // Récupération de tout les POST quand un user est connecté
   useEffect(() => {
     user.id !== "" && getAllPosts();
-  }, [user])
+  }, [user.id])
 
   return (
     <postContext.Provider value={{getAllPosts, allPosts}} >

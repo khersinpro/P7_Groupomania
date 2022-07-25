@@ -58,7 +58,7 @@ const ChangeAvatar = ({close}) => {
                 {/* Box de soumission du formulaire / fermeture du modal */}
                 <div className='modifyAvatar--form__subBtn'>
                     <input type="submit" />
-                    <button onClick={() => close(false)}>Annuler</button>
+                    <button type='button' onClick={() => close(false)}>Annuler</button>
                 </div>
             </form>
         </div>

@@ -24,7 +24,6 @@ const Nav = () => {
         .catch(error => toast.warn('Une erreur est survenue ...', {autoClose: 2000}))
     }
 
-
     return (
     <>
         <header className='dashboard--header'>
@@ -42,7 +41,6 @@ const Nav = () => {
 
                     <button onClick={() => setOpenAvatar(true)}><i className="fa-solid fa-camera"></i> Changement d'avatar</button>
                     <button onClick={() => setOpenPasswordModal(true)}><i className="fa-solid fa-lock"></i> Changement de mot de passe</button>
-                    <button><i className="fa-solid fa-user-xmark"></i> Suppression du compte</button>  
                 </div>
 
                 <div className='dashNav--secondBloc' >

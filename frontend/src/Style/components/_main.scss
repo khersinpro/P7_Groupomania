@@ -391,7 +391,6 @@ main{
             border: 1px solid #e7ebf0;
             border-radius: 5px;
             padding: 25px 25px 6px;
-            border-radius: 5px;
             margin: 0;
             text-align: center;
             background-color: white;
@@ -463,7 +462,6 @@ main{
             width: 100%;
             button{
                 width: 48%;
-                cursor: pointer;
                 background: white;
                 box-shadow: 0 0 35px rgba(154, 161, 171, 0.15) ;
                 border: 2px solid #e7ebf0;
@@ -475,6 +473,80 @@ main{
                     color: #000;
                     cursor: pointer;
                 }
+            }
+        }
+    }
+}
+
+// STYLE POUR LA HOME PAGE
+#title-home{
+    margin: 20px 0 ;
+}
+.homeBox{
+    margin-top: 35px;
+    width: 80%;
+    text-align: center;
+    h2{
+        margin-bottom: 15px;
+        color: $postColorName;
+        i{
+            margin-right: 15px;
+            color: #727cf5;
+        }
+    }
+    // futur classe box 
+    background: white;
+    box-shadow: 0 0 35px rgba(154, 161, 171, 0.15) ;
+    border: 1px solid #e7ebf0;
+    border-radius: 5px;
+    padding: 25px ;
+    &--form{
+        @include flex-center;
+        flex-direction: column;
+        width: 100%;
+        label{
+            font-weight: 600;
+            color: $postColorName;
+            margin-bottom: 10px;
+        }
+        input{
+            width: 250px;
+            height: 25px;
+        }
+        &__inputBox{
+            width: 100%;
+            @include flex-center;
+            flex-direction: column;
+            margin-bottom: 15px;
+            input{
+                box-shadow: 0 0 35px rgba(154, 161, 171, 0.15) ;
+                border: 2px solid #e7ebf0;
+                border-radius: 5px;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+            .home--error{
+                i{
+                    margin-right: 10px;
+                }
+                font-size: 13px;
+                color: red;
+                font-weight: 600;
+            }
+        }
+        input[type='submit']{
+            margin-top: 15px;
+            // futur classe boutton
+            background: white;
+            box-shadow: 0 0 35px rgba(154, 161, 171, 0.15) ;
+            border: 2px solid #e7ebf0;
+            color: $postColorName;
+            font-size: 12px;
+            font-weight: 600;
+            &:hover{
+                background: #bccee4;
+                color: #000;
+                cursor: pointer;
             }
         }
     }

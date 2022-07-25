@@ -1,39 +1,27 @@
 import React, {useState} from 'react';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-
+import HomeNav from '../components/home/HomeNav';
+import Login from '../components/home/Login';
+import SignUp from '../components/home/SignUp';
 
 const Home = ({logged}) => {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    // Ouverture de Login ou SignUp
+    const [openLogin, setOpenLogin] = useState(true)
 
-    const fetchData = (e) => {
-        e.preventDefault();
-        axios({
-            method:'post',
-            url: "http://localhost:3000/api/user/connexion",
-            withCredentials: true,
-            data: {
-                email,
-                password
-            }
-        })
-        .then(data => logged(true))
-        .then(() => toast.success("Bienvenue !", {autoClose: 2000}))
-        .catch(error => toast.warn("Une erreur est survenue ...", {autoClose: 2000}))
-    }
     return (
-        <div>
-            <h1>Home</h1>
-            <form onSubmit={fetchData}>
-                <label htmlFor='name'>email</label>
-                <input id="name" type='email' onChange={e => setEmail(e.target.value)}/>
-                <label htmlFor='password'>Password</label>
-                <input id='password' type='password' onChange={e => setPassword(e.target.value)}/>
-                <input type='submit' value="Envoyer" />
-            </form>
-        </div>
-  )
+        <>
+            <HomeNav logOrSign={setOpenLogin} />
+            <main>
+                <h1 id='title-home'>Bienvenue sur Groupomania</h1>
+            {
+                openLogin ?
+                <Login logged={logged} />
+                :
+                <SignUp />
+            }
+            </main>
+
+        </>
+    )
 }
 
 export default Home
