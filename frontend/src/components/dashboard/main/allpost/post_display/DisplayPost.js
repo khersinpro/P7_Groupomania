@@ -1,5 +1,6 @@
 import React,{useState, useContext} from 'react'
 import { userContext } from '../../../../context/UserContext'
+import DeletePostImg from '../post_functionality/DeletePostImg'
 import ModifyPost from '../post_functionality/ModifyPost'
 import DeletePost from '../post_functionality/DeletePost'
 import DisplayCom from './DisplayCom'
@@ -12,6 +13,8 @@ const DisplayPost = ({post}) => {
     const [modal, setModal] = useState(false)
     // Ouverture de la modification du POST
     const [modifyPost, setModifyPost] = useState(false)
+    //Ouverture du modal de suppression d'image de post
+    const [deletePostImg, setDeletePostImg] = useState(false)
     // Ouverture de la Suppression d'un post
     const [deletePost, setDeletePost] = useState(false)
     // Infos utilisateur
@@ -132,13 +135,17 @@ const DisplayPost = ({post}) => {
         {/* Modal pour choisir d'apporter une modification au POST ou le supprimer */}
         {modal &&
             <div className='modifModal'>
-                <p onClick={() => { setModifyPost(true); setModal(!modal)}}>Modifier</p>
-                <p onClick={() => { setDeletePost(true); setModal(!modal)}}>Supprimer</p> 
+                <p onClick={() => { setModifyPost(true); setModal(!modal)}}>Modifier le post</p>
+                {post.posturl && <p onClick={() => { setDeletePostImg(true); setModal(!modal)}}>Supprimer l'image</p>}
+                <p onClick={() => { setDeletePost(true); setModal(!modal)}}>Supprimer le post</p> 
             </div>
         }
 
         {/* Modal de modification de POST */}
         {modifyPost && <ModifyPost close={setModifyPost} user={user} post={post}/>}
+
+        {/* Modal de suppression d'image */}
+        {deletePostImg && <DeletePostImg close={setDeletePostImg} user={user} post={post}/> }
 
         {/* Modal de suppression de POST */}
         {deletePost && <DeletePost close={setDeletePost} user={user} post={post}/>}

@@ -92,6 +92,38 @@ exports.modifyPost = (req, res, next) => {
         res.status(500).json(error);
     }   
 };
+
+//*** Suppression de l'image d'un post ***//
+//---------------------------------------//
+exports.deletePostImage = (req, res, next) => {
+    // Action a effectuer dans la base de donnée
+    const find = 'SELECT posturl, userId FROM post WHERE post_id = ?';
+    const deletePostImage = 'UPDATE post SET posturl = "" WHERE post_id = ?'
+    
+    try{
+        // Contrôle de l'existence du post dans la base de donnée
+        connect.query(find, req.body.post_id, (error, results, fields) => {
+            // Contrôl d'erreur et verification de l'utilisateur
+            if(error){
+                return res.status(400).json(error);
+            }else if(results[0].userId !== req.auth.user_id){
+                res.clearCookie('jwt');
+                return res.status(401).json("Unauthorized.")
+            }
+            // Suprression de l'image du POST s'il y en a une , puis supression du POST
+            fs.unlink(`./images/post_images/${results[0].posturl}`,() => {
+                connect.query(deletePostImage, req.body.post_id, (error, results, fields) => {
+                    if(error){
+                        return res.status(400).json(error);
+                    }
+                    res.status(200).json("Suppression réussi.");
+                })
+            });
+        });
+    }catch(error){
+        res.status(500).json(error);
+    }
+}
 //*** Suppression d'un POST ***//
 //----------------------------//
 exports.deletePost = (req, res, next) => {

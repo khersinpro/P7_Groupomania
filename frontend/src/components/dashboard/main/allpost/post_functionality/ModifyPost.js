@@ -15,34 +15,33 @@ const ModifyPost = ({post, user, close}) => {
 
     // Fonction pour sauvegarder les modification dans la base avec contrôle
     const sendChange = async  (e) => {
+        console.log(user.admin);
+        e.preventDefault();
         // Controle de l'utilisateur
-        if(user.id !== post.userId || user.admin !== 1){
+        if((user.id === post.userId || user.admin === 1)){
+            const data = new FormData();
+            // Si le message du post a etait modifié, on l'ajoute au FormData
+            textChange !== post.message && data.append("message", textChange);
+            // Si l'image du post a été modifié, on l'ajoute au FormData
+            imageChange && data.append("postImg", imageChange);
+            // Ajout des informations user au FormData
+            data.append("user_id", user.id);
+            data.append("post_id", post.post_id);
+            data.append("admin", user.admin);
+            // Si il y a eu une modification
+            if(textChange !== post.message || imageChange){
+                await instance.put("/api/post/modify", data)
+                .then(res => toast.success("Modification réussi !", {autoClose: 2000}))
+                .catch(error => toast.warn("Une erreur est survenue ...", {autoClose: 2000}))
+                getAllPosts()
+            }
+            // fermeture du modal
+        }else{            
             close(false)
             return toast.warn("Vous ne pouvez pas modifier ce post.",{autoClose: 2000})
         }
-
-        e.preventDefault();
-        const data = new FormData();
-        // Si le message du post a etait modifié, on l'ajoute au FormData
-        textChange !== post.message && data.append("message", textChange);
-        // Si l'image du post a été modifié, on l'ajoute au FormData
-        imageChange && data.append("postImg", imageChange);
-        // Ajout des informations user au FormData
-        data.append("user_id", user.id);
-        data.append("post_id", post.post_id);
-        data.append("admin", user.admin);
-
-        // Si il y a eu une modification
-        if(textChange !== post.message || imageChange){
-            await instance.put("/api/post/modify", data)
-            .then(res => toast.success("Modification réussi !", {autoClose: 2000}))
-            .catch(error => toast.warn("Une erreur est survenue ...", {autoClose: 2000}))
-            getAllPosts()
-        }
-        // fermeture du modal
         close(false)
     }
-    console.log(imageChange);
 
     return (
         <div className='changeModal'>
@@ -54,16 +53,24 @@ const ModifyPost = ({post, user, close}) => {
                 <label htmlFor='text-change'>Modification du text</label>
                 <input type='text' id='text-change' value={textChange} onChange={e => setTextChange(e.target.value)}/>
 
-                <label className='changeModal--form__imgLab' htmlFor='image--change'>
-                    <i class="fa-solid fa-image"></i>
-                    {imageChange ? imageChange.name : "Ajouter une image"}
-                </label>
+                {/* Gestion de la modification et de la suppression d'une image d'un post */}
+                {post.posturl ?
+                    <label className='changeModal--form__imgLab' htmlFor='image--change'>
+                        <i class="fa-solid fa-image"></i>
+                        {imageChange ? imageChange.name : "Modifier l'image"}
+                    </label>
+                    :
+                    <label className='changeModal--form__imgLab' htmlFor='image--change'>
+                        <i class="fa-solid fa-image"></i>
+                        {imageChange ? imageChange.name : "Ajouter une image"}
+                    </label>
+                }
                 <input type="file" id='image--change' accept="image/png, image/jpeg, image/jpg, image/gif" onChange={e => setImageChange(e.target.files[0])}  />
                 
                 {/* Boutons pour annuler ou envoyer les modifications */}
                 <div className='changeModal--subBox'>
                     <input type="submit" value="Envoyer" />
-                    <button type='button' onClick={() => close(false)}>Fermer</button>
+                    <button type='button' onClick={() => close(false)}>Annuler</button>
                 </div>
             </form>
         </div>
