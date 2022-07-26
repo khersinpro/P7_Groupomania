@@ -6,6 +6,7 @@ const path = require('path');
 const userRoutes = require('./routes/user.routes');
 const postRoutes = require('./routes/post.routes');
 const comRoutes = require('./routes/com.routes');
+const auth = require('./middleware/auth')
 
 //*** Helmet helps to secure Express apps by setting various HTTP headers ***/
 app.use(helmet());
@@ -28,8 +29,8 @@ app.use((req, res, next) => {
 // Express.static permet de servir des fichiers static(images, fichiers css/js)
 // path.join + __dirname + "nom_du_repertoire" permet de cibler le repertoire voulu pour le rendre static
 // https://www.digitalocean.com/community/tutorials/nodejs-how-to-use__dirname
-app.use('/images/avatar', express.static(path.join(__dirname, "images/user_avatar")));
-app.use('/images/post', express.static(path.join(__dirname, "images/post_images")));
+app.use('/images/avatar', auth,  express.static(path.join(__dirname, "images/user_avatar")));
+app.use('/images/post', auth,  express.static(path.join(__dirname, "images/post_images")));
 
 app.use('/api/user', userRoutes);
 app.use('/api/post', postRoutes);
