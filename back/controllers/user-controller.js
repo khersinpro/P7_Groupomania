@@ -129,7 +129,6 @@ exports.modifyAvatar = (req, res, next) => {
 exports.modifiyPassword = (req, res, next) => {
     const find = "SELECT password FROM user WHERE id = ?"
     const changePassword = "UPDATE user SET password = ? WHERE id = ?"
-    console.log(req.body);
     try{
         connect.query(find, req.body.user_id, (error, results, fields) => {
             if(error){

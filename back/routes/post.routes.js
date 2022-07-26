@@ -3,12 +3,13 @@ const router = express.Router();
 const upload = require("../middleware/multer");
 const post = require('../controllers/post-controller');
 const auth = require('../middleware/auth');
+const userOrAdmin = require('../middleware/userAdmin')
 
 // upload un seul fichier avec un fieldname(key) postImg
 router.post("/create", auth, upload.single("postImg"), post.createPost);
-router.put("/modify", auth, upload.single("postImg"), post.modifyPost);
-router.put("/imagedelete", auth, post.deletePostImage);
-router.delete("/delete", auth, post.deletePost);
+router.put("/modify", auth, upload.single("postImg"), userOrAdmin,  post.modifyPost);
+router.put("/imagedelete", auth, userOrAdmin, post.deletePostImage);
+router.delete("/delete", auth, userOrAdmin, post.deletePost);
 router.post('/likes', auth, post.likes);
 router.get('/getall/:id', auth, post.getAllPost); 
 router.get('/getpostlikes/:id', auth, post.getPostLikes )

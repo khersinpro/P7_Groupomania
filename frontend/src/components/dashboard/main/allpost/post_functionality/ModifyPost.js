@@ -15,7 +15,6 @@ const ModifyPost = ({post, user, close}) => {
 
     // Fonction pour sauvegarder les modification dans la base avec contrôle
     const sendChange = async  (e) => {
-        console.log(user.admin);
         e.preventDefault();
         // Controle de l'utilisateur
         if((user.id === post.userId || user.admin === 1)){

@@ -19,8 +19,8 @@ exports.createPost = (req, res, next) => {
         posturl: file
     };
     try{
-        // Controle de l'utilisateur
-        if(req.body.user_id != req.auth.user_id){
+        // Controle du req.body avec l'id de l'utilisateur présent en BDD
+        if(parseInt(req.body.user_id) !== req.auth.user_id){
             res.clearCookie('jwt');
             return res.status(401).json('Unauthorized.');
         }
@@ -39,13 +39,14 @@ exports.createPost = (req, res, next) => {
 exports.modifyPost = (req, res, next) => {
     // Action a effectuer dans la base de donnée
     const find = 'SELECT posturl, userId FROM post WHERE post_id = ?';
+    console.log(req.auth);
     try{
         // Contrôle de l'existence du post dans la base de donnée
         connect.query(find, req.body.post_id, (error, results, fields) => {
             // Controle d'erreur et d'utilisateur
             if(error){
                 return res.status(400).json(error);
-            }else if(results[0].userId !== req.auth.user_id){
+            }else if(results[0].userId !== req.auth.user_id && req.auth.admin !== 1){
                 res.clearCookie('jwt');
                 return res.status(401).json("Unauthorized.")
             }
@@ -106,7 +107,7 @@ exports.deletePostImage = (req, res, next) => {
             // Contrôl d'erreur et verification de l'utilisateur
             if(error){
                 return res.status(400).json(error);
-            }else if(results[0].userId !== req.auth.user_id){
+            }else if(results[0].userId !== req.auth.user_id && req.auth.admin !== 1){
                 res.clearCookie('jwt');
                 return res.status(401).json("Unauthorized.")
             }
@@ -140,7 +141,7 @@ exports.deletePost = (req, res, next) => {
             // Contrôl d'erreur et verification de l'utilisateur
             if(error){
                 return res.status(400).json(error);
-            }else if(results[0].userId !== req.auth.user_id){
+            }else if(results[0].userId !== req.auth.user_id && req.auth.admin !== 1){
                 res.clearCookie('jwt');
                 return res.status(401).json("Unauthorized.")
             }

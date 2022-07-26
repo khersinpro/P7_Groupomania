@@ -72,13 +72,16 @@ const DisplayPost = ({post}) => {
 
     // Fonction de suppression d'un commentaire
     const deleteCom = (id, user_id) => {
-        if(user.admin !== 1 || user.id !== user_id) return toast.warn('Vous ne pouvez pas supprimer ce commentaire.', {autoClose: 2000})
-        instance.delete("/api/comment/delete", {data: {user_id: user.id, id}} )
-        .then(() => {
-            getCom()
-            toast.success('Commentaire supprimé !', {autoClose: 2000})
-        })
-        .catch(error => toast.warn('Une erreur est survenue', {autoClose: 2000}))
+        if(user.admin === 1 || user.id === user_id){
+            instance.delete("/api/comment/delete", {data: {user_id: user.id, id}} )
+            .then(() => {
+                getCom()
+                toast.success('Commentaire supprimé !', {autoClose: 2000})
+            })
+            .catch(error => toast.warn('Une erreur est survenue', {autoClose: 2000}))
+        }else{
+            toast.warn('Vous ne pouvez pas supprimer ce commentaire.', {autoClose: 2000})
+        }
     }
 
     return (
