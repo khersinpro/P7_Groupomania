@@ -31,9 +31,9 @@ const ChangePassword = ({close}) => {
 
     return (
         <div className='modifyPassword'>
-            <form className='modifyPassword--form' onSubmit={sendNewPassword} >
+            <form className='modifyPassword--form box-style' onSubmit={sendNewPassword} >
                 <h3>Modification de mot de passe</h3>
-                <hr className='post--hrLarge'></hr>
+                <hr className='hrLarge'></hr>
 
                 <label htmlFor='actualPassword'>Mot de passe actuel :</label>
                 <input onChange={e => setActualPassword(e.target.value)} id='actualPassword' type='password' />
@@ -56,8 +56,8 @@ const ChangePassword = ({close}) => {
                 }
 
                 <div className='modifyAvatar--form__subBtn passSub'>
-                    <input type="submit" />
-                    <button type='button' onClick={() => close(false)}>Annuler</button>
+                    <input className='button-style' type="submit" />
+                    <button className='button-style' type='button' onClick={() => close(false)}>Annuler</button>
                 </div>
 
             </form>

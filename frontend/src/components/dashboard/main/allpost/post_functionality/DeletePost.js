@@ -28,12 +28,12 @@ const DeletePost = ({user, post, close}) => {
 
     return (
         <div className='changeModal'>
-            <div className='deletePost'>
+            <div className='deletePost box-style'>
                 <h4>Etes-vous sur de vouloir supprimer cette publication ?</h4>
 
                 <div className='deletePost--btnBox'>
-                    <button onClick={deletePost}>Oui</button>
-                    <button onClick={() => close(false)}>Non</button>
+                    <button className='button-style' onClick={deletePost}>Oui</button>
+                    <button className='button-style' onClick={() => close(false)}>Non</button>
                 </div>               
             </div>
         </div>

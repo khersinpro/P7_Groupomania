@@ -25,7 +25,7 @@ const Login = ({logged}) => {
         }
     }
     return (
-        <div className='homeBox'> 
+        <div className='homeBox box-style'> 
             <h2>
             <i className="fa-solid fa-right-to-bracket"></i>
                 Connexion
@@ -54,7 +54,7 @@ const Login = ({logged}) => {
                     }
                 </div>
 
-                <input type='submit' value="Connexion" />
+                <input className='button-style' type='submit' value="Connexion" />
             </form>
         </div>
     )

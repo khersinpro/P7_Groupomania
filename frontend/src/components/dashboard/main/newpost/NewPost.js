@@ -10,7 +10,7 @@ const NewPost = () => {
 
   return (
     <>
-      <div className='newPost'>
+      <div className='newPost box-style'>
         <div className='newPost--image'>
           <img src={`http://localhost:3000/images/avatar/${user.url}`} alt='photo de profil'  />
         </div>

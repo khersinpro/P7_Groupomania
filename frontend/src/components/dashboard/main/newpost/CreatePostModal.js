@@ -49,14 +49,14 @@ const CreatePostModal = ({close}) => {
     
     return (
         <div className="createPost">
-            <form className="createPost--form" onSubmit={sendPost}>
+            <form className="createPost--form box-style" onSubmit={sendPost}>
 
                 <h3>Crée une publication</h3>
                 <div className="createPost--form__closeForm" onClick={() => close(false)}>
                     <i className="fa-solid fa-xmark"></i>
                 </div>
 
-                <hr className='post--hrLarge'></hr>
+                <hr className='hrLarge'></hr>
                 <textarea onChange={e => setPostText(e.target.value)} placeholder={'Quoi de neuf ' + user.firstname + " ?"} />
 
                 <label htmlFor="post-img">
@@ -72,7 +72,7 @@ const CreatePostModal = ({close}) => {
                         Votre nouvelle publication ne peux pas être vide.
                     </p>
                 }
-                <input type="submit"/>
+                <input className='button-style' type="submit"/>
             </form>
         </div>
     )

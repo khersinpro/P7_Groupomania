@@ -36,9 +36,9 @@ const ChangeAvatar = ({close}) => {
 
     return (
         <div className='modifyAvatar' onSubmit={changeAvatar}>
-            <form className='modifyAvatar--form'>
+            <form className='modifyAvatar--form box-style'>
                 <h3>Modification d'avatar</h3>
-                <hr className='post--hrLarge'></hr>
+                <hr className='hrLarge'></hr>
 
                 {/* Ajouter une image au formulaire */}
                 <label htmlFor='imageInput'>
@@ -57,8 +57,8 @@ const ChangeAvatar = ({close}) => {
 
                 {/* Box de soumission du formulaire / fermeture du modal */}
                 <div className='modifyAvatar--form__subBtn'>
-                    <input type="submit" />
-                    <button type='button' onClick={() => close(false)}>Annuler</button>
+                    <input className='button-style' type="submit" />
+                    <button className='button-style' type='button' onClick={() => close(false)}>Annuler</button>
                 </div>
             </form>
         </div>

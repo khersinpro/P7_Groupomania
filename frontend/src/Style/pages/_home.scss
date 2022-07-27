@@ -1,0 +1,67 @@
+// Style pour la HomePage
+#title-home{
+    margin: 20px 0 ;
+    text-align: center;
+}
+// Box contenant le formulaire de login ou d'inscription
+.homeBox{
+    width: 80%;
+    padding: 25px ;
+    margin: 35px 0 50px;
+    text-align: center;
+    @media(max-width: 767px) {
+        width: 95%;
+    }
+    h2{
+        margin-bottom: 15px;
+        color: $postColorName;
+        i{
+            margin-right: 15px;
+            color: #727cf5;
+        }
+        @media(max-width: 767px) {
+            font-size: 20px;
+        }
+    }
+    &--form{
+        @include flex-center;
+        flex-direction: column;
+        width: 100%;
+        label{
+            font-weight: 600;
+            color: $postColorName;
+            margin-bottom: 10px;
+        }
+        input{
+            width: 250px;
+            height: 25px;
+        }
+// Box contenant 1 label + 1 input + un message d'erreur(si erreur)        
+        &__inputBox{
+            width: 100%;
+            @include flex-center;
+            flex-direction: column;
+            margin-bottom: 15px;
+            input{
+                box-shadow: 0 0 35px rgba(154, 161, 171, 0.15) ;
+                border: 2px solid #e7ebf0;
+                border-radius: 5px;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+            .home--error{
+                i{
+                    margin-right: 10px;
+                }
+                font-size: 13px;
+                color: red;
+                font-weight: 600;
+            }
+        }
+        input[type='submit']{
+            margin-top: 15px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    }
+}

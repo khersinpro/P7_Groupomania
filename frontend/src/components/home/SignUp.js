@@ -29,7 +29,7 @@ const SignUp = () => {
     }
 
     return (
-        <div className='homeBox'> 
+        <div className='homeBox box-style'> 
         <h2>
             <i className="fa-solid fa-user-plus"></i>
             Création de compte
@@ -81,7 +81,7 @@ const SignUp = () => {
                 }
             </div>
 
-            <input type='submit' value="Connexion" />
+            <input className='button-style' type='submit' value="Connexion" />
         </form>
     </div>
     )

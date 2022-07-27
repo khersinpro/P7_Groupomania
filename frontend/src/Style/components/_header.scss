@@ -1,27 +1,58 @@
-// LE HEADER DU DASHBOARD
+// Logique du HEADER du DASHBOARD/HOMEPAGE
 .dashboard--header{
-    height: 100vh;
-    width: 300px;
-    background-color: $navcolor;
-    position: fixed;
-    top: 0;
-    left: 0;
-    // BARRE DE NAVIGATION
+    background-color: transparent;
+    @media (max-width: 992px) {
+        width: 100%;
+        height: 55px;
+    }
+// Logo en mode tablet/mobile
+    #headerLogo{
+        display: none;
+        @media (max-width: 992px) {
+            display: block;
+            margin: 10px auto;
+            height: 35px;
+        }
+    }
+// Barre de navigation 
     .dashNav{
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        height: 100%;
-        width: 100%;
-        // PREMIER BLOC CONTENANT LE LOGO , DIVER COMMANDE UTILISATEUR
-        // L'AVATAR UTILISATEUR + NOM +PRENOM
-        &--firstBloc{
+        height: 100vh;
+        width: 300px;
+        background-color: $navcolor;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        transition: 0.3s ease;
+        @media (max-width: 992px) {
+            transform: translateX(-300px);
+            &.openNav{
+                transform: translateX(0px);
+            }
+        }
+        @media (max-width: 768px) {
+            width: 250px;
+            transform: translateX(-250px);
+        }
+// Premier bloc avec Logo, infos user: Avatar, Nom/Prénom
+// Boutons de modifications d'avatar/password(Dashboard) / Login/Signup(Homepage)
+        &--firstBloc{ 
             display: flex;
-            flex-direction: column;
             align-items: flex-start;
+            flex-direction: column;
+            @media (max-width: 992px) {
+                margin-top: 20px;
+            }
             &__logo{
                 width: 200px;
                 margin: 20px auto;
+                display: block;
+                @media (max-width: 992px) {
+                    display: none;
+                }
             }
             &__userInfo{
                 @include flex-center;
@@ -30,7 +61,6 @@
                     border-radius: 50%;
                     height: 50px;
                     width: 50px;
-                    margin: 0 auto;
                     margin: 0 0 0 10px;
                     overflow: hidden;
                     @include flex-center;
@@ -45,27 +75,33 @@
                     font-size: 28px;
                     font-weight: 400;
                     margin-left: 20px;
+                    @media (max-width: 768px) {
+                        font-size: 24px;
+                    }
                 }
             }
             button{
                 margin: 4px 0 4px 35px;
+                @media (max-width: 768px) {
+                    margin: 4px 0 4px 25px;
+                }
             }
         }
-        //BLOC CONTENANT LE BOUTON DE DECONNEXION
+// Bloc contenant le bouton de déconnexion
         &--secondBloc{
-            display: flex;
-            flex-direction: column;
             button{
                 margin: 25px 0 25px 35px;
+                @media (max-width: 768px) {
+                    margin: 25px 0 25px 25px;
+                }
             }
         }
-        // LOGIQUE DE STYLE GLOBAL POUR TOUS LES BOUTONS
+// Logique pour tous les boutons de selection de la Nav
         button{
             background: transparent;
             border: none;
             color: rgba(255, 255, 255, 0.5);
             text-align: start;
-            font-weight: 200;
             font-size: 16px;
             cursor: pointer;
             i{
@@ -74,34 +110,25 @@
             &:hover{
                 color: $white;
             }
+            @media (max-width: 768px) {
+                font-size: 14px;
+            }
         }
     }
 }
-// MODAL DE MODIFICATION D AVATAR
+// Modal de modification d'avatar
 .modifyAvatar{
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 25;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding-left: 300px;
-    @include flex-center;
+    @include fixed-fullpage-modal;
     &--form{
         width: 300px;
-        background: white;
         padding: 24px;
-        box-shadow: 0 0 35px rgba(154, 161, 171, 0.15) ;
-        border: 1px solid #e7ebf0;
-        border-radius: 5px;
         text-align: center;
         h3{
             color: $postColorName;
             font-size: 18px;
             margin-bottom: 10px;
         }
-        // Ajoute d'image
+// Label d'ajout d'image (input file display none)
         label{
             margin: 20px 0;
             cursor: pointer;
@@ -125,42 +152,25 @@
             @include flex-between;
             input, button{
                 width: 48%;
-                cursor: pointer;
-                box-shadow: 0 0 35px rgba(154, 161, 171, 0.15) ;
-                border: 2px solid #e7ebf0;
                 font-size: 16px;
-                font-weight: 600;
-                color: $postColorName;
-                transition: 0.2s ease;
-                &:hover{
-                    background: #bccee4;
-                    color: #000;
-                }
+                font-weight: 600; 
             }
         }
     }
 }
-// MODAL DE MODIFICATION DE MOT DE PASSE
+// Modal de modification de password
 .modifyPassword{
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 25;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding-left: 300px;
-    @include flex-center;
+    @include fixed-fullpage-modal;
     &--form{
         display: flex;
         flex-direction: column;
         width: 450px;
-        background: white;
         padding: 24px;
-        box-shadow: 0 0 35px rgba(154, 161, 171, 0.15) ;
-        border: 1px solid #e7ebf0;
-        border-radius: 5px;
         text-align: center;
+        @media (max-width: 992px) {
+            width: 95%;
+            max-width: 450px;
+        }
         h3{
             color: $postColorName;
             font-size: 18px;
@@ -168,6 +178,12 @@
         }
         label{
             margin-top: 15px;
+            margin-bottom: 2px;
+        }
+        input[type='password']{
+            margin: 5px 0;
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            padding: 0 10px;
         }
         .passSub{
             margin-top: 25px;

@@ -1,6 +1,5 @@
-
- //*** button with heart annimation ***//
- .heart-container{
+// Logique d'animation du like/dislike
+.heart-container{
     border: none;
     background-color: transparent;
     cursor: pointer;
@@ -40,4 +39,77 @@
     &:hover .colored{
         opacity: 1;
     }
+}
+// Bouton burger d'ouverture de la nav en mode tablet/mobile
+.btn-rond-menu{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: $navcolor;
+    position: fixed;
+    right: 10px;
+    top : 10px;
+    z-index: 6;
+    display: none;
+    @media(max-width: 992px) {
+        display: block;
+    }
+    @media (max-width: 767px) {
+        margin: 4px 0 4px 25px;
+        height: 30px;
+        width: 30px;
+    }
+}
+.cont-ligne{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.ligne-unique{
+    width: 100%;
+    height: 2px;
+    border-radius: 5px;
+    background: #F1F1F1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    @media (max-width: 767px) {
+        width: 80%;
+    }
+}
+.ligne-unique::before{
+    content: "";
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background: #F1F1F1;
+    position: absolute;
+    bottom: 6px;
+}
+.ligne-unique::after{
+    content: "";
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background: #F1F1F1;
+    position: absolute;
+    top: 6px;
+}
+.cont-ligne.active .ligne-unique::after{
+    top: 0;
+    transform: rotate(45deg);
+    transition: top 300ms ease, transform 300ms ease;
+}
+.cont-ligne.active .ligne-unique{
+    background: transparent;
+}
+.cont-ligne.active .ligne-unique::before{
+    top: 0;
+    transform: rotate(-45deg);
+    transition: top 300ms ease, transform 300ms ease;
 }

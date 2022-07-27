@@ -85,7 +85,7 @@ const DisplayPost = ({post}) => {
     }
 
     return (
-    <div className='post'>
+    <div className='post box-style'>
         <div className='post--userPres'>
             <div className='post--userPres__avatar'>
                 <img src={`http://localhost:3000/images/avatar/${user.id === post.userId ? user.url : post.url}`} alt='photo de profil'  />
@@ -106,13 +106,13 @@ const DisplayPost = ({post}) => {
             }
         </div>
 
-        <hr className='post--hrLarge'></hr>
+        <hr className='hrLarge'></hr>
 
         {/*CONTENU DU POST / Si le post contient un message / Si le post contiens un image */}
         {post.message && <p className='post--message'>{post.message}</p>}
         {post.posturl && <img className='post--img' src={'http://localhost:3000/images/post/' + post.posturl} alt='post image'/> }
 
-        <hr className='post--hrSmall'></hr>
+        <hr className='hrSmall'></hr>
 
         {/* Fonction de Like/Dislike du POST et affichage dynamique du nb de likes / si il est Like par l'User*/}
         <div className='post--like'>
@@ -133,11 +133,11 @@ const DisplayPost = ({post}) => {
             </div>
         </div>
 
-        <hr className='post--hrLarge'></hr>
+        <hr className='hrLarge'></hr>
 
         {/* Modal pour choisir d'apporter une modification au POST ou le supprimer */}
         {modal &&
-            <div className='modifModal'>
+            <div className='modifModal box-style'>
                 <p onClick={() => { setModifyPost(true); setModal(!modal)}}>Modifier le post</p>
                 {post.posturl && <p onClick={() => { setDeletePostImg(true); setModal(!modal)}}>Supprimer l'image</p>}
                 <p onClick={() => { setDeletePost(true); setModal(!modal)}}>Supprimer le post</p> 
@@ -157,6 +157,8 @@ const DisplayPost = ({post}) => {
         <div className='post--comContainer'>
             { comments.map(com => < DisplayCom key={com.id} com={com} reload={getCom} deleteCom={deleteCom} />) }
         </div>
+
+        {comments.length > 0 && <hr className='hrLarge'></hr>}
 
         {/* Formulaire de soumission d'un nouveau COM */}
         <form className="post--form"  onSubmit={sendCom}>

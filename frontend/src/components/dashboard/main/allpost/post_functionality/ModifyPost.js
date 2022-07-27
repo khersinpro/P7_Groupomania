@@ -44,7 +44,7 @@ const ModifyPost = ({post, user, close}) => {
 
     return (
         <div className='changeModal'>
-            <form className='changeModal--form' onSubmit={sendChange}>
+            <form className='changeModal--form box-style' onSubmit={sendChange}>
                 {/* Ajout des modifications */}
                 <h4>Souhaitez vous ajouter des modifications ?</h4>
                 <hr className='hrLarge' />
@@ -68,8 +68,8 @@ const ModifyPost = ({post, user, close}) => {
                 
                 {/* Boutons pour annuler ou envoyer les modifications */}
                 <div className='changeModal--subBox'>
-                    <input type="submit" value="Envoyer" />
-                    <button type='button' onClick={() => close(false)}>Annuler</button>
+                    <input className='button-style' type="submit" value="Envoyer" />
+                    <button className='button-style' type='button' onClick={() => close(false)}>Annuler</button>
                 </div>
             </form>
         </div>

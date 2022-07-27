@@ -1,0 +1,13 @@
+.button-style{
+    box-shadow: 0 0 35px rgba(154, 161, 171, 0.15) ;
+    border-radius: 5px;
+    border: 2px solid #e7ebf0;
+    background-color: white;
+    transition: 0.2s ease;
+    color: $postColorName;
+    &:hover{
+        background: #bccee4;
+        color: #000;
+        cursor: pointer;
+    }
+}

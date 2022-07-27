@@ -1,0 +1,14 @@
+// Lignes de démarcations
+.hrLarge{
+    height: 1.4px;
+    background: $postColorName;
+    border: none;
+    opacity: 0.25;
+}
+.hrSmall{
+    border: none;
+    height: 1px;
+    background-color: $postColorName;
+    opacity: 0.25;
+}
+ 

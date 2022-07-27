@@ -1,0 +1,447 @@
+// Box ouvrant au clic le modal de création de POST
+.newPost{
+    width: 80%;
+    max-width: 800px;
+    margin: 20px 0 12px;
+    padding: 24px;
+    @include flex-between;
+    @media (max-width: 992px) {
+        width: 90%;
+    }
+    @media (max-width: 767px) {
+        width: 98%;
+    }
+    &--image{
+        height: 40px;
+        width: 40px;
+        border-radius: 4px;
+        overflow: hidden;
+        @include flex-center;
+        img{
+            @include avatar-cover;
+        }
+    }
+// Bouton d'ouverture du modal de création de POST    
+    &--fakebtn{
+        width: calc(100% - 50px);
+        height: 40px;
+        border-radius: 4px;
+        cursor: pointer;
+        background: $background;
+        box-shadow: 0 0 35px rgba(154, 161, 171, 0.15) ;
+        border: 1px solid #e7ebf0;
+        transition: 0.2s ease;
+        @include flex-between;
+        p{
+            margin-left: 12px;
+            color: $postColorDate;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        &:hover{
+            background-color: #8391a234;
+            p{
+                color: $postColorName;
+            }
+        }
+    }
+}
+// Modal contenant le box de création de nouveau POST
+.createPost{
+    @include fixed-fullpage-modal;
+    &--form{
+        width: 60%;
+        max-width: 600px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: 24px;
+        @media (max-width: 992px) {
+            width: 80%;
+        }
+        @media(max-width: 767px) {
+            width: 95%;
+        }
+        &__closeForm{
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            cursor: pointer;
+            font-size: 18px;
+            color: $postColorDate;
+            &:hover{
+                color: $postColorName;
+            }
+        }
+        h3{
+            margin-bottom: 10px;
+            color: $postColorName;
+        }
+        textarea{
+            resize: none;
+            width: 100%;
+            height: 100px;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: 500;
+            margin: 20px 0 10px;
+            &:focus{
+                outline: 0.5px solid rgba(0, 0, 0, 0.25);
+            }
+        }
+// Ajout d'image au nouveau POST
+        label{
+            margin: 10px 0 20px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 500;
+            color: $postColorName;
+            transition: 0.2s ease;
+            i{
+                color: blue;
+                margin-right: 10px;
+            }
+            &:hover{
+                color: #000;
+            }
+        }
+        #post-img{
+            display: none;
+        }
+        &__notValid{
+            color: red;
+            font-size: 13px;
+            font-weight: 600;
+            margin: 0 0 15px;
+            i{
+                margin-right: 5px;
+            }
+        }
+        input[type='submit']{
+            margin-bottom: 0px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+    }
+}
+// Container de la logique du map des POSTS
+.postContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+// Logique de style d'un POST
+.post{
+    width: 80%;
+    max-width: 800px;
+    min-height: 200px;
+    margin: 12px 0;
+    padding: 24px 24px 6px;
+    position: relative;
+    @media (max-width: 992px) {
+        width: 90%;
+    }
+    @media (max-width: 768px) {
+        width: 98%;
+    }
+// Container avec les infos utilisateurs + avatar + date + bouton de modification
+    &--userPres{
+        display: flex;
+        align-items: center;
+        position: relative;
+        margin-bottom: 16px;
+        &__avatar{
+            height: 32px;
+            width: 32px;
+            border-radius: 4px;
+            margin-right: 12px;
+            overflow: hidden;
+            @include flex-center;
+            img{
+                @include avatar-cover;
+            }
+        }
+        &__text{
+            h3{
+                font-size: 15px;
+                font-weight: 700;
+                color: $postColorName;
+            }
+            p{
+                font-size: 12px;
+                color: $postColorDate;
+            }
+        }
+        &__ellipsis{
+            position: absolute;
+            right: 0;
+            top: 0;
+            button{
+                background: transparent;
+                border: none;
+                cursor: pointer;
+                i{
+                    font-size: 18px;
+                    color: $postColorName;
+                    &:hover{
+                        color: #000;
+                    }
+                }
+            }
+        }
+    }
+// Affichage du message du POST
+    &--message{
+        margin: 24px 0;
+        text-align: center;
+        word-wrap: break-word;
+        @media (max-width: 992px) {
+            margin: 15px 0 10px;
+        }
+    }
+// Affichage de l'image du POST
+    &--img{
+        width: 100%;
+        border-radius: 5px;
+        box-shadow: 0 0 35px rgba(154, 161, 171, 0.15) ;
+        margin: 23px 0;
+        border: 1px solid #e7ebf0;
+        @media (max-width: 992px) {
+            margin: 10px 0;
+        }
+    }
+// Bordereau contant le nombre de Likes/Coms
+    &--like{
+        height: 25px;
+        margin: 6px 0;
+        display: flex;
+        align-items: center;
+        p{
+            font-size: 14px;
+            margin-left: 5px;
+            color: $postColorName;
+        }
+        &__comBtn{
+            @include flex-center;
+            margin-left: 15px;
+            cursor: pointer;
+            color: $postColorName;
+            &:hover{
+                p, i{
+                    color: #727cf5;
+                }
+            }
+        }
+    }
+// Conteneur du map des commentaires
+    &--comContainer{
+// Style d'un commentaire unique
+        .com{
+            display: flex;
+            margin: 5px 0;
+            position: relative;
+// Avatar du créateur du commentaire
+            &--avatar{
+                height: 32px;
+                width: 32px;
+                border-radius: 4px;
+                margin-right: 12px;
+                overflow: hidden;
+                @include flex-center;
+                img{
+                    @include avatar-cover;
+                }
+            }
+// Présentation du créateur du commentaire + affichage du commentaire
+            &--text{
+                width: calc(100% - 44px );
+                display: flex;
+                flex-direction: column;
+                box-sizing: border-box;
+                h4{
+                    font-size: 15px;
+                    font-weight: 700;
+                    color: $postColorName;
+                }
+                &__date{
+                    font-size: 12px;
+                    color: $postColorDate;
+                }
+                &__message{
+                    font-size: 14px;
+                    color: $postColorName;
+                    margin: 6px 0;
+                    width: 100%;
+                    padding: 5px;
+                    word-wrap: break-word;
+                }
+            }
+// Bouton de suppression du commentaire
+            &--deleteCom{
+                position: absolute;
+                top: 0;
+                right: 3px;
+                i{
+                    font-size: 14px;
+                    cursor: pointer;
+                    color: $postColorDate;
+                    &:hover{
+                        color: #000;
+                    }
+                }
+            }
+        }
+    }
+// Formulaire d'envoi d'un commentaire
+    &--form{
+        width: 100%;
+        height: 32px;
+        margin: 16px 0 12px;
+        display: flex;
+        position: relative;
+        &__avatar{
+            height: 32px;
+            width: 32px;
+            overflow: hidden;
+            margin-right: 10px;
+            border-radius: 4px;
+            @include flex-center;
+            img{
+                min-height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+        input{
+            border: none;
+            height: 32px;
+            width: calc(100% - 42px);
+            padding: 0 10px;
+            border-radius: 4px;
+            &:focus{
+                outline: 0.5px solid rgba(0, 0, 0, 0.15);
+            }
+        }
+    }
+// Modal pour choisir de modifier ou supprimer un POST
+    .modifModal{
+        position: absolute;
+        top: 45px;
+        right: 25px;
+        p{
+            padding: 0px 20px;
+            height: 30px;
+            line-height: 30px;
+            color: $postColorName;
+            font-size: 14px;
+            &:hover{
+                background: #bccee4;
+                color: #000;
+                cursor: pointer;
+            }
+        }
+    }
+// Modal pour apporter des modifications a un POST
+    .changeModal{
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 3;
+        border-radius: 5px;
+        height: 100%;
+        width: 100%;
+        @include flex-center;
+        background-color: rgba(0, 0, 0, 0.40);
+        transition: 0.2s ease;
+        &--form{
+            width: 100%;
+            height: 100%;
+            max-height: 254px;
+            padding: 25px 25px 6px;
+            margin: 0;
+            text-align: center;
+            @media(max-width: 767px) {
+                padding: 12.5px 12.5px 6px;
+                max-height: 225px;
+                width: 95%;
+            }
+            h4{
+                color: $postColorName;
+                font-size: 18px;
+                margin-bottom: 8px;
+                @media(max-width: 767px) {
+                    font-size: 16px;
+                }
+            }
+            label{
+                color: $postColorName;
+                font-weight: 600;
+                font-size: 15px;
+            }
+            #image--change{
+                display: none;
+            }
+            &__imgLab{
+                cursor: pointer;
+                font-size: 18px;
+                font-weight: 500;
+                color: #6c757d;
+                transition: 0.2s ease;
+                i{
+                    color: blue;
+                    margin-right: 10px;
+                }
+            }
+            hr{
+                margin-bottom: 10px;
+            }
+            input[type='text']{
+                width: 100%;
+                text-align: center;
+                box-shadow: 0 0 35px rgba(154, 161, 171, 0.15) ;
+                border: 2px solid #e7ebf0;
+                border-radius: 5px;
+                margin: 5px 0 20px;
+                padding: 0 10px;
+                &:focus{
+                    outline: none;
+                }
+            }
+        }
+// Bouton de soumission/fermeture du modal de modification de POST 
+        &--subBox{
+            display: flex;
+            justify-content: space-between;
+            input, button{
+                width: 48%;
+                height: 25px;
+                margin-top: 20px;
+            }
+            
+        }
+    }
+// Box permettant de supprimer un POST
+    .deletePost{
+        width: 300px;
+        padding: 10px;
+        text-align: center;
+        h4{
+            margin-bottom: 15px;
+            color: $postColorName;
+            font-size: 16px;
+        }
+        &--btnBox{
+            @include flex-between;
+            width: 100%;
+            button{
+                width: 48%;
+                font-size: 12px;
+                font-weight: 600;
+            }
+        }
+    }
+}
