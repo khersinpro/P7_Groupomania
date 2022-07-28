@@ -42,6 +42,16 @@ const ModifyPost = ({post, user, close}) => {
         close(false)
     }
 
+    // Ciblage de l'input type file
+    const hiddenFileInput = React.useRef(null);
+
+    // Lancement de l'input de type file avec le keyPress Enter
+    const handleClick = event => {
+        if(event.key === "Enter"){
+            hiddenFileInput.current.click();
+        }
+    };
+
     return (
         <div className='changeModal'>
             <form className='changeModal--form box-style' onSubmit={sendChange}>
@@ -54,22 +64,26 @@ const ModifyPost = ({post, user, close}) => {
 
                 {/* Gestion de la modification et de la suppression d'une image d'un post */}
                 {post.posturl ?
-                    <label className='changeModal--form__imgLab' htmlFor='image--change'>
+                    <label className='changeModal--form__imgLab' htmlFor='image--change' onKeyDown={handleClick} 
+                    role='button' tabIndex="0" aria-label="Modifier l'image">
                         <i class="fa-solid fa-image"></i>
                         {imageChange ? imageChange.name : "Modifier l'image"}
                     </label>
                     :
-                    <label className='changeModal--form__imgLab' htmlFor='image--change'>
+                    <label className='changeModal--form__imgLab' htmlFor='image--change' onKeyDown={handleClick} 
+                    role='button' tabIndex="0" aria-label="Ajouter une image">
                         <i class="fa-solid fa-image"></i>
                         {imageChange ? imageChange.name : "Ajouter une image"}
                     </label>
                 }
-                <input type="file" id='image--change' accept="image/png, image/jpeg, image/jpg, image/gif" onChange={e => setImageChange(e.target.files[0])}  />
+                <input type="file" id='image--change' accept="image/png, image/jpeg, image/jpg, image/gif" onChange={e => setImageChange(e.target.files[0])} 
+                    ref={hiddenFileInput}
+                />
                 
                 {/* Boutons pour annuler ou envoyer les modifications */}
                 <div className='changeModal--subBox'>
-                    <input className='button-style' type="submit" value="Envoyer" />
-                    <button className='button-style' type='button' onClick={() => close(false)}>Annuler</button>
+                    <button className='button-style' type="submit" aria-label='Envoyer les modifications' >Envoyer</button>
+                    <button className='button-style' type='button' aria-label='Fermer' onClick={() => close(false)}>Annuler</button>
                 </div>
             </form>
         </div>

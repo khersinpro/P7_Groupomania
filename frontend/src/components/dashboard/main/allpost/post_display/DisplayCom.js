@@ -9,7 +9,7 @@ const DisplayCom = ({com, deleteCom}) => {
         <div> 
             <div className='com'>
                 <div className='com--avatar'>
-                    <img src={`http://localhost:3000/images/avatar/${user.id === com.user_id ? user.url : com.url}`} alt='photo de profil'  />
+                    <img src={`http://localhost:3000/images/avatar/${user.id === com.user_id ? user.url : com.url}`} alt='Avatar du créateur du commentaire'  />
                 </div>
 
                 <div className='com--text'>
@@ -19,9 +19,9 @@ const DisplayCom = ({com, deleteCom}) => {
                 </div> 
                 {
                     (user.admin === 1 || user.id === com.user_id) &&
-                    <div className='com--deleteCom' onClick={() => deleteCom(com.id, com.user_id)}>
+                    <button className='com--deleteCom' onClick={() => deleteCom(com.id, com.user_id)} type='button' aria-label='Supprimer commentaire'>
                         <i className="fa-solid fa-xmark"></i>
-                    </div>
+                    </button>
                 }
             </div>
         </div>

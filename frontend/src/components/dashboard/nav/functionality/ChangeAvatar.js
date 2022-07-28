@@ -51,7 +51,7 @@ const ChangeAvatar = ({close}) => {
                 <hr className='hrLarge' role="separator"></hr>
 
                 {/* Ajouter une image au formulaire */}
-                <label htmlFor='imageInput' tabIndex="0" role="button" onKeyDown={handleClick} >
+                <label htmlFor='imageInput' tabIndex="3" role="button" onKeyDown={handleClick} >
                     <i className="fa-solid fa-image"></i>
                     { avatar ? avatar.name : "Ajouter une image" }                   
                 </label>
@@ -67,8 +67,8 @@ const ChangeAvatar = ({close}) => {
 
                 {/* Box de soumission du formulaire / fermeture du modal */}
                 <div className='modifyAvatar--form__subBtn'>
-                    <button tabIndex="0" className='button-style' type="submit">Envoyer</button>
-                    <button tabIndex="0" className='button-style' type='button' onClick={() => close(false)}>Annuler</button>
+                    <button tabIndex="4" className='button-style' type="submit">Envoyer</button>
+                    <button tabIndex="5" className='button-style' type='button' onBlur={() => close(false)} onClick={() => close(false)}>Annuler</button>
                 </div>
             </form>
         </div>

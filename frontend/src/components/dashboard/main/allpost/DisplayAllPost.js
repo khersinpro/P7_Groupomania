@@ -10,7 +10,7 @@ const DisplayAllPost = () => {
     return (  
     <section className='postContainer'>
         {/* MAP pour afficher tout les POSTS */}
-        { allPosts.map(post => <DisplayPost key={post.post_id} post={post} />) }
+        { allPosts.map((post, index) => <DisplayPost key={post.post_id} post={post} index={index} />) }
     </section>
     )
 }

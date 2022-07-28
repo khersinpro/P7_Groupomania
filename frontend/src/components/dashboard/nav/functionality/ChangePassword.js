@@ -36,7 +36,7 @@ const ChangePassword = ({close}) => {
                 <hr className='hrLarge' role="separator"></hr>
 
                 <label htmlFor='actualPassword'>Mot de passe actuel :</label>
-                <input placeholder='Mot de passe actuel' onChange={e => setActualPassword(e.target.value)} id='actualPassword' type='password' aria-required="true" />
+                <input placeholder='Mot de passe actuel' onChange={e => setActualPassword(e.target.value)} id='actualPassword' type='password' aria-required="true" tabIndex="7" />
                 { // Affichage d'erreur si le mot de passe ne match pas avec la regex
                     actualPassword.length > 1 && !actualPassword.match(passwordReg) &&
                     <p className='modifyPassword--form__err'>
@@ -46,7 +46,7 @@ const ChangePassword = ({close}) => {
                 }
 
                 <label htmlFor='NewPassword'>Nouveau mot de passe :</label>
-                <input placeholder='Nouveau mot de passe' onChange={e => setNewPassword(e.target.value)} id='newPassword' type='password' aria-required="true" />
+                <input placeholder='Nouveau mot de passe' onChange={e => setNewPassword(e.target.value)} id='newPassword' type='password' aria-required="true" tabIndex="8"/>
                 { // Affichage d'erreur si le mot de passe ne match pas avec la regex
                     newPassword.length > 1 && !newPassword.match(passwordReg) &&
                     <p className='modifyPassword--form__err'>
@@ -56,8 +56,8 @@ const ChangePassword = ({close}) => {
                 }
 
                 <div className='modifyAvatar--form__subBtn passSub'>
-                    <button className='button-style' type="submit">Envoyer</button>
-                    <button className='button-style' type='button' onClick={() => close(false)}>Annuler</button>
+                    <button className='button-style' type="submit" tabIndex="9">Envoyer</button>
+                    <button className='button-style' type='button' tabIndex="10" onBlur={() => close(false)}  onClick={() => close(false)}>Annuler</button>
                 </div>
 
             </form>

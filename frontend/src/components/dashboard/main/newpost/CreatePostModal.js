@@ -46,24 +46,31 @@ const CreatePostModal = ({close}) => {
             setValidPost(false)
         }
     }
+
+    // Ciblage de l'input type file
+    const hiddenFileInput = React.useRef(null);
+
+    // Lancement de l'input de type file avec le keyPress Enter
+    const handleClick = event => {
+        if(event.key === "Enter"){
+            hiddenFileInput.current.click();
+        }
+    };
     
     return (
         <div className="createPost">
-            <form className="createPost--form box-style" onSubmit={sendPost}>
+            <form aria-label="Formulaire d'ajout de publication" className="createPost--form box-style" onSubmit={sendPost}>
 
                 <h3>Crée une publication</h3>
-                <div className="createPost--form__closeForm" onClick={() => close(false)}>
-                    <i className="fa-solid fa-xmark"></i>
-                </div>
 
-                <hr className='hrLarge'></hr>
+                <hr className='hrLarge' role="separator"></hr>
                 <textarea onChange={e => setPostText(e.target.value)} placeholder={'Quoi de neuf ' + user.firstname + " ?"} />
 
-                <label htmlFor="post-img">
+                <label htmlFor="post-img" onKeyDown={handleClick} role='button' tabIndex="0" aria-label="Ajouter une image" >
                     <i className="fa-solid fa-image"></i>
                     {postImg ? postImg.name : "Ajout d'une image"}
                 </label>
-                <input type="file" id='post-img' accept="image/png, image/jpeg, image/jpg, image/gif" onChange={e => setPostImg(e.target.files[0])}/>
+                <input ref={hiddenFileInput} type="file" id='post-img' accept="image/png, image/jpeg, image/jpg, image/gif" onChange={e => setPostImg(e.target.files[0])} />
 
                 {/* Message d'erreur si l'utilisateur essaye d'envoyer un message vide */}
                 {!validPost &&
@@ -72,7 +79,11 @@ const CreatePostModal = ({close}) => {
                         Votre nouvelle publication ne peux pas être vide.
                     </p>
                 }
-                <input className='button-style' type="submit"/>
+                <input className='button-style' type="submit" aria-label="Envoie du formulaire"/>
+                {/* Bouton de fermeture du modal */}
+                <button className="createPost--form__closeForm" aria-label="Fermure du formulaire" onBlur={() => close(false)}  onClick={() => close(false)}>
+                    <i className="fa-solid fa-xmark"></i>
+                </button >
             </form>
         </div>
     )

@@ -10,14 +10,16 @@ const NewPost = () => {
 
   return (
     <>
-      <div className='newPost box-style'>
+      <div className='newPost box-style' >
         <div className='newPost--image'>
-          <img src={`http://localhost:3000/images/avatar/${user.url}`} alt='photo de profil'  />
+          <img src={`http://localhost:3000/images/avatar/${user.url}`} alt="Avatar de l'utilisateur actuel" />
         </div>
         
-        <div className='newPost--fakebtn' onClick={() => setOpenCreateModal(true)}>
+        <button className='newPost--fakebtn' onClick={() => setOpenCreateModal(true)} 
+          type='button' aria-haspopup='true' aria-label='Ouverture du formulaire de création de post'
+        >
           <p>{"Quoi de neuf " + user.firstname + " ?"}</p>
-        </div>
+        </button>
       </div>
 
       {/* Modal de création d'une nouvelle PUBLICATION */}

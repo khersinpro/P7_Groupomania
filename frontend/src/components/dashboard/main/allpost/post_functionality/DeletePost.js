@@ -32,8 +32,8 @@ const DeletePost = ({user, post, close}) => {
                 <h4>Etes-vous sur de vouloir supprimer cette publication ?</h4>
 
                 <div className='deletePost--btnBox'>
-                    <button className='button-style' onClick={deletePost}>Oui</button>
-                    <button className='button-style' onClick={() => close(false)}>Non</button>
+                    <button className='button-style' onClick={deletePost} type='button' aria-label='Supprimer'>Oui</button>
+                    <button className='button-style' onClick={() => close(false)} type='button' aria-label='Fermer'>Non</button>
                 </div>               
             </div>
         </div>

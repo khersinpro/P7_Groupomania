@@ -70,6 +70,8 @@
             cursor: pointer;
             font-size: 18px;
             color: $postColorDate;
+            border: none;
+            background: none;
             &:hover{
                 color: $postColorName;
             }
@@ -230,6 +232,8 @@
             margin-left: 15px;
             cursor: pointer;
             color: $postColorName;
+            border: none;
+            background: none;
             &:hover{
                 p, i{
                     color: #727cf5;
@@ -285,6 +289,8 @@
                 position: absolute;
                 top: 0;
                 right: 3px;
+                border: none;
+                background: none;
                 i{
                     font-size: 14px;
                     cursor: pointer;
@@ -332,12 +338,16 @@
         position: absolute;
         top: 45px;
         right: 25px;
-        p{
+        button{
+            display: block;
+            width: 100%;
             padding: 0px 20px;
             height: 30px;
             line-height: 30px;
             color: $postColorName;
             font-size: 14px;
+            background: white;
+            border: none;
             &:hover{
                 background: #bccee4;
                 color: #000;
@@ -350,7 +360,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        z-index: 3;
+        z-index: 5;
         border-radius: 5px;
         height: 100%;
         width: 100%;

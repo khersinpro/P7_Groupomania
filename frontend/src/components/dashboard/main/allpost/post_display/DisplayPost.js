@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import dayjs from 'dayjs';
 import axios from 'axios'
 
-const DisplayPost = ({post}) => {
+const DisplayPost = ({post, index}) => {
     // Ouverture/Fermeture du modal
     const [modal, setModal] = useState(false)
     // Ouverture de la modification du POST
@@ -85,10 +85,10 @@ const DisplayPost = ({post}) => {
     }
 
     return (
-    <div className='post box-style'>
+    <div className='post box-style' aria-posinset={index + 1}>
         <div className='post--userPres'>
             <div className='post--userPres__avatar'>
-                <img src={`http://localhost:3000/images/avatar/${user.id === post.userId ? user.url : post.url}`} alt='photo de profil'  />
+                <img src={`http://localhost:3000/images/avatar/${user.id === post.userId ? user.url : post.url}`} alt='Avatar du créateur de la publication'  />
             </div>
 
             <div className='post--userPres__text'>
@@ -99,48 +99,31 @@ const DisplayPost = ({post}) => {
             {/* Si le post appartien au User connecté, le tableau de modification/suppression apparait */}
             {(user.id === post.userId || user.admin === 1) &&
                 <div className='post--userPres__ellipsis'>
-                    <button onClick={() => setModal(!modal)}>
+                    <button onClick={() => setModal(!modal)} type='button' aria-haspopup='true' aria-label='Ouverture du menu du post'>
                     <i className="fa-solid fa-ellipsis"></i>
                     </button>
             </div>
             }
         </div>
 
-        <hr className='hrLarge'></hr>
+        <hr className='hrLarge' role="separator"></hr>
 
         {/*CONTENU DU POST / Si le post contient un message / Si le post contiens un image */}
         {post.message && <p className='post--message'>{post.message}</p>}
-        {post.posturl && <img className='post--img' src={'http://localhost:3000/images/post/' + post.posturl} alt='post image'/> }
-
-        <hr className='hrSmall'></hr>
-
-        {/* Fonction de Like/Dislike du POST et affichage dynamique du nb de likes / si il est Like par l'User*/}
-        <div className='post--like'>
-            <div className="heart-container" onClick={sendLike}>
-                <i className="fa-regular fa-heart nocolor"></i>
-                {totalLikes ?
-                    <i className={`fa-solid fa-heart ${ totalLikes.isLiked > 0 ? "liked" : "colored"}`}></i>
-                    :
-                    <i className={`fa-solid fa-heart ${ post.isLiked > 0 ? "liked" : "colored"}`}></i>
-                }
-            </div>
-            <p>{totalLikes ? totalLikes.likes : post.nbLikes} Likes</p>
-
-            {/* Boutons d'affichage des commentaire et de leurs nombres  */}
-            <div onClick={e => getCom(e)} className='post--like__comBtn' >
-                <i className="fa-solid fa-comment"></i>
-                <p>{comments.length > 0 ? comments.length : post.nbComs} commentaire</p>
-            </div>
-        </div>
-
-        <hr className='hrLarge'></hr>
+        {post.posturl && <img className='post--img' src={'http://localhost:3000/images/post/' + post.posturl} alt='Image du post'/> }
 
         {/* Modal pour choisir d'apporter une modification au POST ou le supprimer */}
         {modal &&
-            <div className='modifModal box-style'>
-                <p onClick={() => { setModifyPost(true); setModal(!modal)}} tabIndex="0" role="button">Modifier le post</p>
-                {post.posturl && <p onClick={() => { setDeletePostImg(true); setModal(!modal)}} tabIndex="0" role="button">Supprimer l'image</p>}
-                <p onClick={() => { setDeletePost(true); setModal(!modal)}} tabIndex="0" role="button">Supprimer le post</p> 
+            <div className='modifModal box-style' onMouseLeave={() => setModal(!modal)}>
+                <button onClick={() => { setModifyPost(true); setModal(!modal)}}  
+                type="button" aria-haspopup='true' aria-label='Ouverture du menu de modification'>Modifier le post</button>
+
+                {post.posturl && <button onClick={() => { setDeletePostImg(true); setModal(!modal)}}  
+                type="button" aria-haspopup='true' aria-label="Ouverture du menu de suppression d'image">Supprimer l'image</button>
+                }
+
+                <button onClick={() => { setDeletePost(true); setModal(!modal)}}  onBlur={() => setModal(!modal) }
+                type="button" aria-haspopup='true' aria-label='Ouverture du menu de suppression de post'>Supprimer le post</button> 
             </div>
         }
 
@@ -153,19 +136,42 @@ const DisplayPost = ({post}) => {
         {/* Modal de suppression de POST */}
         {deletePost && <DeletePost close={setDeletePost} user={user} post={post}/>}
         
+        <hr className='hrSmall'  role="separator"></hr>
+
+        {/* Fonction de Like/Dislike du POST et affichage dynamique du nb de likes / si il est Like par l'User*/}
+        <div className='post--like'>
+            <button className="heart-container" onClick={sendLike} type='button' aria-label="J'aime">
+                <i className="fa-regular fa-heart nocolor"></i>
+                {totalLikes ?
+                    <i className={`fa-solid fa-heart ${ totalLikes.isLiked > 0 ? "liked" : "colored"}`}></i>
+                    :
+                    <i className={`fa-solid fa-heart ${ post.isLiked > 0 ? "liked" : "colored"}`}></i>
+                }
+            </button>
+            <p>{totalLikes ? totalLikes.likes : post.nbLikes} Likes</p>
+
+            {/* Boutons d'affichage des commentaire et de leurs nombres  */}
+            <button onClick={e => getCom(e)} className='post--like__comBtn' type='button' aria-haspopup='true' aria-label='Affichage des comentaires' >
+                <i className="fa-solid fa-comment"></i>
+                <p>{comments.length > 0 ? comments.length : post.nbComs} commentaire</p>
+            </button>
+        </div>
+
+        <hr className='hrLarge'  role="separator"></hr>
+        
         {/* Affichages des commentaire du POST au clic sur l'icon com*/}
         <div className='post--comContainer'>
             { comments.map(com => < DisplayCom key={com.id} com={com} reload={getCom} deleteCom={deleteCom} />) }
         </div>
 
-        {comments.length > 0 && <hr className='hrLarge'></hr>}
+        {comments.length > 0 && <hr className='hrLarge' role="separator"></hr>}
 
         {/* Formulaire de soumission d'un nouveau COM */}
-        <form className="post--form"  onSubmit={sendCom}>
+        <form className="post--form"  onSubmit={sendCom} >
             <div className="post--form__avatar">
                 <img src={`http://localhost:3000/images/avatar/${user.url}`} alt='photo de profil'  />
             </div>
-            <input type='test' placeholder='Nouveau commentaire' value={newCom} onChange={e => setNewCom(e.target.value)} />
+            <input type='text' placeholder='Nouveau commentaire' value={newCom} onChange={e => setNewCom(e.target.value)} aria-label="Ecrire un commentaire" />
         </form>
     </div>
     ) 
