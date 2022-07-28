@@ -34,7 +34,7 @@ const Login = ({logged}) => {
             <form className='homeBox--form' onSubmit={sendData}>
                 <div className='homeBox--form__inputBox'>
                     <label htmlFor='email'>Adresse Email :</label>
-                    <input id="email" placeholder='Email' type='email' onChange={e => setEmail(e.target.value)}/>
+                    <input id="email" placeholder='Email' type='email' onChange={e => setEmail(e.target.value)} aria-required="true"/>
                     {email && !email.match(emailReg) &&
                         <p className='home--error'>
                             <i className="fa-solid fa-triangle-exclamation"></i> 
@@ -45,7 +45,7 @@ const Login = ({logged}) => {
 
                 <div className='homeBox--form__inputBox'>
                     <label htmlFor='password'>Mot de passe :</label>
-                    <input id='password' placeholder='Mot de passe' type='password' onChange={e => setPassword(e.target.value)}/>
+                    <input id='password' placeholder='Mot de passe' type='password' onChange={e => setPassword(e.target.value)} aria-required="true"/>
                     {password && !password.match(passwordReg) &&
                         <p className='home--error'>
                             <i className="fa-solid fa-triangle-exclamation">

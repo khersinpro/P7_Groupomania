@@ -80,7 +80,7 @@
                     }
                 }
             }
-            button{
+            .firstBloc--navBtn{
                 margin: 4px 0 4px 35px;
                 @media (max-width: 768px) {
                     margin: 4px 0 4px 25px;
@@ -97,7 +97,7 @@
             }
         }
 // Logique pour tous les boutons de selection de la Nav
-        button{
+        .navButton{
             background: transparent;
             border: none;
             color: rgba(255, 255, 255, 0.5);
@@ -184,10 +184,12 @@
             margin: 5px 0;
             border: 1px solid rgba(0, 0, 0, 0.5);
             padding: 0 10px;
+            text-align: center;
         }
         .passSub{
             margin-top: 25px;
         }
+
         &__err{
             margin-top: 10px;
             font-size: 13px;

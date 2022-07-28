@@ -31,12 +31,12 @@ const ChangePassword = ({close}) => {
 
     return (
         <div className='modifyPassword'>
-            <form className='modifyPassword--form box-style' onSubmit={sendNewPassword} >
+            <form aria-label='Formulaire de modification de mot de passe' className='modifyPassword--form box-style' onSubmit={sendNewPassword} >
                 <h3>Modification de mot de passe</h3>
-                <hr className='hrLarge'></hr>
+                <hr className='hrLarge' role="separator"></hr>
 
                 <label htmlFor='actualPassword'>Mot de passe actuel :</label>
-                <input onChange={e => setActualPassword(e.target.value)} id='actualPassword' type='password' />
+                <input placeholder='Mot de passe actuel' onChange={e => setActualPassword(e.target.value)} id='actualPassword' type='password' aria-required="true" />
                 { // Affichage d'erreur si le mot de passe ne match pas avec la regex
                     actualPassword.length > 1 && !actualPassword.match(passwordReg) &&
                     <p className='modifyPassword--form__err'>
@@ -46,7 +46,7 @@ const ChangePassword = ({close}) => {
                 }
 
                 <label htmlFor='NewPassword'>Nouveau mot de passe :</label>
-                <input onChange={e => setNewPassword(e.target.value)} id='newPassword' type='password' />
+                <input placeholder='Nouveau mot de passe' onChange={e => setNewPassword(e.target.value)} id='newPassword' type='password' aria-required="true" />
                 { // Affichage d'erreur si le mot de passe ne match pas avec la regex
                     newPassword.length > 1 && !newPassword.match(passwordReg) &&
                     <p className='modifyPassword--form__err'>
@@ -56,7 +56,7 @@ const ChangePassword = ({close}) => {
                 }
 
                 <div className='modifyAvatar--form__subBtn passSub'>
-                    <input className='button-style' type="submit" />
+                    <button className='button-style' type="submit">Envoyer</button>
                     <button className='button-style' type='button' onClick={() => close(false)}>Annuler</button>
                 </div>
 

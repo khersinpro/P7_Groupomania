@@ -10,16 +10,26 @@ const HomeNav = ({logOrSign}) => {
     return (
         <header className='dashboard--header'>
             <img id='headerLogo' src={headerLogo} alt='groupomania logo' />
-            <div className="btn-rond-menu" onClick={() => setBurgerMenu(!burgerMenu)}>
+
+            <button className="btn-rond-menu" onClick={() => setBurgerMenu(!burgerMenu)} 
+                type="button" aria-haspopup='menu' title='Ouvrir le menu'
+            >
                 <div className={`cont-ligne ${burgerMenu ? "active" : ""}`}>
                     <div className="ligne-unique"></div>
                 </div>
-            </div>
-            <nav className={`dashNav ${burgerMenu ? "openNav" : ""}`}>
+            </button>
+
+            <nav aria-label='Menu principal' className={`dashNav ${burgerMenu ? "openNav" : ""}`} >
                 <div className='dashNav--firstBloc'>
-                    <img className='dashNav--firstBloc__logo' src={logo} alt='groupomania logo' />
-                    <button onClick={() => {setBurgerMenu(false); logOrSign(true)}}><i className="fa-solid fa-right-to-bracket"></i>Connexion</button>
-                    <button onClick={() => {setBurgerMenu(false); logOrSign(false)}}><i className="fa-solid fa-user-plus"></i>Création de compte</button>
+                    <img className='dashNav--firstBloc__logo' src={logo} alt='Logo de Groupomania' />
+
+                    <button className="navButton" onClick={() => {setBurgerMenu(false); logOrSign(true)}} type="button" aria-label='Ouvrir la page de connexion'>
+                        <i className="fa-solid fa-right-to-bracket"></i>Connexion
+                    </button>
+
+                    <button className="navButton" onClick={() => {setBurgerMenu(false); logOrSign(false)}} type="button" aria-label="Ouvrir la page d'inscription">
+                        <i className="fa-solid fa-user-plus"></i>Création de compte
+                    </button>
                 </div>
             </nav>
 

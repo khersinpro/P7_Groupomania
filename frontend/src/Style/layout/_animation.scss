@@ -51,6 +51,7 @@
     top : 10px;
     z-index: 6;
     display: none;
+    border: none;
     @media(max-width: 992px) {
         display: block;
     }
@@ -90,6 +91,7 @@
     background: #F1F1F1;
     position: absolute;
     bottom: 6px;
+    left: 0;
 }
 .ligne-unique::after{
     content: "";
@@ -99,6 +101,7 @@
     background: #F1F1F1;
     position: absolute;
     top: 6px;
+    left: 0;
 }
 .cont-ligne.active .ligne-unique::after{
     top: 0;

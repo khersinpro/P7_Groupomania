@@ -39,7 +39,7 @@ const SignUp = () => {
 
             <div className='homeBox--form__inputBox'>
                 <label htmlFor='name'>Nom</label>
-                <input onChange={e => setName(e.target.value)} id='name'type="text"  placeholder='Entrez votre nom'/>
+                <input onChange={e => setName(e.target.value)} id='name'type="text"  placeholder='Entrez votre nom' aria-required="true"/>
                 {name && !name.match(nameReg) &&
                     <p className='home--error'>
                         <i className="fa-solid fa-triangle-exclamation"></i>
@@ -50,7 +50,7 @@ const SignUp = () => {
 
             <div className='homeBox--form__inputBox'>
                 <label htmlFor='firstname'>Prénom</label>
-                <input onChange={e => setFirstname(e.target.value)} id='firstname' type="text" placeholder='Entrez votre prénom' />
+                <input onChange={e => setFirstname(e.target.value)} id='firstname' type="text" placeholder='Entrez votre prénom' aria-required="true" />
                 {firstname&& !firstname.match(nameReg) &&
                     <p className='home--error'>
                         <i className="fa-solid fa-triangle-exclamation"></i>
@@ -61,7 +61,7 @@ const SignUp = () => {
             
             <div className='homeBox--form__inputBox'>
                 <label htmlFor='email'>Adresse Email :</label>
-                <input onChange={e => setEmail(e.target.value) }  id="email" type='email' placeholder='Email' />
+                <input onChange={e => setEmail(e.target.value) }  id="email" type='email' placeholder='Email' aria-required="true" />
                 {email && !email.match(emailReg) &&
                     <p className='home--error'>
                         <i className="fa-solid fa-triangle-exclamation"></i>
@@ -72,7 +72,7 @@ const SignUp = () => {
 
             <div className='homeBox--form__inputBox'>
                 <label htmlFor='password'>Mot de passe :</label>        
-                <input onChange={e => setPassword(e.target.value)} id='password' type='password' placeholder='Mot de passe' />
+                <input onChange={e => setPassword(e.target.value)} id='password' type='password' placeholder='Mot de passe' aria-required="true" />
                 { password && !password.match(passwordReg) && 
                     <p className='home--error'>
                         <i className="fa-solid fa-triangle-exclamation"></i>

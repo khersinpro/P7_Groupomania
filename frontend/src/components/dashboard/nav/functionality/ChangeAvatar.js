@@ -34,18 +34,28 @@ const ChangeAvatar = ({close}) => {
         }
     }
 
+    // Ciblage de l'input type file
+    const hiddenFileInput = React.useRef(null);
+    
+    // Lancement de l'input de type file avec le keyPress Enter
+    const handleClick = event => {
+        if(event.key === "Enter"){
+            hiddenFileInput.current.click();
+        }
+    };
+
     return (
         <div className='modifyAvatar' onSubmit={changeAvatar}>
-            <form className='modifyAvatar--form box-style'>
+            <form aria-label="Formulaire de modification d'avatar" className='modifyAvatar--form box-style'>
                 <h3>Modification d'avatar</h3>
-                <hr className='hrLarge'></hr>
+                <hr className='hrLarge' role="separator"></hr>
 
                 {/* Ajouter une image au formulaire */}
-                <label htmlFor='imageInput'>
+                <label htmlFor='imageInput' tabIndex="0" role="button" onKeyDown={handleClick} >
                     <i className="fa-solid fa-image"></i>
                     { avatar ? avatar.name : "Ajouter une image" }                   
                 </label>
-                <input type="file" id='imageInput' accept="image/png, image/jpeg, image/jpg, image/gif" onChange={e => setAvatar(e.target.files[0])} />
+                <input ref={hiddenFileInput} type="file" id='imageInput' accept="image/png, image/jpeg, image/jpg, image/gif" onChange={e => setAvatar(e.target.files[0])} aria-required="true"/>
 
                 {/* Message d'erreur en cas d'avatar non ajouté */}
                 { avatarEmpty && 
@@ -57,8 +67,8 @@ const ChangeAvatar = ({close}) => {
 
                 {/* Box de soumission du formulaire / fermeture du modal */}
                 <div className='modifyAvatar--form__subBtn'>
-                    <input className='button-style' type="submit" />
-                    <button className='button-style' type='button' onClick={() => close(false)}>Annuler</button>
+                    <button tabIndex="0" className='button-style' type="submit">Envoyer</button>
+                    <button tabIndex="0" className='button-style' type='button' onClick={() => close(false)}>Annuler</button>
                 </div>
             </form>
         </div>

@@ -138,9 +138,9 @@ const DisplayPost = ({post}) => {
         {/* Modal pour choisir d'apporter une modification au POST ou le supprimer */}
         {modal &&
             <div className='modifModal box-style'>
-                <p onClick={() => { setModifyPost(true); setModal(!modal)}}>Modifier le post</p>
-                {post.posturl && <p onClick={() => { setDeletePostImg(true); setModal(!modal)}}>Supprimer l'image</p>}
-                <p onClick={() => { setDeletePost(true); setModal(!modal)}}>Supprimer le post</p> 
+                <p onClick={() => { setModifyPost(true); setModal(!modal)}} tabIndex="0" role="button">Modifier le post</p>
+                {post.posturl && <p onClick={() => { setDeletePostImg(true); setModal(!modal)}} tabIndex="0" role="button">Supprimer l'image</p>}
+                <p onClick={() => { setDeletePost(true); setModal(!modal)}} tabIndex="0" role="button">Supprimer le post</p> 
             </div>
         }
 

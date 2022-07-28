@@ -33,37 +33,48 @@ const Nav = () => {
     return (
     <>
         <header className='dashboard--header'>
-            <img id='headerLogo' src={headerLogo} alt='groupomania logo' />
-            <div className="btn-rond-menu" onClick={() => setBurgerMenu(!burgerMenu)}>
+            <img id='headerLogo' src={headerLogo} alt='Logo de Groupomania' />
+
+            <button  className="btn-rond-menu" onClick={() => setBurgerMenu(!burgerMenu)} type="button" aria-haspopup='menu' title='Ouvrir le menu'>
                 <div className={`cont-ligne ${burgerMenu ? "active" : ""}`}>
                     <div className="ligne-unique"></div>
                 </div>
-            </div>
-            <nav className={`dashNav ${burgerMenu ? "openNav" : ""}`}>
+            </button>
+
+            <nav aria-label='Menu principal' className={`dashNav ${burgerMenu ? "openNav" : ""}`}>
                 <div className='dashNav--firstBloc'>
-                    <img className='dashNav--firstBloc__logo' src={navLogo} alt='groupomania logo' />
+                    <img className='dashNav--firstBloc__logo' src={navLogo} alt='Logo de Groupomania' />
 
                     <div className='dashNav--firstBloc__userInfo' >
                         <div className='avatar'>
-                            <img src={`http://localhost:3000/images/avatar/${user.url}`} alt="navbar avatar"/>
+                            <img src={`http://localhost:3000/images/avatar/${user.url}`} alt="Photo de profil de la barre de navigation"/>
                         </div>
                         <h2>{user.name + " " + user.firstname}</h2>
                     </div>
 
-                    <button onClick={() => {setBurgerMenu(false); setOpenAvatar(true)}}><i className="fa-solid fa-camera"></i> Changement d'avatar</button>
-                    <button onClick={() => {setBurgerMenu(false); setOpenPasswordModal(true)}}><i className="fa-solid fa-lock"></i> Changement de mot de passe</button>
+                    {/* Bouton d'ouverture du modal && Modal pour le changement d'avatar d'utilisateur */}
+                    <button onClick={() => {setBurgerMenu(false); setOpenAvatar(true)}} className="navButton firstBloc--navBtn"
+                        type="button" aria-haspopup='true' aria-label="Ouvre la modification d'avatar" 
+                    >
+                        <i className="fa-solid fa-camera"></i> Changement d'avatar
+                    </button>
+                    {openAvatar && <ChangeAvatar close={setOpenAvatar} />}
+
+                    {/* Bouton d'ouverture du modal && Modal de changement de mot de passe */}
+                    <button onClick={() => {setBurgerMenu(false); setOpenPasswordModal(true)}} className="navButton firstBloc--navBtn"
+                        type="button" aria-haspopup='true' aria-label="Ouvre la modification de mot de passe" 
+                    >
+                        <i className="fa-solid fa-lock"></i> Changement de mot de passe
+                    </button>
+                    {openPasswordModal && <ChangePassword close={setOpenPasswordModal} />}
                 </div>
 
-                <div className='dashNav--secondBloc' >
-                    <button onClick={logout}><i className="fa-solid fa-right-from-bracket"></i> Deconnexion</button>
+                <div className='dashNav--secondBloc' onBlur={() => setBurgerMenu(!burgerMenu)}>
+                    <button onClick={logout} type="button" className="navButton"><i className="fa-solid fa-right-from-bracket"></i> Deconnexion</button>
                 </div>
             </nav>
 
         </header>
-        {/* Modal pour le changement d'avatar d'utilisateur */}
-        {openAvatar && <ChangeAvatar close={setOpenAvatar} />}
-        {/* Modal de changement de mot de passe */}
-        {openPasswordModal && <ChangePassword close={setOpenPasswordModal} />}
     </>
     )
 }
