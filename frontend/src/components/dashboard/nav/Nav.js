@@ -4,7 +4,6 @@ import headerLogo from '../../../assets/Groupomania+Logos/Groupomania Logos (upd
 import navLogo from '../../../assets/Groupomania+Logos/Groupomania Logos (update 2022)/icon-left-font-monochrome-white.png'
 import ChangeAvatar from './functionality/ChangeAvatar'
 import ChangePassword from './functionality/ChangePassword'
-import axios from 'axios'
 import { toast } from 'react-toastify'
 
 const Nav = () => {
@@ -29,7 +28,6 @@ const Nav = () => {
     window.addEventListener('resize', () =>
         burgerMenu && setBurgerMenu(false)
     )
-
 
     return (
     <>
@@ -69,14 +67,14 @@ const Nav = () => {
                 </div>
 
                 <div className='dashNav--secondBloc' onBlur={() => setBurgerMenu(false)}>
-                    <button  onClick={logout} type="button" className="navButton"><i className="fa-solid fa-right-from-bracket"></i> Deconnexion</button>
+                    <button onClick={logout} type="button" className="navButton"><i className="fa-solid fa-right-from-bracket"></i> Deconnexion</button>
                 </div>
             </nav>
-                    {/* Modal pour le changement d'avatar d'utilisateur  */}
-                    {openAvatar && <ChangeAvatar close={setOpenAvatar} />}
-                    {/* Modal de changement de mot de passe */}
-                    {openPasswordModal && <ChangePassword close={setOpenPasswordModal} />}
 
+            {/* Modal pour le changement d'avatar d'utilisateur  */}
+            {openAvatar && <ChangeAvatar close={setOpenAvatar} />}
+            {/* Modal de changement de mot de passe */}
+            {openPasswordModal && <ChangePassword close={setOpenPasswordModal} />}
         </header>
     </>
     )

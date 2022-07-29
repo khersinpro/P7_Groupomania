@@ -1,7 +1,6 @@
 import React, {useState, useContext} from 'react'
 import { userContext } from '../../../context/UserContext'
 import { toast } from 'react-toastify';
-import axios from 'axios'
 
 const ChangePassword = ({close}) => {
     // State de recupération du mot de passe actuel
@@ -9,9 +8,7 @@ const ChangePassword = ({close}) => {
     // State de recupération du nouveau mot de passe
     const [newPassword, setNewPassword] = useState("")
     // Récupération du context utilisateur
-    const { user } = useContext(userContext);
-    // Instance d'axios pour ajouter les credentials et la base de l'URL automatiquement 
-    const instance = axios.create( {withCredentials: true, baseURL: "http://localhost:3000" } );
+    const { user, instance } = useContext(userContext);
     //*** Minimum 12 characters, at least one uppercase letter, one lowercase letter, one number and one special character ***/
     const passwordReg = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-+])(?=\\S+$).{12,}$";
 
@@ -59,7 +56,6 @@ const ChangePassword = ({close}) => {
                     <button className='button-style' type="submit" tabIndex="9">Envoyer</button>
                     <button className='button-style' type='button' tabIndex="10" onBlur={() => close(false)}  onClick={() => close(false)}>Annuler</button>
                 </div>
-
             </form>
         </div>
     )

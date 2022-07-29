@@ -10,7 +10,7 @@ const HomeNav = ({logOrSign}) => {
     
     return (
         <header className='dashboard--header'>
-            <img id='headerLogo' src={headerLogo} alt='groupomania logo' />
+            <img id='headerLogo' src={headerLogo} alt='groupomania logo'/>
 
             <button className="btn-rond-menu" onClick={() => setBurgerMenu(!burgerMenu)} 
                 type="button" aria-haspopup='menu' title='Ouvrir le menu'
@@ -20,9 +20,9 @@ const HomeNav = ({logOrSign}) => {
                 </div>
             </button>
 
-            <nav aria-label='Menu principal' className={`dashNav ${burgerMenu ? "openNav" : ""}`} >
+            <nav aria-label='Menu principal' className={`dashNav ${burgerMenu ? "openNav" : ""}`}>
                 <div className='dashNav--firstBloc'>
-                    <img className='dashNav--firstBloc__logo' src={logo} alt='Logo de Groupomania' />
+                    <img className='dashNav--firstBloc__logo' src={logo} alt='Logo de Groupomania'/>
 
                     <button  className="navButton  firstBloc--navBtn" onClick={() => {setBurgerMenu(false); logOrSign(true)}} type="button" aria-label='Ouvrir la page de connexion'>
                         <i className="fa-solid fa-right-to-bracket"></i>Connexion

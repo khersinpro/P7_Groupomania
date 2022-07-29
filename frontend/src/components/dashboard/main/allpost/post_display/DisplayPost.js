@@ -7,7 +7,7 @@ import DisplayCom from './DisplayCom'
 import { toast } from 'react-toastify';
 import dayjs from 'dayjs';
 
-const DisplayPost = ({post, index}) => {
+const DisplayPost = ({post}) => {
     // Ouverture/Fermeture du modal
     const [modal, setModal] = useState(false)
     // Ouverture de la modification du POST
@@ -16,7 +16,7 @@ const DisplayPost = ({post, index}) => {
     const [deletePostImg, setDeletePostImg] = useState(false)
     // Ouverture de la Suppression d'un post
     const [deletePost, setDeletePost] = useState(false)
-    // Infos utilisateur
+    // Infos utilisateur + Instance axios
     const {user, instance} = useContext(userContext)
     // Récuperation des commentaire du post
     const [comments, setComments] = useState([])
@@ -38,7 +38,7 @@ const DisplayPost = ({post, index}) => {
         .then( res => settotalLikes(res.data) )
         .catch(error => console.log(error))
     }
-    
+
     // Récupération des commentaire du post
     const getCom = async (e) => {
         // Controle pour eviter des spam de requetes au clic
@@ -97,9 +97,9 @@ const DisplayPost = ({post, index}) => {
             {(user.id === post.userId || user.admin === 1) &&
                 <div className='post--userPres__ellipsis'>
                     <button onClick={() => setModal(!modal)} type='button' aria-haspopup='true' aria-label='Ouverture du menu du post'>
-                    <i className="fa-solid fa-ellipsis"></i>
+                        <i className="fa-solid fa-ellipsis"></i>
                     </button>
-            </div>
+                </div>
             }
         </div>
 
@@ -133,10 +133,10 @@ const DisplayPost = ({post, index}) => {
         {/* Modal de suppression de POST */}
         {deletePost && <DeletePost close={setDeletePost} user={user} post={post} instance={instance}/>}
         
-        <hr className='hrSmall'  role="separator"></hr>
+        <hr className='hrSmall' role="separator"></hr>
 
-        {/* Fonction de Like/Dislike du POST et affichage dynamique du nb de likes / si il est Like par l'User*/}
         <div className='post--like'>
+            {/* Fonction de Like/Dislike du POST et affichage dynamique du nb de likes / si il est Like par l'User*/}
             <button className="heart-container" onClick={sendLike} type='button' aria-label="J'aime">
                 <i className="fa-regular fa-heart nocolor"></i>
                 {totalLikes ?
@@ -166,7 +166,7 @@ const DisplayPost = ({post, index}) => {
         {/* Formulaire de soumission d'un nouveau COM */}
         <form className="post--form"  onSubmit={sendCom} >
             <div className="post--form__avatar">
-                <img src={`http://localhost:3000/images/avatar/${user.url}`} alt='photo de profil'  />
+                <img src={`http://localhost:3000/images/avatar/${user.url}`} alt='photo de profil' />
             </div>
             <input type='text' placeholder='Nouveau commentaire' value={newCom} onChange={e => setNewCom(e.target.value)} aria-label="Ecrire un commentaire" />
         </form>

@@ -61,7 +61,7 @@ const CreatePostModal = ({close}) => {
                 <h3>Crée une publication</h3>
 
                 <hr className='hrLarge' role="separator"></hr>
-                <textarea onChange={e => setPostText(e.target.value)} placeholder={'Quoi de neuf ' + user.firstname + " ?"} />
+                <textarea onChange={e => setPostText(e.target.value)} placeholder={'Quoi de neuf ' + user.firstname + " ?"} aria-label="Entrez le text de votre publication." />
 
                 <label htmlFor="post-img" onKeyDown={handleClick} role='button' tabIndex="0" aria-label="Ajouter une image" >
                     <i className="fa-solid fa-image"></i>
@@ -78,7 +78,7 @@ const CreatePostModal = ({close}) => {
                 }
                 <input className='button-style' type="submit" aria-label="Envoie du formulaire"/>
                 {/* Bouton de fermeture du modal */}
-                <button className="createPost--form__closeForm" aria-label="Fermure du formulaire" onBlur={() => close(false)}  onClick={() => close(false)}>
+                <button type="button" className="createPost--form__closeForm" aria-label="Fermure du formulaire" onBlur={() => close(false)}  onClick={() => close(false)}>
                     <i className="fa-solid fa-xmark"></i>
                 </button >
             </form>

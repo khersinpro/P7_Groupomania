@@ -30,10 +30,7 @@ const SignUp = () => {
 
     return (
         <div className='homeBox box-style'> 
-        <h2>
-            <i className="fa-solid fa-user-plus"></i>
-            Création de compte
-        </h2>
+        <h2><i className="fa-solid fa-user-plus"></i> Création de compte</h2>
 
         <form className='homeBox--form' onSubmit={sendData} >
 
@@ -81,7 +78,7 @@ const SignUp = () => {
                 }
             </div>
 
-            <input className='button-style' type='submit' value="Créer un compte" />
+            <input className='button-style' type='submit' value="Créer un compte" aria-label='Bouton de création de compte' />
         </form>
     </div>
     )

@@ -1,7 +1,6 @@
 import React, {useState, useContext} from 'react'
 import { userContext } from '../../../context/UserContext'
 import { toast } from 'react-toastify';
-import axios from 'axios'
 
 const ChangeAvatar = ({close}) => {
     // State pour stocker l'avatar de l'utilisateur
@@ -9,9 +8,7 @@ const ChangeAvatar = ({close}) => {
     // State d'affichage d'erreur
     const [avatarEmpty, setAvatarEmpty] = useState(false)
     // Import des données du userContext
-    const {user, refresh, setRefresh} = useContext(userContext);
-    // Instance d'axios pour ajouter les credentials et la base de l'URL automatiquement 
-    const instance = axios.create( {withCredentials: true, baseURL: "http://localhost:3000" } );
+    const {user, refresh, setRefresh, instance} = useContext(userContext);
 
     // Fonction de changement d'avatar
     const changeAvatar = (e) => {

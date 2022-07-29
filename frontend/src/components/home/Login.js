@@ -27,10 +27,7 @@ const Login = ({logged}) => {
     
     return (
         <div className='homeBox box-style'> 
-            <h2>
-            <i className="fa-solid fa-right-to-bracket"></i>
-                Connexion
-            </h2>
+            <h2><i className="fa-solid fa-right-to-bracket"></i> Connexion</h2>
 
             <form className='homeBox--form' onSubmit={sendData}>
                 <div className='homeBox--form__inputBox'>
@@ -55,7 +52,7 @@ const Login = ({logged}) => {
                     }
                 </div>
 
-                <input className='button-style' type='submit' value="Connexion" />
+                <input className='button-style' type='submit' value="Connexion" aria-label='Bouton de connexion' />
             </form>
         </div>
     )

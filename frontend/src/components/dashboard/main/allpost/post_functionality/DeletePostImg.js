@@ -11,9 +11,7 @@ const DeletePostImg = ({user, post, close, instance}) => {
         e.preventDefault();
         if(user.id === post.userId || user.admin === 1){
             await instance.put('/api/post/imagedelete', {user_id: user.id, post_id: post.post_id} )
-            .then(res => {
-                toast.success("Suppression réussi !", {autoClose: 2000})
-            })
+            .then(res => toast.success("Suppression réussi !", {autoClose: 2000}))
             .catch(error => toast.warn("Une erreur est survenue ...", {autoClose: 2000}))
             // Fermeture du modal
             close(false)
