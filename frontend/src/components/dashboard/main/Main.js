@@ -28,7 +28,6 @@ const Main = () => {
   return (
     <postContext.Provider value={{getAllPosts, allPosts}} >
       <main>
-
         <NewPost />
         <DisplayAllPosts />
       </main>

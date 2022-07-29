@@ -1,17 +1,14 @@
 import React, {useState, useContext} from 'react'
-import axios from 'axios'
 import { postContext } from '../../../../context/PostContext';
 import { toast } from 'react-toastify';
 
-const ModifyPost = ({post, user, close}) => {
+const ModifyPost = ({post, user, close, instance}) => {
     // State qui recupére le text du formulaire
     const [textChange, setTextChange] = useState(post.message);
     // State qui recupére l'image du formulaire
     const [imageChange, setImageChange] = useState();
     // Appel du context pour rafraichir l'affichage des posts aprés modification
     const {getAllPosts} = useContext(postContext)
-    // Instance d'axios pour ajouter les credentials et la base de l'URL automatiquement 
-    const instance = axios.create( {withCredentials: true, baseURL: "http://localhost:3000" } );
 
     // Fonction pour sauvegarder les modification dans la base avec contrôle
     const sendChange = async  (e) => {
@@ -26,7 +23,6 @@ const ModifyPost = ({post, user, close}) => {
             // Ajout des informations user au FormData
             data.append("user_id", user.id);
             data.append("post_id", post.post_id);
-            data.append("admin", user.admin);
             // Si il y a eu une modification
             if(textChange !== post.message || imageChange){
                 await instance.put("/api/post/modify", data)
@@ -66,13 +62,13 @@ const ModifyPost = ({post, user, close}) => {
                 {post.posturl ?
                     <label className='changeModal--form__imgLab' htmlFor='image--change' onKeyDown={handleClick} 
                     role='button' tabIndex="0" aria-label="Modifier l'image">
-                        <i class="fa-solid fa-image"></i>
+                        <i className="fa-solid fa-image"></i>
                         {imageChange ? imageChange.name : "Modifier l'image"}
                     </label>
                     :
                     <label className='changeModal--form__imgLab' htmlFor='image--change' onKeyDown={handleClick} 
                     role='button' tabIndex="0" aria-label="Ajouter une image">
-                        <i class="fa-solid fa-image"></i>
+                        <i className="fa-solid fa-image"></i>
                         {imageChange ? imageChange.name : "Ajouter une image"}
                     </label>
                 }

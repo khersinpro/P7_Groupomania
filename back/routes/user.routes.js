@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const user = require('../controllers/user-controller');
-const auth = require('../middleware/auth');
+const {auth} = require('../middleware/auth');
 const upload = require("../middleware/multer");
 // Middleware de controle des entrées
 const {signupControl, loginControl, modifyPasswordControl} = require('../middleware/input-validate');

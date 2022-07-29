@@ -9,15 +9,13 @@ import { toast } from 'react-toastify'
 
 const Nav = () => {
     // Récupération des données utilisateur
-    const {user, setUserConnected} = useContext(userContext);
+    const {user, setUserConnected, instance} = useContext(userContext);
     // State pour l'ouverture/fermeture du modal du changement d'avatar
     const [openAvatar, setOpenAvatar] = useState(false)
     // State d'ouverture du menu
     const [burgerMenu, setBurgerMenu] = useState(false)
     // State pour l'ouverture/fermeture du modal de changement de mot de passe
     const [openPasswordModal, setOpenPasswordModal] = useState(false)
-    // Instance d'axios pour ajouter les credentials et la base de l'URL automatiquement 
-    const instance = axios.create( {withCredentials: true, baseURL: "http://localhost:3000" } );
 
     // Fonction de deconnexion
     const logout = () => {
@@ -50,7 +48,7 @@ const Nav = () => {
 
                     <div className='dashNav--firstBloc__userInfo' >
                         <div className='avatar'>
-                            <img src={`http://localhost:3000/images/avatar/${user.url}`} alt="Photo de profil de la barre de navigation"/>
+                            {user.url && <img src={`http://localhost:3000/images/avatar/${user.url}`} alt="Photo de profil de la barre de navigation"/>}
                         </div>
                         <h2>{user.name + " " + user.firstname}</h2>
                     </div>

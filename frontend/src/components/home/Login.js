@@ -24,6 +24,7 @@ const Login = ({logged}) => {
             toast.warn("Le formulaire est mal remplis ...", {autoClose: 2000})
         }
     }
+    
     return (
         <div className='homeBox box-style'> 
             <h2>

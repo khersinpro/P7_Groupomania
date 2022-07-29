@@ -81,7 +81,7 @@ const SignUp = () => {
                 }
             </div>
 
-            <input className='button-style' type='submit' value="Connexion" />
+            <input className='button-style' type='submit' value="Créer un compte" />
         </form>
     </div>
     )

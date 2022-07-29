@@ -1,13 +1,10 @@
 import React, {useContext} from 'react'
-import axios from 'axios';
 import { postContext } from '../../../../context/PostContext';
 import { toast } from 'react-toastify';
 
-const DeletePost = ({user, post, close}) => {
+const DeletePost = ({user, post, close, instance}) => {
     // Appel du context pour rafraichir l'affichage des posts aprés modification
     const { getAllPosts } = useContext(postContext)
-    // Instance d'axios pour ajouter les credentials et la base de l'URL automatiquement 
-    const instance = axios.create( {withCredentials: true, baseURL: "http://localhost:3000" } );
 
     // Fonction de suppression du post avec controle + requete axios
     const deletePost = async (e) => {

@@ -6,7 +6,7 @@ const path = require('path');
 const userRoutes = require('./routes/user.routes');
 const postRoutes = require('./routes/post.routes');
 const comRoutes = require('./routes/com.routes');
-const auth = require('./middleware/auth')
+const {auth} = require('./middleware/auth')
 
 //*** Helmet helps to secure Express apps by setting various HTTP headers ***/
 app.use(helmet());

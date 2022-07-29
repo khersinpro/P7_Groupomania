@@ -2,23 +2,20 @@ import React, { useContext, useState } from "react"
 import { postContext } from "../../../context/PostContext";
 import { userContext } from "../../../context/UserContext";
 import { toast } from 'react-toastify';
-import axios from "axios"
 import dayjs from 'dayjs';
 
 
 const CreatePostModal = ({close}) => {
     // Importation des contexts
     const {getAllPosts} = useContext(postContext);
-    const {user} = useContext(userContext);
+    const {user, instance} = useContext(userContext);
     // State pour la récupération de l'image du POST
     const [postImg, setPostImg] = useState();
     // State pour la récupération du text du POST
     const [postText, setPostText] = useState();
     // State de control pour l'affichage d'une erreur en cas d'envoie de POST vide
     const [validPost, setValidPost] = useState(true)
-    // Instance d'axios pour ajouter les credentials et la base de l'URL automatiquement 
-    const instance = axios.create( {withCredentials: true, baseURL: "http://localhost:3000" } );
-    
+
     // Fonction pour envoyer un nouveau POST
     const sendPost = async (e) => {
         e.preventDefault();

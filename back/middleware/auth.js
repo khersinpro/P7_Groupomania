@@ -2,7 +2,8 @@ const jwt = require('jsonwebtoken');
 const {connect} = require('../DB.config/db.connexion');
 require('dotenv').config();
 
-module.exports = (req, res, next) => {
+// Sécurisation des routes
+exports.auth = (req, res, next) => {
     try{
         // Controle de la presence du cookie cotenant le JWT
         if(!req.cookies.jwt) return res.status(401).json({error: 'Unauthorized'});
@@ -29,3 +30,22 @@ module.exports = (req, res, next) => {
         res.status(500).json(error);
     }
 };
+
+// Controleur pour savoir si un cookie de session est présent au lancement du FRONTEND
+exports.sessionControl = (req, res, next) => {
+    try{
+        // Controle de la presence du cookie cotenant le JWT
+        if(!req.cookies.jwt) return res.status(200).json({user_id: ""});
+    
+        // Decryptage du JWT
+        const decodedToken = jwt.verify(req.cookies.jwt, process.env.JWT_KEY);
+
+        if(decodedToken){
+            res.status(200).json({user_id: decodedToken})
+        }else{
+            res.status(400).json({error: "Une erreur est survenue, veuillez vous connecter"})
+        }
+    }catch(error){
+        res.status(500).json(error)
+    }
+}

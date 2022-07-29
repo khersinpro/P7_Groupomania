@@ -12,7 +12,7 @@ const NewPost = () => {
     <>
       <div className='newPost box-style' >
         <div className='newPost--image'>
-          <img src={`http://localhost:3000/images/avatar/${user.url}`} alt="Avatar de l'utilisateur actuel" />
+          {user.url && <img src={`http://localhost:3000/images/avatar/${user.url}`} alt="Avatar de l'utilisateur actuel" />}
         </div>
         
         <button className='newPost--fakebtn' onClick={() => setOpenCreateModal(true)} 

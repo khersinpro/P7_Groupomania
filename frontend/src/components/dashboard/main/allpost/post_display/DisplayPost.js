@@ -6,7 +6,6 @@ import DeletePost from '../post_functionality/DeletePost'
 import DisplayCom from './DisplayCom'
 import { toast } from 'react-toastify';
 import dayjs from 'dayjs';
-import axios from 'axios'
 
 const DisplayPost = ({post, index}) => {
     // Ouverture/Fermeture du modal
@@ -18,15 +17,13 @@ const DisplayPost = ({post, index}) => {
     // Ouverture de la Suppression d'un post
     const [deletePost, setDeletePost] = useState(false)
     // Infos utilisateur
-    const {user} = useContext(userContext)
+    const {user, instance} = useContext(userContext)
     // Récuperation des commentaire du post
     const [comments, setComments] = useState([])
     // Nouveau commentaire si il y en a un
     const [newCom, setNewCom] = useState("");
     // Affichage des likes si modification
     const [totalLikes, settotalLikes] = useState();
-    // Instance d'axios pour ajouter les credentials et la base de l'URL automatiquement 
-    const instance = axios.create( {withCredentials: true, baseURL: "http://localhost:3000" } );
 
     // Fonction pour like/dislike un POST
     const sendLike = async () => {
@@ -85,7 +82,7 @@ const DisplayPost = ({post, index}) => {
     }
 
     return (
-    <div className='post box-style' aria-posinset={index + 1}>
+    <div className='post box-style' >
         <div className='post--userPres'>
             <div className='post--userPres__avatar'>
                 <img src={`http://localhost:3000/images/avatar/${user.id === post.userId ? user.url : post.url}`} alt='Avatar du créateur de la publication'  />
@@ -114,7 +111,7 @@ const DisplayPost = ({post, index}) => {
 
         {/* Modal pour choisir d'apporter une modification au POST ou le supprimer */}
         {modal &&
-            <div className='modifModal box-style' onMouseLeave={() => setModal(!modal)}>
+            <div className='modifModal box-style' onMouseLeave={() => setModal(!modal)}> 
                 <button onClick={() => { setModifyPost(true); setModal(!modal)}}  
                 type="button" aria-haspopup='true' aria-label='Ouverture du menu de modification'>Modifier le post</button>
 
@@ -128,13 +125,13 @@ const DisplayPost = ({post, index}) => {
         }
 
         {/* Modal de modification de POST */}
-        {modifyPost && <ModifyPost close={setModifyPost} user={user} post={post}/>}
+        {modifyPost && <ModifyPost close={setModifyPost} user={user} post={post} instance={instance}/>}
 
         {/* Modal de suppression d'image */}
-        {deletePostImg && <DeletePostImg close={setDeletePostImg} user={user} post={post}/> }
+        {deletePostImg && <DeletePostImg close={setDeletePostImg} user={user} post={post} instance={instance}/> }
 
         {/* Modal de suppression de POST */}
-        {deletePost && <DeletePost close={setDeletePost} user={user} post={post}/>}
+        {deletePost && <DeletePost close={setDeletePost} user={user} post={post} instance={instance}/>}
         
         <hr className='hrSmall'  role="separator"></hr>
 

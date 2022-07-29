@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {createCom, deleteCom, getPostComs} = require('../controllers/com-controller');
-const auth = require('../middleware/auth');
+const {auth} = require('../middleware/auth');
 const userOrAdmin = require('../middleware/userAdmin')
 
 router.post('/create', auth, createCom);

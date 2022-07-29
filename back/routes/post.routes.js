@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const upload = require("../middleware/multer");
 const post = require('../controllers/post-controller');
-const auth = require('../middleware/auth');
+const {auth} = require('../middleware/auth');
 const userOrAdmin = require('../middleware/userAdmin')
 
 // upload un seul fichier avec un fieldname(key) postImg
