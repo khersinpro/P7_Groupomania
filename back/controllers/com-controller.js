@@ -56,7 +56,7 @@ exports.getPostComs = (req, res, next) => {
             if(error){
                 return res.status(400).json(error);
             }else if(!results[0]){
-                return res.status(200).json([])
+                return res.status(200).json([]);
             }
             res.status(200).json(results);
         })

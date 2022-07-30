@@ -4,7 +4,6 @@ require('dotenv').config();
 
 // Sécurisation des routes
 exports.auth = (req, res, next) => {
-
     try{
         // Controle de la presence du cookie cotenant le JWT
         if(!req.cookies.jwt) return res.status(401).json({error: 'Unauthorized'});
@@ -43,7 +42,7 @@ exports.sessionControl = (req, res, next) => {
         const decodedToken = jwt.verify(req.cookies.jwt, process.env.JWT_KEY);
 
         if(decodedToken){
-            res.status(200).json({user_id: decodedToken})
+            res.status(200).json({user_id: decodedToken.user_id})
         }else{
             res.status(400).json({error: "Une erreur est survenue, veuillez vous connecter"})
         }

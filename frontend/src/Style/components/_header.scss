@@ -73,7 +73,7 @@
                 h2{
                     color: $white;
                     font-size: 22px;
-                    font-weight: 400;
+                    font-weight: 600;
                     margin-left: 20px;
                     text-overflow: ellipsis;
                     overflow: hidden;   
@@ -104,7 +104,7 @@
         .navButton{
             background: transparent;
             border: none;
-            color: rgba(255, 255, 255, 0.5);
+            color: $white;
             text-align: start;
             font-size: 16px;
             cursor: pointer;
@@ -112,7 +112,7 @@
                 margin-right: 5px;
             }
             &:hover{
-                color: $white;
+                color: rgba(255, 255, 255, 0.5);
             }
             @media (max-width: 768px) {
                 font-size: 14px;

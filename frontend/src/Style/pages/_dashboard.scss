@@ -34,14 +34,14 @@
         @include flex-between;
         p{
             margin-left: 12px;
-            color: $postColorDate;
+            color: $postColorName;
             font-size: 14px;
             font-weight: 600;
         }
         &:hover{
             background-color: #8391a234;
             p{
-                color: $postColorName;
+                color: #000 ;
             }
         }
     }

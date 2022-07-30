@@ -19,7 +19,7 @@ const DisplayPost = ({post}) => {
     // Infos utilisateur + Instance axios
     const {user, instance} = useContext(userContext)
     // Récuperation des commentaire du post
-    const [comments, setComments] = useState([])
+    const [comments, setComments] = useState()
     // Nouveau commentaire si il y en a un
     const [newCom, setNewCom] = useState("");
     // Affichage des likes si modification
@@ -41,8 +41,7 @@ const DisplayPost = ({post}) => {
 
     // Récupération des commentaire du post
     const getCom = async (e) => {
-        // Controle pour eviter des spam de requetes au clic
-        if(e && comments.length < 1  && post.nbComs < 1 || e && comments.length > 0 ){
+        if(e && comments){
             return console.log("Aucun commentaire a afficher.");
         }
         await instance.get(`/api/comment/getpostcom/${post.post_id}`)
@@ -150,7 +149,7 @@ const DisplayPost = ({post}) => {
             {/* Boutons d'affichage des commentaire et de leurs nombres  */}
             <button onClick={e => getCom(e)} className='post--like__comBtn' type='button' aria-haspopup='true' aria-label='Affichage des comentaires' >
                 <i className="fa-solid fa-comment"></i>
-                <p>{comments.length > 0 ? comments.length : post.nbComs} commentaire</p>
+                <p>{comments ? comments.length : post.nbComs} commentaire</p>
             </button>
         </div>
 
@@ -158,10 +157,10 @@ const DisplayPost = ({post}) => {
         
         {/* Affichages des commentaire du POST au clic sur l'icon com*/}
         <div className='post--comContainer'>
-            { comments.map(com => < DisplayCom key={com.id} com={com} reload={getCom} deleteCom={deleteCom} />) }
+            {comments && comments.map(com => < DisplayCom key={com.id} com={com} reload={getCom} deleteCom={deleteCom} />) }
         </div>
 
-        {comments.length > 0 && <hr className='hrLarge' role="separator"></hr>}
+        {comments && comments.length > 0 && <hr className='hrLarge' role="separator"></hr>}
 
         {/* Formulaire de soumission d'un nouveau COM */}
         <form className="post--form"  onSubmit={sendCom} >

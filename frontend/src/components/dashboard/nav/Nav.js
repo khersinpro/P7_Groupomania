@@ -19,8 +19,8 @@ const Nav = () => {
     // Fonction de deconnexion
     const logout = () => {
         instance.get(`/api/user/logout/${user.id}`)
-        .then(() => toast.success('Deconnexion réussi !', {autoClose: 2000}))
         .then(() => setUserConnected(false))
+        .then(() => window.location.reload())
         .catch(error => toast.warn('Une erreur est survenue ...', {autoClose: 2000}))
     }
 

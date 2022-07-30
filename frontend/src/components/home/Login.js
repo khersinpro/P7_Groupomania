@@ -3,8 +3,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const Login = ({logged}) => {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     // Instance d'axios pour ajouter les credentials et la base de l'URL automatiquement 
     const instance = axios.create( {withCredentials: true, baseURL: "http://localhost:3000" } );
     //*** numeric and letter _ . - + numeric and letters min 2 max 10 + letters min 2 max 5 ***/
@@ -14,8 +14,7 @@ const Login = ({logged}) => {
 
     const sendData = (e) => {
         e.preventDefault();
-        //email.match(emailReg) && password.match(passwordReg)
-        if(email && password){
+        if(email.match(emailReg) && password.match(passwordReg)){
             instance.post('/api/user/connexion', {email,password})
             .then(data => logged(true))
             .then(() => toast.success("Bienvenue !", {autoClose: 2000}))

@@ -3,10 +3,10 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 
 const SignUp = ({redirect}) => {
-    const [name, setName] = useState();
-    const [firstname, setFirstname] = useState();
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [name, setName] = useState("");
+    const [firstname, setFirstname] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     // Instance d'axios pour ajouter les credentials et la base de l'URL automatiquement 
     const instance = axios.create( {withCredentials: true, baseURL: "http://localhost:3000" } );
     //*** numeric and letter _ . - + numeric and letters min 2 max 10 + letters min 2 max 5 ***/

@@ -17,22 +17,25 @@ function App() {
 
   useEffect(() => {
     // Requete de contrôle utilisateur et de récuperation de données
-    instance.get('/api/user/getuser')
-    .then(data => {
-      // Si il y a une erreur
-      if(data.error){
-        setUserConnected(false)
-        return console.log("pas autorisé");
+    instance.get('/api/user/islogged')
+    .then(res =>{ 
+      if(res.data.user_id){
+            instance.get('/api/user/getuser')
+            .then(data => {
+              // Si il y a une erreur
+              if(data.error){
+                setUserConnected(false)
+                return console.log("pas autorisé");
+              }
+              // Insertion des données utilisateur récupéré
+              const {name, firstname, id, isAdmin, url} = data.data[0];
+              setUser({name, firstname, id, admin: isAdmin, url})
+              setUserConnected(true)
+            })
+            .catch(error => setUserConnected(false))
       }
-      // Insertion des données utilisateur récupéré
-      const {name, firstname, id, isAdmin, url} = data.data[0];
-      setUser({name, firstname, id, admin: isAdmin, url})
-      setUserConnected(true)
     })
-    .catch(error => {
-      setUserConnected(false)
-      console.log(error);
-    })
+    .catch(err => console.log(err))
   }, [userConnected, user.id, user.name, user.firstname, user.admin, refresh])
   
   return (
@@ -43,7 +46,7 @@ function App() {
           <Route path='/dashboard' element={userConnected ? <Dashboard /> : <Navigate to='/home' />} />
         </Routes>
       </userContext.Provider>
-      <ToastContainer limit={2} />
+      <ToastContainer limit={3} />
     </>
   );
 }
