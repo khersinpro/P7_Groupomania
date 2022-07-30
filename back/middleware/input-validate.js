@@ -1,3 +1,4 @@
+const { body, validationResult } = require('express-validator');
 //*** numeric and letter _ . - + numeric and letters min 2 max 10 + letters min 2 max 5 ***/
 const emailReg = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
 //*** Minimum 12 characters, at least one uppercase letter, one lowercase letter, one number and one special character ***/
@@ -44,3 +45,32 @@ exports.modifyPasswordControl = (req, res, next) => {
         next()
     }
 }
+
+// Controle des entrées pour la création/modif des post 
+// Permet d'eviter tout types d'injections et de formulaire mal remplis
+exports.sanitizationPost =  [
+    body('user_id').isNumeric().withMessage("ID incorrect"),
+    body('message').optional().not().isEmpty().trim().escape().withMessage("Le message est vide"), 
+    (req, res, next) => {
+        const errors = validationResult(req)
+        if(!errors.isEmpty()){
+            return res.status(400).json({ errors: errors.array() });
+        }
+        next()
+    }
+]
+
+// Protection des com contre les injections
+exports.sanitizationCom =  [
+    body('user_id').isNumeric().withMessage("ID incorrect"),
+    body('post_id').isNumeric().withMessage("l'id du post est incorrect"),
+    body('comment').not().isEmpty().trim().escape().withMessage("Le message est vide"), 
+    (req, res, next) => {
+        const errors = validationResult(req)
+        if(!errors.isEmpty()){
+            return res.status(400).json({ errors: errors.array() });
+        }
+        next()
+    }
+]
+

@@ -4,6 +4,7 @@ require('dotenv').config();
 
 // Sécurisation des routes
 exports.auth = (req, res, next) => {
+
     try{
         // Controle de la presence du cookie cotenant le JWT
         if(!req.cookies.jwt) return res.status(401).json({error: 'Unauthorized'});

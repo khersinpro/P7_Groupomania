@@ -16,7 +16,7 @@ const Home = ({logged}) => {
                 openLogin ?
                 <Login logged={logged} />
                 :
-                <SignUp />
+                <SignUp redirect={setOpenLogin} />
             }
             </main>
         </>

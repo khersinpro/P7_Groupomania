@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
-const SignUp = () => {
+const SignUp = ({redirect}) => {
     const [name, setName] = useState();
     const [firstname, setFirstname] = useState();
     const [email, setEmail] = useState();
@@ -21,7 +21,10 @@ const SignUp = () => {
         if(email.match(emailReg) && password.match(passwordReg) && name.match(nameReg) && firstname.match(nameReg) ){
             instance.post('/api/user/createuser', {name, firstname, email,password})
             .then(data => console.log("RAS"))
-            .then(() => toast.success("Compte crée !", {autoClose: 2000}))
+            .then(() =>{
+                toast.success("Compte crée !", {autoClose: 2000})
+                redirect(true)
+            })
             .catch(error => toast.warn("Une erreur est survenue ...", {autoClose: 2000}))
         }else{
             toast.warn("Le formulaire est mal remplis ...", {autoClose: 2000})
