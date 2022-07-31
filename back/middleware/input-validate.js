@@ -50,8 +50,8 @@ exports.modifyPasswordControl = (req, res, next) => {
 // Permet d'eviter tout types d'injections et de formulaire mal remplis
 exports.sanitizationPost =  [
     body('user_id').isNumeric().withMessage("ID incorrect"),
-    body('message').optional().not().isEmpty().trim().blacklist(`<>"/`).withMessage("Le message est vide"), 
-    body('message').optional().not().isEmpty().trim().withMessage("Le message est vide ou contenant de mauvais caractéres"),
+    body('message').optional().not().isEmpty().trim().blacklist(`<>"/&`).withMessage("Le message est vide"), 
+    body('message').optional().not().isEmpty().trim().withMessage("Le message est vide ou contient de mauvais caractéres"),
     (req, res, next) => {
         const errors = validationResult(req)
         if(!errors.isEmpty()){
@@ -66,8 +66,8 @@ exports.sanitizationPost =  [
 exports.sanitizationCom =  [
     body('user_id').isNumeric().withMessage("ID incorrect"),
     body('post_id').isNumeric().withMessage("l'id du post est incorrect"),
-    body('comment').optional().not().isEmpty().trim().blacklist(`<>"/`).withMessage("Le message est vide"), 
-    body('comment').optional().not().isEmpty().trim().withMessage("Le message est vide ou contenant de mauvais caractéres"),
+    body('comment').optional().not().isEmpty().trim().blacklist(`<>"/&`).withMessage("Le message est vide"), 
+    body('comment').optional().not().isEmpty().trim().withMessage("Le message est vide ou contient de mauvais caractéres"),
     (req, res, next) => {
         const errors = validationResult(req)
         if(!errors.isEmpty()){
