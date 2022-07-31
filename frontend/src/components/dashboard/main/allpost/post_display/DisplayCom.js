@@ -1,7 +1,6 @@
 import React, {useContext} from 'react'
 import { userContext } from '../../../../context/UserContext'
 
-
 const DisplayCom = ({com, deleteCom}) => {
     const {user} = useContext(userContext)
 

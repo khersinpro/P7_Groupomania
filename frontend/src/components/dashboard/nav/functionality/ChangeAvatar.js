@@ -34,7 +34,7 @@ const ChangeAvatar = ({close}) => {
     // Ciblage de l'input type file
     const hiddenFileInput = React.useRef(null);
     
-    // Lancement de l'input de type file avec le keyPress Enter
+    // Lancement du l'abel de l'input de type file avec le keyPress Enter
     const handleClick = event => {
         if(event.key === "Enter"){
             hiddenFileInput.current.click();
@@ -42,8 +42,8 @@ const ChangeAvatar = ({close}) => {
     };
 
     return (
-        <div className='modifyAvatar' onSubmit={changeAvatar}>
-            <form aria-label="Formulaire de modification d'avatar" className='modifyAvatar--form box-style'>
+        <div className='modifyAvatar' >
+            <form className='modifyAvatar--form box-style' onSubmit={changeAvatar}>
                 <h3>Modification d'avatar</h3>
                 <hr className='hrLarge' role="separator"></hr>
 
