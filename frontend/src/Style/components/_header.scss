@@ -33,7 +33,7 @@
                 transform: translateX(0px);
             }
         }
-        @media (max-width: 768px) {
+        @media (max-width: 767px) {
             width: 250px;
             transform: translateX(-250px);
         }
@@ -78,7 +78,7 @@
                     text-overflow: ellipsis;
                     overflow: hidden;   
                     width: 215px;
-                    @media (max-width: 768px) {
+                    @media (max-width: 767px) {
                         font-size: 18px;
                         width: 165px;
                     }
@@ -86,7 +86,7 @@
             }
             .firstBloc--navBtn{
                 margin: 4px 0 4px 35px;
-                @media (max-width: 768px) {
+                @media (max-width: 767px) {
                     margin: 4px 0 4px 25px;
                 }
             }
@@ -95,7 +95,7 @@
         &--secondBloc{
             button{
                 margin: 25px 0 25px 35px;
-                @media (max-width: 768px) {
+                @media (max-width: 767px) {
                     margin: 25px 0 25px 25px;
                 }
             }
@@ -114,7 +114,7 @@
             &:hover{
                 color: rgba(255, 255, 255, 0.5);
             }
-            @media (max-width: 768px) {
+            @media (max-width: 767px) {
                 font-size: 14px;
             }
         }
