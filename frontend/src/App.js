@@ -2,6 +2,7 @@ import React, { useState, useEffect} from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
+import NotFound from './pages/NotFound';
 import axios from 'axios';
 import { userContext } from './components/context/UserContext';
 import { ToastContainer } from 'react-toastify';
@@ -44,6 +45,7 @@ function App() {
         <Routes>
           <Route path='/home' element={userConnected ? <Navigate to="/dashboard"  /> : <Home logged={setUserConnected}/>} />
           <Route path='/dashboard' element={userConnected ? <Dashboard /> : <Navigate to='/home' />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </userContext.Provider>
       <ToastContainer limit={3} />

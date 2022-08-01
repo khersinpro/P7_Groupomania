@@ -11,7 +11,6 @@ exports.auth = (req, res, next) => {
         // Decryptage du JWT
         const decodedToken = jwt.verify(req.cookies.jwt, process.env.JWT_KEY);
 
-        
         // Controle de la presence de l'utilisateur et si il est admin en BDD
         const verify = 'SELECT id FROM user WHERE id = ?';
         connect.query(verify, decodedToken.user_id, (error, results, fields) => {
