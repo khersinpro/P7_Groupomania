@@ -23,13 +23,14 @@ Installation du projet
 Base de donnée
 
 - Mettre en place la base de donnée avec le SQL DUMP fournis dans les livrables.
+- Les informations de connexion a la base de données sont dans le .env.example et le dossier config du backend
 
 Backend
 
 - A la racine du dossier backend du projet, lancez la commande npm install (installation des packages).
 - Dans le dossier backend vous trouverez un ficher .env.example et un dossier images.example .
 - Vous devez les renommer en supprimant le .example.
-- npm start dans le terminal pour lancer le serveur (port 3000 de préférence)
+- npm start dans le terminal pour lancer le serveur 
 
 Frontend
 

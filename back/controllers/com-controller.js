@@ -50,7 +50,7 @@ exports.deleteCom = (req, res, next) => {
 // Récupération d'un commentaires
 exports.getPostComs = (req, res, next) => {
     // Récupère tous les COM du POST du req.params.id
-    const getAll = 'SELECT c.*, u.name, u.firstname, u.url FROM comment c INNER JOIN user u ON c.user_id = u.id WHERE c.post_id = ? ORDER BY c.date ASC';
+    const getAll = 'SELECT c.*, u.name, u.firstname, u.url FROM comment c INNER JOIN user u ON c.user_id = u.id WHERE c.post_id = ? ORDER BY c.id ASC';
     try{
         connect.query(getAll, req.params.id, (error, results, fields) => {
             if(error){
