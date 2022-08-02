@@ -20,6 +20,10 @@ Ce réseau social comporte les fonctionnalitées suivantes:
 
 Installation du projet
 
+Cloner le projet:
+
+- git clone https://github.com/khersinpro/P7_Groupomania
+
 Base de donnée
 
 - Mettre en place la base de donnée avec le SQL DUMP fournis dans les livrables.
